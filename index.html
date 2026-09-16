@@ -133,6 +133,11 @@ td select.st{min-width:150px;max-width:280px}
 td input[type=date]{min-width:140px}
 td textarea{min-height:34px;resize:vertical}
 td input[type=number]{width:110px;font-family:var(--mono)}
+#t-plan td input[type=number]{width:92px}
+#t-plan td.q input[type=number]{width:62px}
+#t-plan td.name input[type=text]{min-width:200px}
+#t-plansum td.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+#t-plansum th input[type=text]{font:inherit;width:120px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--surface);color:var(--ink);padding:3px 6px}
 td input[type=date]{font-family:var(--mono)}
 td.tot{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
 td.tot .prelim{color:var(--muted)}
@@ -219,6 +224,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
   <li><a href="#campaigns" data-tab="campaigns">Кампании</a></li>
   <li><a href="#accounts" data-tab="accounts">Целевые сети</a></li>
   <li><a href="#opps" data-tab="opps">Сделки</a></li>
+  <li><a href="#plan" data-tab="plan">Планировщик</a></li>
   <li><a href="#mix" data-tab="mix">Медиамикс</a></li>
   <li><a href="#ref" data-tab="ref">Справочник</a></li>
 </ul></nav>
@@ -294,6 +300,34 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
   <div class="facts" id="oppfacts"></div>
   <div class="toolbar"><button class="btn primary" type="button" data-add="opportunities">+ Сделка</button></div>
   <div class="tbl"><table id="t-opportunities"><thead></thead><tbody></tbody></table></div>
+</div>
+
+<div class="tab" id="tab-plan">
+  <h2>Планировщик медиамикса</h2>
+  <p class="sub">Строка — это площадка, формат и количество размещений. Три колонки справа — три плана: ставите количество, ноль означает «в этот план не входит». Охват, цена контакта и вилка встреч считаются по формулам из вкладки «Медиамикс», все допущения открыты и правятся. План живёт в этом браузере.</p>
+
+  <div class="callout">
+    <p><b>Допущения.</b> Общие на все три плана: сравнивать надо наборы размещений, а не допущения.</p>
+    <div class="toolbar">
+      <span class="grp"><label class="ck" for="p-weeks">Период, недель</label><input id="p-weeks" type="number" min="1" data-p="weeks"></span>
+      <span class="grp"><label class="ck" for="p-overlap">Уникальных из суммы, %</label><input id="p-overlap" type="number" min="1" max="100" data-p="overlap"></span>
+      <span class="grp"><label class="ck" for="p-convMin">Доходят до разговора, %</label><input id="p-convMin" type="number" min="0" step="0.1" data-p="convMin"><span class="ck">—</span><input id="p-convMax" type="number" min="0" step="0.1" data-p="convMax"></span>
+      <span class="grp"><label class="ck" for="p-demoMin">Из них до демо, %</label><input id="p-demoMin" type="number" min="0" data-p="demoMin"><span class="ck">—</span><input id="p-demoMax" type="number" min="0" data-p="demoMax"></span>
+      <span class="grp"><label class="ck" for="p-cap">Потолок, ₽ за контакт</label><input id="p-cap" type="number" min="1" data-p="cap"></span>
+    </div>
+    <p class="legend">По умолчанию: доля <abbr title="Лицо, принимающее решение о закупке">ЛПР</abbr> в аудитории берётся из оценки канала (5 баллов — 30 %, 4 — 15 %, 3 — 7 %, 2 — 3 %, 1 — 1 %), потолок цены — 50 ₽ за релевантный контакт. Конверсии — ваша гипотеза, замените фактом после первого замера.</p>
+  </div>
+
+  <div class="tbl"><table id="t-plansum"><thead></thead><tbody></tbody></table></div>
+  <div id="planwarn"></div>
+
+  <div class="toolbar">
+    <button class="btn primary" type="button" data-planadd>+ Строка</button>
+    <span class="grp"><label class="ck" for="p-toCamp">Перенести в «Кампании»</label><select class="st" id="p-toCamp"></select><button class="btn" type="button" data-plancamp>Перенести</button></span>
+    <button class="btn ghost" type="button" data-planclear>Очистить план</button>
+  </div>
+  <div class="tbl"><table id="t-plan"><thead></thead><tbody></tbody></table></div>
+  <p class="legend">Свободная строка — это размещение без карточки канала: выставка, продакшн, рассылка. У неё охват <abbr title="Лицо, принимающее решение о закупке">ЛПР</abbr> вводится руками, иначе считать нечего.</p>
 </div>
 
 <div class="tab" id="tab-mix">
@@ -1156,9 +1190,145 @@ function renderOppFacts(){const o=[...state.opportunities.values()].filter(x=>x.
   $("#oppfacts").innerHTML=`<div class="fact"><b>${o.length}</b><span>сделок с касанием программы</span></div><div class="fact"><b>${o.filter(x=>x.meeting).length}</b><span>встреч</span></div><div class="fact"><b>${o.filter(x=>x.pilot).length}</b><span>пилотов обсуждается</span></div><div class="fact"><b>${o.filter(x=>x.proposal).length}</b><span>КП отправлено</span></div><div class="fact"><b>${fmt(sum)} ₽</b><span>оценка influenced-выручки</span></div>`;}
 function render(){
   if(document.activeElement&&document.activeElement.closest&&document.activeElement.closest("table")){pendingRender=true;return;}
-  pendingRender=false;renderChannels();renderGeneric("campaigns");renderGeneric("accounts");renderGeneric("opportunities");renderOppFacts();
+  pendingRender=false;renderChannels();renderGeneric("campaigns");renderGeneric("accounts");renderGeneric("opportunities");renderOppFacts();renderPlan();
 }
 document.addEventListener("focusout",()=>{if(pendingRender)setTimeout(()=>{if(pendingRender&&!(document.activeElement&&document.activeElement.closest("table")))render();},50);});
+
+// ---------- планировщик ----------
+const DENS={5:.30,4:.15,3:.07,2:.03,1:.01};
+const PTYPES=["Telegram","Медиа","YouTube","События"];
+const TG_CAP=3678;
+const planBlank=()=>({weeks:12,overlap:80,convMin:1,convMax:3,demoMin:20,demoMax:40,cap:50,names:["План 1","План 2","План 3"],rows:[]});
+let plan=planBlank();
+function planLoad(){try{const s=localStorage.getItem("dx-plan");if(s)plan=Object.assign(planBlank(),JSON.parse(s));}catch(_){}}
+function planSave(){try{localStorage.setItem("dx-plan",JSON.stringify(plan));}catch(_){}}
+function planRow(r){
+  const ch=r.ch?state.channels.get(r.ch):null;
+  const icp=ch?Number(ch.scores?.icp):null;
+  const dens=(icp>=1&&icp<=5)?DENS[icp]:null;
+  const reach=ch?(dens!=null&&ch.med?Math.round(Number(ch.med)*dens):null):(r.reach===""||r.reach==null?null:Number(r.reach));
+  const ceil=reach!=null?Math.round(reach*Number(plan.cap||0)):null;
+  const auto=(r.price===""||r.price==null);
+  const price=auto?((ch&&ch.price!=null)?Number(ch.price):(ceil!=null?ceil:null)):Number(r.price);
+  return {ch,icp,dens,reach,ceil,price,auto,type:r.type||(ch?ch.platform:"События"),key:r.ch||("f:"+r.id)};
+}
+function planTotals(p){
+  let budget=0,contacts=0,types=new Set(),uniqReach=new Map(),qByKey=new Map(),tgUniq=0,overCeil=0,lines=0;
+  for(const r of plan.rows){
+    const q=Number((r.q||[])[p])||0;if(q<=0)continue;
+    const m=planRow(r);lines++;
+    if(m.price!=null)budget+=m.price*q;
+    if(m.reach!=null)contacts+=m.reach*q;
+    types.add(m.type);
+    qByKey.set(m.key,(qByKey.get(m.key)||0)+q);
+    if(m.reach!=null&&!uniqReach.has(m.key)){uniqReach.set(m.key,m.reach);if(m.type==="Telegram")tgUniq+=m.reach;}
+    if(m.ceil!=null&&m.price!=null&&m.price>m.ceil)overCeil++;
+  }
+  const sumUniq=[...uniqReach.values()].reduce((a,b)=>a+b,0);
+  const uniq=Math.round(sumUniq*Number(plan.overlap||0)/100);
+  const months=Math.max(Number(plan.weeks)||1,1)/4.345;
+  let freq=0;for(const q of qByKey.values())freq=Math.max(freq,q/months);
+  const cpc=contacts?budget/contacts:null;
+  const mtg=[uniq*Number(plan.convMin||0)/100,uniq*Number(plan.convMax||0)/100];
+  const demo=[mtg[0]*Number(plan.demoMin||0)/100,mtg[1]*Number(plan.demoMax||0)/100];
+  return {budget,contacts,uniq,cpc,freq,mtg,demo,lines,overCeil,types:types.size,tgShare:Math.round(tgUniq*Number(plan.overlap||0)/100)/TG_CAP};
+}
+function planWarn(t){
+  const w=[];
+  if(!t.lines)return w;
+  if(t.cpc!=null&&t.cpc>Number(plan.cap))w.push(["bad",`цена контакта ${Math.round(t.cpc)} ₽ выше потолка ${plan.cap} ₽`]);
+  if(t.overCeil)w.push(["warn",`строк с ценой выше потолка: ${t.overCeil} — торгуйтесь или снимайте`]);
+  if(t.freq>1.05)w.push(["warn",`повтор в одном канале ${t.freq.toFixed(1)} раза в месяц — чаще раза в месяц частота не работает`]);
+  if(t.types>3)w.push(["warn",`типов медиа ${t.types} — после трёх начинается убывающая отдача (IPA Datamine 3)`]);
+  if(t.tgShare>0.85)w.push(["warn",`выбрано ${Math.round(t.tgShare*100)} % потолка Telegram-слоя — докупать охват дальше некуда`]);
+  return w;
+}
+function renderPlan(){renderPlanSum();renderPlanTable();}
+function renderPlanSum(){
+  if(!$("#t-plan"))return;
+  for(const k of ["weeks","overlap","convMin","convMax","demoMin","demoMax","cap"]){const el=document.querySelector(`[data-p="${k}"]`);if(el&&document.activeElement!==el)el.value=plan[k];}
+  const T=[0,1,2].map(planTotals);
+  const money=n=>n?fmt(Math.round(n)):"0";
+  const rng=(a,b)=>(a||b)?`${a<10?a.toFixed(1):Math.round(a)} — ${b<10?b.toFixed(1):Math.round(b)}`:"—";
+  const rows=[
+    ["Бюджет, ₽",t=>`<b>${money(t.budget)}</b>`],
+    ["Строк в плане",t=>fmt(t.lines)],
+    ["Контактов с ЛПР, всего",t=>money(t.contacts)],
+    ["Уникальных ЛПР, оценка",t=>money(t.uniq)],
+    ["₽ за релевантный контакт",t=>t.cpc==null?"—":`<span class="pill ${t.cpc>Number(plan.cap)?"bad":"good"}">${Math.round(t.cpc)}</span>`],
+    ["Типов медиа",t=>t.lines?t.types:"—"],
+    ["Частота в канале, раз/мес",t=>t.lines?t.freq.toFixed(1):"—"],
+    ["Разговоров с ЛПР",t=>rng(t.mtg[0],t.mtg[1])],
+    ["Из них демо",t=>rng(t.demo[0],t.demo[1])],
+  ];
+  $("#t-plansum").querySelector("thead").innerHTML=`<tr><th>Итоги</th>${[0,1,2].map(i=>`<th class="num"><input type="text" data-pname="${i}" value="${esc(plan.names[i])}"></th>`).join("")}</tr>`;
+  $("#t-plansum").querySelector("tbody").innerHTML=rows.map(([label,f])=>`<tr><td>${label}</td>${T.map(t=>`<td class="num">${f(t)}</td>`).join("")}</tr>`).join("");
+  $("#planwarn").innerHTML=T.map((t,i)=>{const w=planWarn(t);return w.length?`<div class="callout bad"><p><b>${esc(plan.names[i])}</b></p>${w.map(([k,m])=>`<p><span class="pill ${k}">проверить</span> ${m}</p>`).join("")}</div>`:"";}).join("");
+
+}
+function renderPlanTable(){
+  if(!$("#t-plan"))return;
+  const opts=chOpts();
+  const head=`<tr><th>Площадка</th><th>Формат</th><th>Тип</th><th class="num">Цена, ₽</th><th class="num">Охват ЛПР</th>${plan.names.map(n=>`<th class="num">${esc(n)}</th>`).join("")}<th class="num">₽/контакт</th><th></th></tr>`;
+  $("#t-plan").querySelector("thead").innerHTML=head;
+  $("#t-plan").querySelector("tbody").innerHTML=plan.rows.map(r=>{
+    const m=planRow(r);
+    const cpc=(m.price!=null&&m.reach)?Math.round(m.price/m.reach):null;
+    const over=m.ceil!=null&&m.price!=null&&m.price>m.ceil;
+    return `<tr>
+<td class="name"><select class="st" data-pr="${r.id}" data-k="ch"><option value="">— своя строка —</option>${opts.map(([id,n])=>`<option value="${id}"${id===r.ch?" selected":""}>${esc(n)}</option>`).join("")}</select>${r.ch?"":`<input type="text" data-pr="${r.id}" data-k="name" value="${esc(r.name||"")}" placeholder="Название размещения">`}</td>
+<td><input type="text" data-pr="${r.id}" data-k="fmt" value="${esc(r.fmt||"")}" placeholder="натив, статья, стенд"></td>
+<td><select class="st" data-pr="${r.id}" data-k="type">${PTYPES.map(x=>`<option${x===m.type?" selected":""}>${x}</option>`).join("")}</select></td>
+<td class="num"><input type="number" data-pr="${r.id}" data-k="price" value="${r.price??""}" placeholder="${m.price??""}">${m.auto&&m.price!=null?`<div class="legend">${m.ch&&m.ch.price!=null?"прайс":"потолок"}</div>`:""}${over?'<div class="legend"><span class="pill warn">выше потолка</span></div>':""}</td>
+<td class="num">${r.ch?(m.reach==null?'<span class="pill n">нет оценки</span>':fmt(m.reach)):`<input type="number" data-pr="${r.id}" data-k="reach" value="${r.reach??""}" placeholder="0">`}</td>
+${[0,1,2].map(i=>`<td class="num q"><input type="number" min="0" data-pr="${r.id}" data-k="q${i}" value="${(r.q||[])[i]||""}" placeholder="0"></td>`).join("")}
+<td class="num">${cpc==null?"—":fmt(cpc)}</td>
+<td><button class="btn ghost" type="button" data-pdel="${r.id}" aria-label="Удалить строку">×</button></td>
+</tr>`;}).join("");
+
+  const sel=$("#p-toCamp");if(sel&&document.activeElement!==sel){const cur=sel.value;sel.innerHTML=plan.names.map((n,i)=>`<option value="${i}">${esc(n)}</option>`).join("");if(cur)sel.value=cur;}
+}
+function planSet(id,k,v){
+  const r=plan.rows.find(x=>x.id===id);if(!r)return;
+  if(k.startsWith("q")){r.q=r.q||[0,0,0];r.q[Number(k.slice(1))]=v===""?0:Number(v);}
+  else if(k==="price"||k==="reach")r[k]=v===""?null:Number(v);
+  else r[k]=v;
+  if(k==="ch")r.type=v?(state.channels.get(v)||{}).platform||"Telegram":"События";
+  planSave();
+}
+document.addEventListener("input",e=>{
+  const el=e.target;if(!el.dataset)return;
+  if(el.dataset.p){plan[el.dataset.p]=el.value===""?0:Number(el.value);planSave();renderPlanSum();}
+  else if(el.dataset.pname!=null){plan.names[Number(el.dataset.pname)]=el.value;planSave();}
+  else if(el.dataset.pr&&el.type!=="text"){planSet(el.dataset.pr,el.dataset.k,el.value);renderPlanSum();}
+  else if(el.dataset.pr)planSet(el.dataset.pr,el.dataset.k,el.value);
+});
+document.addEventListener("change",e=>{
+  const el=e.target;if(!el.dataset||!el.dataset.pr)return;
+  planSet(el.dataset.pr,el.dataset.k,el.value);
+  if(el.dataset.k==="ch"||el.dataset.k==="price"||el.dataset.k==="reach")renderPlan();
+});
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b||!b.dataset)return;
+  if(b.dataset.planadd!=null){plan.rows.push({id:"p"+Date.now().toString(36)+Math.random().toString(36).slice(2,6),ch:"",name:"",fmt:"",type:"События",price:null,reach:null,q:[0,0,0]});planSave();renderPlan();}
+  else if(b.dataset.pdel){plan.rows=plan.rows.filter(x=>x.id!==b.dataset.pdel);planSave();renderPlan();}
+  else if(b.dataset.planclear!=null){if(confirm("Очистить все строки плана?")){plan.rows=[];planSave();renderPlan();}}
+  else if(b.dataset.plancamp!=null){
+    const i=Number($("#p-toCamp").value)||0;
+    const rows=plan.rows.filter(r=>Number((r.q||[])[i])>0);
+    if(!rows.length){toast("В этом плане нет строк");return;}
+    if(!confirm(`Создать ${rows.length} кампаний из «${plan.names[i]}»?`))return;
+    for(const r of rows){
+      const m=planRow(r),q=Number(r.q[i]);
+      addRow("campaigns",Object.assign(SCHEMAS.campaigns.blank(),{
+        name:((m.ch?m.ch.name:r.name)||"Без названия")+(r.fmt?" — "+r.fmt:"")+(q>1?` ×${q}`:""),
+        channelId:r.ch||"",contentType:r.fmt||"",budget:(m.price||0)*q,status:"идея",
+        notes:`Из планировщика, ${plan.names[i]}. Оценка: ${m.reach!=null?fmt(m.reach*q)+" контактов с ЛПР":"охват не оценён"}.`}));
+    }
+    toast("Перенесено в «Кампании»");
+  }
+});
+planLoad();
 
 // ---------- events ----------
 document.addEventListener("change",e=>{
