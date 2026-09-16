@@ -62,15 +62,24 @@ p{max-width:76ch}
 table{border-collapse:collapse;width:100%;font-size:14.5px}
 th,td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
 tbody tr:nth-child(odd of :not(.det)) td{background:var(--zebra)}
+tbody tr:nth-child(even of :not(.det)) td{background:var(--surface)}
 tbody tr:last-child td{border-bottom:0}
 td.note{color:var(--muted);font-size:13.5px;max-width:42ch;text-wrap:pretty}
-th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;background:var(--surface-2);border-bottom:1px solid var(--line-strong);position:sticky;top:0;white-space:nowrap;z-index:var(--z-head)}
+th{font-size:12.5px;line-height:1.3;color:var(--muted);font-weight:600;background:var(--surface-2);border-bottom:1px solid var(--line-strong);position:sticky;top:0;white-space:normal;text-wrap:balance;z-index:var(--z-head)}
+th[title]{cursor:help;text-decoration:underline dotted color-mix(in srgb,var(--muted) 45%,transparent);text-underline-offset:3px;text-decoration-skip-ink:none}
+#tg th.num{max-width:120px}
 th[data-sort]{cursor:pointer}
 th[data-sort]:hover{color:var(--ink)}
 th[data-sort].on::after{content:" ↓";color:var(--accent)}
 th[data-sort].on.asc::after{content:" ↑"}
-td.num,th.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+td.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+th.num{text-align:right}
 td.name{min-width:200px}
+#tg th:first-child,#tg td:first-child{width:34px;min-width:34px;padding-left:10px;padding-right:0}
+#tg th:first-child,#tg td:first-child{position:sticky;left:0;z-index:2}
+#tg th.name-h,#tg td.name{position:sticky;left:34px;z-index:2;box-shadow:1px 0 0 var(--line-strong)}
+#tg th:first-child,#tg th.name-h{z-index:4}
+#tg tbody tr.det td:first-child{box-shadow:none}
 td.name b{font-weight:600}
 td.name small{display:block;color:var(--muted);font-family:var(--mono);font-size:12px;margin-top:2px}
 tbody tr.hl td{background:color-mix(in srgb,var(--tag) 13%,var(--surface))}
@@ -126,6 +135,9 @@ td textarea{min-height:34px;resize:vertical}
 td input[type=number]{width:110px;font-family:var(--mono)}
 td input[type=date]{font-family:var(--mono)}
 td.tot{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
+td.tot .prelim{color:var(--muted)}
+td.tot b{font-weight:600}
+td .dash{color:var(--muted)}
 .exp{font:inherit;background:none;border:0;color:var(--accent);cursor:pointer;padding:0 4px}
 .del{font:inherit;background:none;border:0;color:var(--muted);cursor:pointer;padding:0 4px}
 .del:hover{color:var(--bad)}
@@ -193,7 +205,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
   <div>
     <div class="eyebrow">DrinkX · программа отраслевых каналов</div>
     <h1>Карта каналов DrinkX</h1>
-    <p class="lede">Рабочая база маркетолога: каналы с живыми метриками и scorecard, кампании, целевые сети и influenced-сделки. Всё, что вы меняете, сохраняется и видно команде.</p>
+    <p class="lede">Рабочая база маркетолога: каналы с живыми цифрами и оценкой, кампании, целевые сети и сделки, на которые повлияла программа. Всё, что вы меняете, сохраняется и видно команде.</p>
   </div>
   <div class="dbstate">
   <div class="grp"><button class="btn" type="button" id="themeBtn" aria-pressed="false">Тёмная тема</button></div>
@@ -240,19 +252,22 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
   </div>
   <div class="tbl"><table id="tg">
     <thead><tr>
-      <th></th><th>Канал</th><th>Кластер</th>
-      <th class="num" data-sort="subs">Подп.</th>
-      <th class="num" data-sort="med">Медиана</th>
-      <th class="num" data-sort="err">ERR</th>
-      <th class="num" data-sort="price">Цена, ₽</th>
-      <th class="num" data-sort="cpv">CPV</th>
-      <th>Статус</th>
-      <th title="Плотность нужной аудитории, вес 30 %">ICP</th>
-      <th class="num" data-sort="total">Итог</th><th>Гейт</th>
+      <th></th>
+      <th class="name-h" title="Название площадки и её адрес. Стрелка слева раскрывает заметки, контакты и владельца">Канал</th>
+      <th title="Тематическая группа площадки. По ней удобно фильтровать и сравнивать похожее с похожим">Кластер</th>
+      <th class="num" data-sort="subs" title="Заявленное число подписчиков. Само по себе почти ничего не говорит: часть аудитории мёртвая или накрученная">Подписчики</th>
+      <th class="num" data-sort="med" title="Середина ряда просмотров по десяти последним постам. Устойчивее среднего: один вирусный пост её не сдвигает">Медиана просмотров</th>
+      <th class="num" data-sort="err" title="ERR, engagement rate by reach: просмотры, делённые на подписчиков. Ниже 5 % — накрутка или мёртвая база, выше 15 % — живая аудитория">Охват к подписчикам, %</th>
+      <th class="num" data-sort="price" title="Цена одного размещения по прайсу площадки. Ноль означает бесплатный вход, прочерк — прайс ещё не запрашивали">Цена, ₽</th>
+      <th class="num" data-sort="cpv" title="CPV, cost per view: цена размещения, делённая на медиану просмотров. Сколько стоит один показ">Цена просмотра, ₽</th>
+      <th title="На каком шаге переговоры с площадкой">Статус</th>
+      <th title="ICP, ideal customer profile: сколько подписчиков действительно принимают решения по закупке, по шкале от 1 до 5. Самый тяжёлый критерий, вес 30 %">Плотность аудитории, 1–5</th>
+      <th class="num" data-sort="total" title="Взвешенная оценка по семи критериям, шкала от 1 до 5. Раскройте строку, чтобы поставить остальные шесть">Итог, 1–5</th>
+      <th title="Проходит ли канал в пилот: итог не ниже 3,5 и плотность аудитории не ниже 4">Гейт</th>
     </tr></thead>
     <tbody></tbody>
   </table></div>
-  <p class="legend">ERR: <span class="pill good">≥ 15 %</span> живая аудитория · <span class="pill warn">5–15 %</span> норма для новостных · <span class="pill bad">&lt; 5 %</span> накрутка или мёртвая база. Жёлтая подсветка: рекомендованы в первую волну due diligence. Стрелка слева раскрывает заметки, контакты и владельца. Итог считается по заполненным критериям; в скобках сколько из семи заполнено.</p>
+  <p class="legend">Охват к подписчикам: <span class="pill good">15 % и выше</span> живая аудитория · <span class="pill warn">от 5 до 15 %</span> норма для новостных · <span class="pill bad">ниже 5 %</span> накрутка или мёртвая база. Жёлтая подсветка: рекомендованы в первую волну due diligence. Стрелка слева раскрывает заметки, контакты и владельца. Пока заполнены не все семь критериев, итог показан приглушённо и рядом стоит «сколько из 7»: это предварительная оценка, а не результат.</p>
   <div class="callout bad">
     <p><b>Сетка.</b> «Беспощадный ритейл», «Ритейл в России», «Кухня ритейла», «Ритейл без сдачи», «Ритейл заказывали?», «Ритейл Медиа», «Будни русского ритейла», «Около кассы» и «Беспощадный фудтех» ведут одни и те же админы. Одна аудитория, одна цена, одна строка. Только роль brand amplification.</p>
   </div>
@@ -260,20 +275,20 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 
 <div class="tab" id="tab-campaigns">
   <h2>Кампании</h2>
-  <p class="sub">Одна кампания = один канал, один CTA, один полезный актив, один utm_campaign. Поле «инфоповод» держит новостной крючок, под который выходит материал. Строка с пометкой «ПРИМЕР» показывает заполнение; удалите её, когда появится первая реальная.</p>
+  <p class="sub">Одна кампания — это один канал, одно целевое действие, один полезный материал и одна метка в ссылке. Поле «инфоповод» держит новостной крючок, под который выходит материал. Строка с пометкой «ПРИМЕР» показывает заполнение; удалите её, когда появится первая реальная.</p>
   <div class="toolbar"><button class="btn primary" type="button" data-add="campaigns">+ Кампания</button></div>
   <div class="tbl"><table id="t-campaigns"><thead></thead><tbody></tbody></table></div>
 </div>
 
 <div class="tab" id="tab-accounts">
   <h2>Целевые сети</h2>
-  <p class="sub">Target-account list на 50–150 сетей. Tier A — федеральные продуктовые, B — региональные и премиальные, C — остальные. Стартовый список из семи сетей взят из участников Недели ритейла и публичных цитат; ЛПР и владельцев заполняет sales.</p>
+  <p class="sub">Список целевых сетей: от 50 до 150 названий. Уровень A — федеральные продуктовые, B — региональные и премиальные, C — остальные. Стартовый список взят из участников Недели ритейла и публичных цитат; лиц, принимающих решение, и владельцев заполняет отдел продаж.</p>
   <div class="toolbar"><button class="btn primary" type="button" data-add="accounts">+ Сеть</button></div>
   <div class="tbl"><table id="t-accounts"><thead></thead><tbody></tbody></table></div>
 </div>
 
 <div class="tab" id="tab-opps">
-  <h2>Influenced-сделки</h2>
+  <h2>Сделки, на которые повлияла программа</h2>
   <p class="sub">Каждая встреча, пилот или КП, где кампания была касанием. Здесь считается результат программы: не просмотры, а сделки.</p>
   <div class="facts" id="oppfacts"></div>
   <div class="toolbar"><button class="btn primary" type="button" data-add="opportunities">+ Сделка</button></div>
@@ -1006,9 +1021,9 @@ const SK_RU={icp:"Плотность аудитории",trust:"Доверие",
 const CL_KEY={"Катмены":"k1","Ритейл-медиа":"k2","Фудтех":"k3","Кофе-бизнес":"k4","Вендинг":"k5","Партнёры":"k6","HoReCa":"k7","Массовый ритейл":"k8"};
 const clKey=n=>CL_KEY[n]||"";
 const CH_STATUS=["не трогали","запрос статистики","переговоры","в пилоте","итерация","масштаб","отказ","стоп"];
-const CAMP_STATUS=["идея","подготовка","в эфире","оценка 7 дн","оценка 30 дн","оценка 90 дн","закрыта"];
-const ACC_STATUS=["не начато","outreach","встреча","пилот обсуждается","КП отправлено","сделка","отказ"];
-const OPP_STAGE=["пример","квалификация","встреча","пилот","КП","сделка","проиграно"];
+const CAMP_STATUS=["идея","подготовка","в эфире",["оценка 7 дн","оценка через 7 дней"],["оценка 30 дн","оценка через 30 дней"],["оценка 90 дн","оценка через 90 дней"],"закрыта"];
+const ACC_STATUS=["не начато",["outreach","первое касание"],"встреча","пилот обсуждается",["КП отправлено","предложение отправлено"],"сделка","отказ"];
+const OPP_STAGE=["пример","квалификация","встреча","пилот",["КП","коммерческое предложение"],"сделка","проиграно"];
 const fmt=n=>(n==null||n==="")?"—":Number(n).toLocaleString("ru-RU");
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const state={channels:new Map(),campaigns:new Map(),accounts:new Map(),opportunities:new Map()};
@@ -1047,15 +1062,15 @@ const campOpts=()=>[...state.campaigns.values()].map(c=>[c.id,c.name]);
 const SCHEMAS={
  campaigns:{cols:[
   ["name","Кампания","text"],["channelId","Канал","ref",chOpts],["status","Статус","select",CAMP_STATUS],["launchDate","Запуск","date"],["budget","Бюджет, ₽","number"],
-  ["objective","Цель","text",null,1],["segment","Сегмент и роль","text",null,1],["cta","CTA","text",null,1],["contentType","Формат","text",null,1],["landing","Лендинг","text",null,1],["utm","utm_campaign","text",null,1],["hook","Инфоповод","area",null,1],["notes","Заметки","area",null,1]],
+  ["objective","Цель","text",null,1],["segment","Сегмент и роль","text",null,1],["cta","Целевое действие","text",null,1],["contentType","Формат","text",null,1],["landing","Лендинг","text",null,1],["utm","Метка кампании в ссылке","text",null,1],["hook","Инфоповод","area",null,1],["notes","Заметки","area",null,1]],
   blank:()=>({name:"Новая кампания",channelId:"",objective:"",segment:"Retail networks",cta:"Получить шаблон пилота кофейной зоны для сети",contentType:"",landing:"",utm:"",budget:0,launchDate:"",status:"идея",hook:"",notes:""})},
  accounts:{cols:[
-  ["company","Сеть","text"],["tier","Tier","select",["A","B","C"]],["priority","Приоритет","select",["1","2","3"]],["status","Статус","select",ACC_STATUS],["owner","Владелец (sales)","text"],
-  ["segment","Сегмент","text",null,1],["lprs","Известные ЛПР","area",null,1],["campaigns","Кампании-касания","text",null,1],["notes","Заметки","area",null,1]],
+  ["company","Сеть","text"],["tier","Уровень","select",["A","B","C"]],["priority","Приоритет","select",["1","2","3"]],["status","Статус","select",ACC_STATUS],["owner","Владелец в продажах","text"],
+  ["segment","Сегмент","text",null,1],["lprs","Известные лица, принимающие решение","area",null,1],["campaigns","Кампании-касания","text",null,1],["notes","Заметки","area",null,1]],
   blank:()=>({company:"Новая сеть",tier:"B",segment:"",priority:"2",lprs:"",campaigns:"",owner:"",status:"не начато",notes:""})},
  opportunities:{cols:[
   ["accountId","Сеть","ref",accOpts],["campaignId","Кампания","ref",campOpts],["stage","Стадия","select",OPP_STAGE],["lastTouch","Последнее касание","date"],["revenue","Оценка выручки, ₽","number"],
-  ["firstTouch","Первое касание","date",null,1],["influencedBy","Чем повлияли","text",null,1],["meeting","Встреча","bool",null,1],["pilot","Пилот обсуждался","bool",null,1],["proposal","КП отправлено","bool",null,1],["notes","Заметки","area",null,1]],
+  ["firstTouch","Первое касание","date",null,1],["influencedBy","Чем повлияли","text",null,1],["meeting","Встреча","bool",null,1],["pilot","Пилот обсуждался","bool",null,1],["proposal","Коммерческое предложение отправлено","bool",null,1],["notes","Заметки","area",null,1]],
   blank:()=>({accountId:"",campaignId:"",firstTouch:"",lastTouch:"",influencedBy:"",meeting:false,pilot:false,proposal:false,revenue:0,stage:"квалификация",notes:""})},
 };
 function cell(col,id,key,type,val,opts){
@@ -1066,7 +1081,7 @@ function cell(col,id,key,type,val,opts){
   if(type==="number")return `<input type="number" ${a} value="${esc(val??"")}"${dis}>`;
   if(type==="date")return `<input type="date" ${a} value="${esc(val??"")}"${dis}>`;
   if(type==="bool")return `<input type="checkbox" ${a}${val?" checked":""}${dis}>`;
-  if(type==="select")return `<select class="st" ${a}${dis}>${opts.map(o=>`<option${o===val?" selected":""}>${esc(o)}</option>`).join("")}</select>`;
+  if(type==="select")return `<select class="st" ${a}${dis}>${opts.map(o=>{const[v,l]=Array.isArray(o)?o:[o,o];return `<option value="${esc(v)}"${v===val?" selected":""}>${esc(l)}</option>`;}).join("")}</select>`;
   if(type==="ref"){const os=opts();return `<select class="st" ${a}${dis}><option value="">—</option>${os.map(([v,l])=>`<option value="${esc(v)}"${v===val?" selected":""}>${esc(l)}</option>`).join("")}</select>`;}
   return esc(val);
 }
@@ -1092,8 +1107,8 @@ function renderGeneric(col){
 function chRow(c){
   const {t,n}=total(c);const g=gate(c);const cv=cpv(c);const isOpen=open.has(c.id);const dis=mode==="loading"?" disabled":"";
   const sel=k=>{const v=c.scores?.[k];return `<select class="sc${v?"":" empty"}" data-col="channels" data-id="${esc(c.id)}" data-key="scores.${k}" data-type="score"${dis}><option value="">·</option>${[1,2,3,4,5].map(i=>`<option${Number(v)===i?" selected":""}>${i}</option>`).join("")}</select>`;};
-  const errPill=c.err==null?'<span class="pill n">—</span>':`<span class="pill ${c.err>=15?"good":c.err>=5?"warn":"bad"}">${Number(c.err).toFixed(1).replace(".",",")} %</span>`;
-  const gatePill=g.ok==null?`<span class="pill n">${n}/7</span>`:g.ok?'<span class="pill good">в пилот</span>':'<span class="pill bad">нет</span>';
+  const errPill=c.err==null?'<span class="pill n">—</span>':`<span class="pill ${c.err>=15?"good":c.err>=5?"warn":"bad"}">${Number(c.err).toFixed(1).replace(".",",")}</span>`;
+  const gatePill=g.ok==null?'<span class="pill n">не оценён</span>':g.ok?'<span class="pill good">в пилот</span>':'<span class="pill bad">нет</span>';
   const main=`<tr${c.hl?' class="hl"':""}>
    <td><button class="exp" type="button" data-exp="${esc(c.id)}" aria-expanded="${isOpen}" title="Подробнее">${isOpen?"▾":"▸"}</button></td>
    <td class="name"><b>${esc(c.name)}</b>${c.hl?'<span class="flag">1-я волна</span>':""}<small>${esc(c.platform)}${c.platform==="Telegram"?" · @"+esc(c.id):""}</small></td>
@@ -1103,7 +1118,9 @@ function chRow(c){
    <td class="num">${cv==null?"—":cv===0?"0":cv.toFixed(1).replace(".",",")}</td>
    <td><select class="st" data-col="channels" data-id="${esc(c.id)}" data-key="status" data-type="select"${dis}>${CH_STATUS.map(o=>`<option${o===c.status?" selected":""}>${o}</option>`).join("")}</select></td>
    <td>${sel("icp")}</td>
-   <td class="tot">${t==null?"—":t.toFixed(2).replace(".",",")}${n<7&&n>0?` <span class="pill n">${n}/7</span>`:""}</td>
+   <td class="tot">${t==null?'<span class="dash">—</span>':n<7
+     ?`<span class="prelim" title="Предварительно: заполнено ${n} из 7 критериев">${t.toFixed(2).replace(".",",")}</span> <span class="pill n" title="Заполнено критериев из семи">${n} из 7</span>`
+     :`<b>${t.toFixed(2).replace(".",",")}</b>`}</td>
    <td>${gatePill}</td></tr>`;
   if(!isOpen)return main;
   const rest=SK.filter(k=>k!=="icp").map(k=>`<div class="sr"><span>${SK_RU[k]}</span><b>${W[k]} %</b>${sel(k)}</div>`).join("");
