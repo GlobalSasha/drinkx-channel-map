@@ -1,0 +1,1106 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Карта каналов DrinkX</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F4F5F2; --surface:#FFFFFF; --surface-2:#EBEEE9; --ink:#14181A; --muted:#5B6468; --line:#D9DEDA;
+  --accent:#0E5A5F; --accent-ink:#FFFFFF; --tag:#F2C230; --tag-ink:#2A2200;
+  --good:#2A7A4B; --good-bg:#E3F1E8; --warn:#B86E00; --warn-bg:#FBEFD9; --bad:#B4271F; --bad-bg:#F9E3E0;
+  --display:'Unbounded',system-ui,sans-serif; --body:'Onest',system-ui,-apple-system,'Segoe UI',sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121716; --surface:#1A211F; --surface-2:#222B28; --ink:#ECEFEA; --muted:#9AA5A0; --line:#2C3633;
+    --accent:#5FC3C4; --accent-ink:#0B1A1B; --tag:#E9BE3A; --tag-ink:#2A2200;
+    --good:#6CC48F; --good-bg:#1B3226; --warn:#E0A34A; --warn-bg:#3A2A10; --bad:#EF7A70; --bad-bg:#3E1B18;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121716; --surface:#1A211F; --surface-2:#222B28; --ink:#ECEFEA; --muted:#9AA5A0; --line:#2C3633;
+  --accent:#5FC3C4; --accent-ink:#0B1A1B; --tag:#E9BE3A; --tag-ink:#2A2200;
+  --good:#6CC48F; --good-bg:#1B3226; --warn:#E0A34A; --warn-bg:#3A2A10; --bad:#EF7A70; --bad-bg:#3E1B18;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;padding-inline:clamp(16px,3vw,40px);padding-block:0 96px}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--accent) 40%,transparent)}
+a:hover{border-bottom-color:var(--accent)}
+a:focus-visible,button:focus-visible,th[data-sort]:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.wrap{max-width:1400px;margin:0 auto}
+#tab-mix > h4{font-family:var(--body);font-weight:600;font-size:16px;margin:26px 0 4px}
+#tab-mix .tbl{margin-bottom:18px}
+header.top{padding-block:32px 18px;display:flex;flex-wrap:wrap;gap:12px 32px;align-items:flex-end;justify-content:space-between}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(24px,3.4vw,34px);line-height:1.1;margin:8px 0 8px;letter-spacing:-.01em}
+.lede{max-width:70ch;color:var(--muted);margin:0}
+.dbstate{display:flex;flex-direction:column;gap:6px;align-items:flex-end;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.dbstate .pill{font-size:12px}
+nav.tabs{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);overflow-x:auto}
+nav.tabs ul{list-style:none;margin:0;padding:0;display:flex;gap:2px;white-space:nowrap}
+nav.tabs a{display:block;padding:12px 16px;border-bottom:3px solid transparent;color:var(--muted);font-weight:500;border-radius:0}
+nav.tabs a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent)}
+nav.tabs a:hover{color:var(--ink)}
+.tab{display:none;padding-block:28px 8px}
+.tab.on{display:block}
+section{padding-block:36px 8px;scroll-margin-top:64px}
+h2{font-family:var(--display);font-weight:500;font-size:clamp(19px,2.4vw,24px);margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance}
+h3{font-family:var(--body);font-weight:600;font-size:17px;margin:28px 0 8px}
+.sub{color:var(--muted);max-width:76ch;margin:0 0 16px}
+p{max-width:76ch}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin:12px 0}
+.toolbar .grp{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.toolbar label.ck{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);cursor:pointer}
+.chips button,.btn{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:5px 12px;cursor:pointer}
+.chips button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:500}
+.btn.ghost{border-color:transparent;color:var(--muted)}
+.btn:disabled{opacity:.5;cursor:default}
+.tbl{overflow-x:auto;border:1px solid var(--line);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+th{font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:500;background:var(--surface-2);position:sticky;top:0;white-space:nowrap;z-index:1}
+th[data-sort]{cursor:pointer}
+th[data-sort]:hover{color:var(--ink)}
+th[data-sort].on::after{content:" ↓";color:var(--accent)}
+th[data-sort].on.asc::after{content:" ↑"}
+td.num,th.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+td.name{min-width:200px}
+td.name b{font-weight:600}
+td.name small{display:block;color:var(--muted);font-family:var(--mono);font-size:11.5px}
+tr.hl td{background:color-mix(in srgb,var(--tag) 14%,var(--surface))}
+tr.det td{background:var(--surface-2);font-size:13px}
+tr.det .detgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px 24px}
+tr.det label{display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:3px}
+tr.det .ro{color:var(--ink)}
+.pill{display:inline-block;border-radius:4px;padding:1px 7px;font-family:var(--mono);font-size:12px;font-weight:500;white-space:nowrap}
+.pill.good{background:var(--good-bg);color:var(--good)}
+.pill.warn{background:var(--warn-bg);color:var(--warn)}
+.pill.bad{background:var(--bad-bg);color:var(--bad)}
+.pill.n{background:var(--surface-2);color:var(--muted)}
+.pill.tag{background:var(--tag);color:var(--tag-ink)}
+select.sc{font:inherit;font-family:var(--mono);font-size:13px;width:46px;padding:2px 2px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--ink)}
+select.sc.empty{color:var(--muted)}
+select.st,td input,td select,td textarea{font:inherit;font-size:13px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--ink);padding:3px 6px;max-width:100%}
+td input[type=text],td textarea{min-width:120px;width:100%}
+td textarea{min-height:34px;resize:vertical}
+td input[type=number]{width:96px;font-family:var(--mono)}
+td input[type=date]{font-family:var(--mono)}
+td.tot{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
+.exp{font:inherit;background:none;border:0;color:var(--accent);cursor:pointer;padding:0 4px}
+.del{font:inherit;background:none;border:0;color:var(--muted);cursor:pointer;padding:0 4px}
+.del:hover{color:var(--bad)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin:16px 0}
+.fact{background:var(--surface);padding:12px 14px}
+.fact b{display:block;font-family:var(--mono);font-size:22px;font-weight:500;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.fact span{font-size:12.5px;color:var(--muted)}
+.callout{border-left:4px solid var(--tag);background:var(--surface);padding:12px 16px;margin:16px 0;max-width:86ch}
+.callout.bad{border-left-color:var(--bad)}
+.callout.good{border-left-color:var(--good)}
+.callout p{margin:0 0 6px}
+.callout p:last-child{margin:0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin:16px 0}
+.card{background:var(--surface);border:1px solid var(--line);padding:16px 18px}
+.card h4{margin:0 0 6px;font-size:15px;font-weight:600}
+.card p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.card ul{margin:0;padding-left:18px;font-size:14px}
+.card li{margin:3px 0}
+ol.steps{padding-left:22px;max-width:86ch}
+ol.steps li{margin:8px 0}
+ol.steps li b{font-weight:600}
+.src{font-size:13px;color:var(--muted);columns:2;column-gap:32px}
+.src li{break-inside:avoid;margin:3px 0}
+.legend{font-size:13px;color:var(--muted);margin:8px 0 0}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1px 5px;border-radius:3px}
+.banner{background:var(--warn-bg);color:var(--warn);border:1px solid color-mix(in srgb,var(--warn) 30%,transparent);padding:10px 14px;margin:12px 0;font-size:14px;display:none}
+.banner.on{display:block}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:6px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.on{opacity:1}
+@media (max-width:640px){.src{columns:1} .facts{grid-template-columns:1fr 1fr} header.top{flex-direction:column;align-items:flex-start} .dbstate{align-items:flex-start}}
+@media (prefers-reduced-motion: reduce){.toast{transition:none}}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div>
+    <div class="eyebrow">DrinkX · программа отраслевых каналов</div>
+    <h1>Карта каналов DrinkX</h1>
+    <p class="lede">Рабочая база маркетолога: каналы с живыми метриками и scorecard, кампании, целевые сети и influenced-сделки. Всё, что вы меняете, сохраняется и видно команде.</p>
+  </div>
+  <div class="dbstate"><span id="dbpill" class="pill n">подключаюсь к базе…</span><span>данные сняты 15.09.2026</span></div>
+</header>
+
+<nav class="tabs" aria-label="Разделы"><ul>
+  <li><a href="#channels" data-tab="channels" aria-current="page">Каналы</a></li>
+  <li><a href="#campaigns" data-tab="campaigns">Кампании</a></li>
+  <li><a href="#accounts" data-tab="accounts">Целевые сети</a></li>
+  <li><a href="#opps" data-tab="opps">Сделки</a></li>
+  <li><a href="#mix" data-tab="mix">Медиамикс</a></li>
+  <li><a href="#ref" data-tab="ref">Справочник</a></li>
+</ul></nav>
+
+<div class="banner" id="banner"></div>
+
+<div class="tab on" id="tab-channels">
+  <h2>Каналы и площадки</h2>
+  <p class="sub">Scorecard из фреймворка: семь критериев по шкале 1–5 с весами ICP 30 %, доверие 20 %, формат 15 %, охват 10 %, вовлечение 10 %, измеримость 10 %, экономика 5 %. Гейт в пилот: итог ≥ 3,5 и ICP ≥ 4. Оценка ICP проставлена предварительно по разведке, остальные шесть ставит маркетолог после due diligence. ERR и медиана просмотров сняты по 10 последним постам.</p>
+  <div class="facts" id="chfacts"></div>
+  <div class="toolbar">
+    <div class="grp chips" id="clusterChips"></div>
+    <div class="grp chips" id="platformChips"></div>
+    <label class="ck"><input type="checkbox" id="onlyGate"> только прошедшие гейт</label>
+    <label class="ck"><input type="checkbox" id="hideStop" checked> скрыть «стоп» и «отказ»</label>
+    <button class="btn" id="csvBtn" type="button" hidden>Скачать CSV</button>
+  </div>
+  <div class="tbl"><table id="tg">
+    <thead><tr>
+      <th></th><th>Канал</th><th>Кластер</th>
+      <th class="num" data-sort="subs">Подп.</th>
+      <th class="num" data-sort="med">Медиана</th>
+      <th class="num" data-sort="err">ERR</th>
+      <th class="num" data-sort="price">Цена, ₽</th>
+      <th class="num" data-sort="cpv">CPV</th>
+      <th>Статус</th>
+      <th title="ICP-плотность, 30 %">ICP</th><th title="Доверие, 20 %">Дов.</th><th title="Формат влияния, 15 %">Форм.</th><th title="Реальный охват, 10 %">Охв.</th><th title="Качество вовлечения, 10 %">Вовл.</th><th title="Измеримость, 10 %">Изм.</th><th title="Экономика, 5 %">Экон.</th>
+      <th class="num" data-sort="total">Итог</th><th>Гейт</th>
+    </tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <p class="legend">ERR: <span class="pill good">≥ 15 %</span> живая аудитория · <span class="pill warn">5–15 %</span> норма для новостных · <span class="pill bad">&lt; 5 %</span> накрутка или мёртвая база. Жёлтая подсветка: рекомендованы в первую волну due diligence. Стрелка слева раскрывает заметки, контакты и владельца. Итог считается по заполненным критериям; в скобках сколько из семи заполнено.</p>
+  <div class="callout bad">
+    <p><b>Сетка.</b> «Беспощадный ритейл», «Ритейл в России», «Кухня ритейла», «Ритейл без сдачи», «Ритейл заказывали?», «Ритейл Медиа», «Будни русского ритейла», «Около кассы» и «Беспощадный фудтех» ведут одни и те же админы. Одна аудитория, одна цена, одна строка. Только роль brand amplification.</p>
+  </div>
+</div>
+
+<div class="tab" id="tab-campaigns">
+  <h2>Кампании</h2>
+  <p class="sub">Одна кампания = один канал, один CTA, один полезный актив, один utm_campaign. Поле «инфоповод» держит новостной крючок, под который выходит материал. Строка с пометкой «ПРИМЕР» показывает заполнение; удалите её, когда появится первая реальная.</p>
+  <div class="toolbar"><button class="btn primary" type="button" data-add="campaigns">+ Кампания</button></div>
+  <div class="tbl"><table id="t-campaigns"><thead></thead><tbody></tbody></table></div>
+</div>
+
+<div class="tab" id="tab-accounts">
+  <h2>Целевые сети</h2>
+  <p class="sub">Target-account list на 50–150 сетей. Tier A — федеральные продуктовые, B — региональные и премиальные, C — остальные. Стартовый список из семи сетей взят из участников Недели ритейла и публичных цитат; ЛПР и владельцев заполняет sales.</p>
+  <div class="toolbar"><button class="btn primary" type="button" data-add="accounts">+ Сеть</button></div>
+  <div class="tbl"><table id="t-accounts"><thead></thead><tbody></tbody></table></div>
+</div>
+
+<div class="tab" id="tab-opps">
+  <h2>Influenced-сделки</h2>
+  <p class="sub">Каждая встреча, пилот или КП, где кампания была касанием. Здесь считается результат программы: не просмотры, а сделки.</p>
+  <div class="facts" id="oppfacts"></div>
+  <div class="toolbar"><button class="btn primary" type="button" data-add="opportunities">+ Сделка</button></div>
+  <div class="tbl"><table id="t-opportunities"><thead></thead><tbody></tbody></table></div>
+</div>
+
+<div class="tab" id="tab-mix">
+<h2>Медиамикс: что берём и в каком порядке</h2>
+<p class="sub">Предложение на 12 месяцев. Три микса по бюджету, девять волн, каждая строка с ценой из прайса или с потолком, рассчитанным от стоимости контакта с ЛПР. Ниже — методология, на которой построен порядок, и проверка каждого допущения цифрами.</p>
+
+<div class="facts">
+  <div class="fact"><b>3 678</b><span>релевантных контактов даёт весь Telegram-слой, купленный целиком. Докупать охват некуда</span></div>
+  <div class="fact"><b>6–12</b><span>сетей из 150 реально в рынке в каждый квартал. Это потолок спроса, а не бюджета</span></div>
+  <div class="fact"><b>1 из 8</b><span>конкурентов публикует именные кейсы с проверяемыми цифрами. Поле почти пустое</span></div>
+  <div class="fact"><b>91 %</b><span>операторов говорят, что живой тест оборудования влияет на решение о покупке. У этого шага нет аналога в медиа</span></div>
+</div>
+
+<div class="callout">
+<p><b>Короткий ответ.</b> В первую очередь — демо-станция в руках категорийного менеджера: в закупке оборудования живой тест влияет на решение у 91 % операторов, и у этого шага нет контент-маркетингового аналога. Медиа работают на то, чтобы до демо дойти и чтобы при прочих равных выбрали знакомый бренд.</p>
+<p><b>Дальше по порядку.</b> Сначала бесплатные входы с самой плотной аудиторией ЛПР: коммерческое предложение в канале категорийных менеджеров, спикерские заявки, редакционные питчи, поездка на ближайшую выставку. Параллельно собирается промежуточный актив, ради которого всё это делается. Потом один сильный экспертный ролик у Russian Barista в формате «обзор кофе в сетях», а не «обзор станции». Потом посев производных в четырёх плотных каналах по потолку цены. Потом отраслевые медиа с кейсом, когда появится результат пилота. События берём по календарю, а не по желанию.</p>
+<p><b>Чего не делаем.</b> Не делаем Telegram основой микса: соцсети для изучения промышленных компаний используют только 31 % покупателей. Не покупаем массовые ритейл-каналы на сотни тысяч подписчиков. Не платим прайс там, где он выше расчётного потолка. Не ставим стенд на Неделе ритейла в первый год. Не ведём посев прямо на заявку. Не судим программу по заявкам с лендинга.</p>
+</div>
+
+<h3>Порядок волн</h3>
+<div class="tbl"><table>
+<thead><tr><th>Волна</th><th>Когда</th><th>Что делаем</th><th class="num">Медиа, ₽</th><th>Почему именно здесь</th></tr></thead>
+<tbody>
+<tr class="hl"><td><b>0</b></td><td>недели 1–3</td><td>Промежуточный актив: калькулятор полной стоимости владения на пять лет, лендинг под один CTA, условия гарантии и SLA на первом экране, 6–8 материалов под запросы категорийного менеджера. Плюс подготовка 3–5 демо-станций, договор с ОРД, UTM, поля в CRM, список 150 сетей</td><td class="num">0</td><td class="note">Правило порядка из плейбука Google: сначала always-on слой и материалы, которые ищут круглый год, и только потом дорогой герой. Плюс отраслевое: 64 % операторов всегда считают полную стоимость владения, 89 % смотрят на гарантию. Медийные деньги, потраченные до того, как есть куда вести, сгорают.</td></tr>
+<tr class="hl"><td><b>1</b></td><td>недели 1–4</td><td>Демо-станции у 3–5 сетей Tier A. Параллельно: КП поставщика в канале КАТМЕНПРО, спикерские заявки, редакционный питч Shopper’s и Retail.ru на инфоповод, поездка на VerSous 29 сентября</td><td class="num">≈ 2 000</td><td class="note">Живой тест влияет на решение у 91 % операторов, а в волне 2016 года так сказали все, кто тестировал. Самая плотная аудитория ЛПР в стране при этом стоит ноль. Мероприятия — канал номер один в российском B2B.</td></tr>
+<tr><td><b>2</b></td><td>недели 3–8</td><td>Съёмка экспертного актива: Russian Barista, формат «обзор кофе в сетях» с DrinkX в сравнении</td><td class="num">150 000</td><td class="note">Всё остальное — производные от него. Формат: демонстрация работы, а не разговорное интервью — у покупателей капитального оборудования видео с демонстрацией остаётся самым востребованным форматом каждый год замера, 83–90 %. Актив строится из 6–8 подтем, в каждой цитата, цифра, фреймворк и живой пример: это и есть готовые нарезки.</td></tr>
+<tr><td><b>3</b></td><td>недели 6–10</td><td>Посев нарезок и разбора в четырёх плотных каналах: Свободная касса, #Технологии HoReCa &amp; Retail, Продукт Медиа, Фудтех в России</td><td class="num">≈ 59 000</td><td class="note">Усиление актива, а не самостоятельная закупка охвата. Посев ведёт на промежуточный актив, никогда прямо на заявку.</td></tr>
+<tr><td><b>4</b></td><td>месяцы 3–4</td><td>Отраслевые медиа: кейс на Retail.ru, интервью в New Retail, статья и рассылка Restoranoff</td><td class="num">≈ 255 000</td><td class="note">Статьи, экспертные мнения и интервью называют рабочим форматом 76,3 % российских B2B-компаний. Но кейс нужно чем-то наполнить: раньше пилота писать нечего.</td></tr>
+<tr><td><b>5</b></td><td>месяцы 3–5</td><td>Расширение посева: Околоритейл, RETAILER.ru, #Фудтех, Реальный Ритейл — все по потолку, не по прайсу</td><td class="num">≈ 75 000</td><td class="note">Частота по той же небольшой аудитории. Охват здесь уже не растёт. Повтор в одном канале не чаще раза в месяц.</td></tr>
+<tr><td><b>6</b></td><td>месяцы 4–6</td><td>Второй ролик, участие в Big Retail Networking 4 декабря</td><td class="num">≈ 250 000</td><td class="note">Только если первый актив прошёл гейт.</td></tr>
+<tr><td><b>7</b></td><td>месяцы 6–9</td><td>Неделя российского ритейла 2027 пакетом участника, «Диалоги о ритейле» на Retail.ru</td><td class="num">≈ 334 000</td><td class="note">Единственный видеоформат с аудиторией сетей. Стенд — вопрос второго года.</td></tr>
+<tr><td><b>8–9</b></td><td>месяцы 6–12</td><td>Регулярный посев, второй экспертный голос, кофейная выставка</td><td class="num">≈ 770 000</td><td class="note">Режим «всегда в эфире» вместо разовых залпов: программы, работающие постоянно, в 17 раз реже называют неэффективными.</td></tr>
+</tbody></table></div>
+<p class="legend">Суммы по волнам — медиа без продакшна. Подробные строки с обоснованием цены ниже.</p>
+
+<h3>Три микса по бюджету</h3>
+<p class="sub">Каждая строка с ценой: либо из опубликованного прайса, либо по потолку из модели. Продакшн вынесен отдельно — это не медиа.</p>
+<h4>Микс A — «Экспертный актив», 45 дней</h4><p class="sub">Получить один сильный актив и проверить допущения на малых деньгах. Медиа 208 842 ₽, продакшн 150 000 ₽, всего 358 842 ₽.</p><div class="tbl"><table><thead><tr><th>Волна</th><th>Строка</th><th>Роль</th><th class="num">₽</th><th>Откуда цена</th></tr></thead><tbody><tr><td>Волна 1</td><td class="name"><b>КАТМЕНПРО: КП поставщика в @kpcatmanpro</b></td><td>Demand capture</td><td class="num">0</td><td class="note">факт: бесплатное размещение</td></tr>
+<tr><td>Волна 1</td><td class="name"><b>Спикерские заявки: VerSous, ПИР-Кофе, Big Retail Networking</b></td><td>Executive influence</td><td class="num">0</td><td class="note">медиа 0 ₽, только время</td></tr>
+<tr><td>Волна 1</td><td class="name"><b>Редакционный питч Shopper's и Retail.ru на инфоповод «−4 % кофе навынос»</b></td><td>Executive influence</td><td class="num">0</td><td class="note">редакция, не реклама</td></tr>
+<tr><td>Волна 2</td><td class="name"><b>Russian Barista: ролик «Кофе в ритейле» + 3 нарезки</b></td><td>Expert proof</td><td class="num">150 000</td><td class="note">вилка рынка 70–250 тыс.; при 40 тыс. просмотров CPV 3,8 ₽ = рынок</td></tr>
+<tr><td>Волна 3</td><td class="name"><b>Свободная касса: нативный пост с кейсом</b></td><td>Executive influence</td><td class="num">40 000</td><td class="note">потолок модели 52 800; прайс запросить</td></tr>
+<tr><td>Волна 3</td><td class="name"><b>#Технологии HoReCa & Retail: натив</b></td><td>Category education</td><td class="num">7 692</td><td class="note">факт telega.in, 0,58 от потолка</td></tr>
+<tr><td>Волна 3</td><td class="name"><b>Продукт Медиа: 1/24</b></td><td>Category education</td><td class="num">8 750</td><td class="note">факт 12 587, торг до потолка 8 750</td></tr>
+<tr><td>Волна 3</td><td class="name"><b>Фудтех в России: натив</b></td><td>Category education</td><td class="num">2 400</td><td class="note">потолок модели</td></tr>
+<tr><td>Продакшн</td><td class="name"><b>Лендинг + PDF «Шаблон пилота» + нарезки + ОРД</b></td><td>—</td><td class="num">150 000</td><td class="note">оценка, не медиа</td></tr></tbody></table></div>
+<h4>Микс B — «Отраслевая валидация», 90 дней</h4><p class="sub">Превратить экспертный актив в отраслевое доказательство и довести до пилотов. Медиа 580 004 ₽.</p><div class="tbl"><table><thead><tr><th>Волна</th><th>Строка</th><th>Роль</th><th class="num">₽</th><th>Откуда цена</th></tr></thead><tbody><tr><td>Волна 4</td><td class="name"><b>Retail.ru: платный кейс или интервью</b></td><td>Executive influence</td><td class="num">80 000</td><td class="note">оценка; гарантия ≥ 2 000 просмотров, цену запросить</td></tr>
+<tr><td>Волна 4</td><td class="name"><b>New Retail: натив или интервью «Персоны»</b></td><td>Executive influence</td><td class="num">80 000</td><td class="note">оценка; цену запросить</td></tr>
+<tr><td>Волна 4</td><td class="name"><b>Restoranoff: статья компании + рассылка на 40 тыс. адресов</b></td><td>Category education</td><td class="num">95 000</td><td class="note">факт медиакита 2025: 70 000 + 25 000</td></tr>
+<tr><td>Волна 5</td><td class="name"><b>Околоритейл: пост</b></td><td>Executive influence</td><td class="num">36 487</td><td class="note">факт 69 930 = переплата ×1,9; торг до потолка</td></tr>
+<tr><td>Волна 5</td><td class="name"><b>RETAILER.ru: пост</b></td><td>Category education</td><td class="num">12 600</td><td class="note">потолок модели</td></tr>
+<tr><td>Волна 5</td><td class="name"><b>#Фудтех: натив</b></td><td>Category education</td><td class="num">14 000</td><td class="note">факт 38 794 = переплата ×2,8; торг до потолка</td></tr>
+<tr><td>Волна 5</td><td class="name"><b>Реальный Ритейл: пост</b></td><td>Brand amplification</td><td class="num">11 917</td><td class="note">потолок модели</td></tr>
+<tr><td>Волна 6</td><td class="name"><b>Russian Barista: второй ролик или обзор станции</b></td><td>Expert proof</td><td class="num">150 000</td><td class="note">только если первый прошёл гейт</td></tr>
+<tr><td>Волна 6</td><td class="name"><b>Big Retail Networking, 4 декабря</b></td><td>Executive influence</td><td class="num">100 000</td><td class="note">оценка участия</td></tr></tbody></table></div>
+<h4>Микс C — «Вход в сети», 180 дней</h4><p class="sub">Перевести программу в регулярную и выйти на площадки, где ЛПР сидят физически. Медиа 2 820 000 ₽.</p><div class="tbl"><table><thead><tr><th>Волна</th><th>Строка</th><th>Роль</th><th class="num">₽</th><th>Откуда цена</th></tr></thead><tbody><tr><td>Волна 7</td><td class="name"><b>Неделя российского ритейла 2027: стенд или партнёрство</b></td><td>Executive influence</td><td class="num">1 200 000</td><td class="note">оценка; «Рекламные опции» скачать на retailweek.ru</td></tr>
+<tr><td>Волна 7</td><td class="name"><b>Retail.ru «Диалоги о ритейле»: видеоформат</b></td><td>Executive influence</td><td class="num">250 000</td><td class="note">оценка; цену запросить</td></tr>
+<tr><td>Волна 8</td><td class="name"><b>ПИР Экспо / ПИР-Кофе 2027: стенд</b></td><td>Category education</td><td class="num">600 000</td><td class="note">оценка</td></tr>
+<tr><td>Волна 8</td><td class="name"><b>Регулярный посев: 4 канала × 6 месяцев</b></td><td>Category education</td><td class="num">420 000</td><td class="note">по потолкам модели</td></tr>
+<tr><td>Волна 9</td><td class="name"><b>Второй экспертный голос: Корюкин или Скуратов</b></td><td>Expert proof</td><td class="num">200 000</td><td class="note">оценка</td></tr>
+<tr><td>Волна 9</td><td class="name"><b>Кофе и чай в России: advertorial + выставка</b></td><td>Category education</td><td class="num">150 000</td><td class="note">оценка</td></tr></tbody></table></div>
+
+<h3>Календарь диктует порядок</h3>
+<p class="sub">Даты событий фиксированы, и это единственное жёсткое ограничение в плане. Два ближайших уже внутри горизонта принятия решения.</p>
+<div class="tbl"><table>
+<thead><tr><th>Событие</th><th class="num">Дата</th><th class="num">Через</th><th>Вход</th><th>Заметка</th></tr></thead>
+<tbody><tr><td class="name"><b>E-Retail Week</b><small>—</small></td><td class="num">22.09.2026</td><td class="num"><span class="pill bad">6 дн.</span></td><td>—</td><td class="note">Retail Technology & Design Awards 22 сентября.</td></tr>
+<tr><td class="name"><b>VerSous — технологии самообслуживания</b><small>Тимирязев Центр</small></td><td class="num">29.09.2026</td><td class="num"><span class="pill bad">13 дн.</span></td><td>билет 1 500–2 000 ₽</td><td class="note">Экспонируются JETINNO, ProCorner, Vendotek, KiT Vending, Uvenco. Разведка конкурентов и контакты операторов.</td></tr>
+<tr><td class="name"><b>Дни ритейла в Сибири (Омск)</b><small>Омск</small></td><td class="num">07.10.2026</td><td class="num"><span class="pill warn">21 дн.</span></td><td>—</td><td class="note">Региональные сети, дешевле входа в федеральные.</td></tr>
+<tr><td class="name"><b>ПИР Экспо / ПИР-Кофе</b><small>Крокус Экспо</small></td><td class="num">26.10.2026</td><td class="num"><span class="pill warn">40 дн.</span></td><td>стенд по запросу</td><td class="note">29-й год; спикерская заявка через форму на pirexpo.com.</td></tr>
+<tr><td class="name"><b>Сибирская продовольственная неделя</b><small>Новосибирск</small></td><td class="num">01.12.2026</td><td class="num"><span class="pill n">76 дн.</span></td><td>—</td><td class="note">Резерв.</td></tr>
+<tr><td class="name"><b>Big Retail Networking (Retail TECH)</b><small>—</small></td><td class="num">04.12.2026</td><td class="num"><span class="pill n">79 дн.</span></td><td>—</td><td class="note">Директора по инновациям — те, кто запускает пилоты.</td></tr>
+<tr><td class="name"><b>Coffee Tea Cacao Russian Expo</b><small>Тимирязев Центр</small></td><td class="num">15.04.2027</td><td class="num"><span class="pill n">211 дн.</span></td><td>стенд по запросу</td><td class="note">≈20 000 посетителей, 250 экспонентов (по 2026 году).</td></tr>
+<tr><td class="name"><b>Неделя российского ритейла 2027</b><small>ЦМТ</small></td><td class="num">31.05.2027</td><td class="num"><span class="pill n">257 дн.</span></td><td>участник 84 000 ₽ / стенд 9 м² ≈ 856 000 ₽</td><td class="note">8 000+ участников, 500+ сетей. Треки «готовая еда», FOOD.</td></tr></tbody></table></div>
+
+<h3>Метрика отбора: сколько стоит один контакт с релевантным человеком</h3>
+<p class="sub">CPM и цена поста ничего не говорят о канале, где 95 % читателей вам не нужны. Считаем иначе: медиана просмотров умножается на предполагаемую долю ЛПР в аудитории, цена делится на результат. Доля ЛПР — допущение из оценки ICP: 5 баллов это 30 % аудитории, 4 — 15 %, 3 — 7 %, 2 — 3 %, 1 — 1 %. Оно заменяется фактом после первого замера.</p>
+<p>Из метрики выводится <b>потолок цены</b>: сколько максимум имеет смысл платить за пост, чтобы контакт с ЛПР не выходил дороже 50 ₽. Пять каналов с опубликованным прайсом проверяются напрямую, и четыре из пяти его не проходят.</p>
+<div class="tbl"><table>
+<thead><tr><th>Канал</th><th>Кластер</th><th class="num">ICP</th><th class="num">Медиана</th><th class="num">Доля ЛПР</th><th class="num">ЛПР за пост</th><th class="num">Потолок ₽</th><th class="num">Прайс ₽</th><th>Вердикт</th></tr></thead>
+<tbody><tr class="hl"><td class="name"><b>Свободная касса (ритейл & e-com)</b></td><td>Ритейл-медиа</td><td class="num">4</td><td class="num">7 040</td><td class="num">15%</td><td class="num">1 056</td><td class="num"><b>52 800</b></td><td class="num">—</td><td><span class="pill n">прайс запросить</span></td></tr>
+<tr class="hl"><td class="name"><b>Околоритейл</b></td><td>Ритейл-медиа</td><td class="num">4</td><td class="num">4 865</td><td class="num">15%</td><td class="num">730</td><td class="num"><b>36 488</b></td><td class="num">69 930</td><td><span class="pill bad">переплата ×1.9</span></td></tr>
+<tr><td class="name"><b>Русский ритейл и бизнес</b></td><td>Массовый ритейл</td><td class="num">2</td><td class="num">16 500</td><td class="num">3%</td><td class="num">495</td><td class="num"><b>24 750</b></td><td class="num">—</td><td><span class="pill n">прайс запросить</span></td></tr>
+<tr><td class="name"><b>Shopper's</b></td><td>Ритейл-медиа</td><td class="num">4</td><td class="num">2 100</td><td class="num">15%</td><td class="num">315</td><td class="num"><b>15 750</b></td><td class="num">—</td><td><span class="pill n">прайс запросить</span></td></tr>
+<tr class="hl"><td class="name"><b>#Фудтех</b></td><td>Фудтех</td><td class="num">3</td><td class="num">4 000</td><td class="num">7%</td><td class="num">280</td><td class="num"><b>14 000</b></td><td class="num">38 794</td><td><span class="pill bad">переплата ×2.8</span></td></tr>
+<tr><td class="name"><b>#Технологии HoReCa & Retail</b></td><td>Фудтех</td><td class="num">3</td><td class="num">3 785</td><td class="num">7%</td><td class="num">265</td><td class="num"><b>13 248</b></td><td class="num">7 692</td><td><span class="pill good">×0.58 от потолка</span></td></tr>
+<tr><td class="name"><b>RETAILER.ru — новости</b></td><td>Ритейл-медиа</td><td class="num">3</td><td class="num">3 600</td><td class="num">7%</td><td class="num">252</td><td class="num"><b>12 600</b></td><td class="num">—</td><td><span class="pill n">прайс запросить</span></td></tr>
+<tr><td class="name"><b>Реальный Ритейл</b></td><td>Массовый ритейл</td><td class="num">2</td><td class="num">7 945</td><td class="num">3%</td><td class="num">238</td><td class="num"><b>11 918</b></td><td class="num">—</td><td><span class="pill n">прайс запросить</span></td></tr>
+<tr><td class="name"><b>Retail.ru</b></td><td>Ритейл-медиа</td><td class="num">4</td><td class="num">1 300</td><td class="num">15%</td><td class="num">195</td><td class="num"><b>9 750</b></td><td class="num">—</td><td><span class="pill n">прайс запросить</span></td></tr>
+<tr><td class="name"><b>Продукт Медиа</b></td><td>Ритейл-медиа</td><td class="num">3</td><td class="num">2 500</td><td class="num">7%</td><td class="num">175</td><td class="num"><b>8 750</b></td><td class="num">12 587</td><td><span class="pill bad">переплата ×1.4</span></td></tr>
+<tr><td class="name"><b>Tasty Coffee Roasters</b></td><td>Партнёры</td><td class="num">2</td><td class="num">5 500</td><td class="num">3%</td><td class="num">165</td><td class="num"><b>8 250</b></td><td class="num">—</td><td><span class="pill n">прайс запросить</span></td></tr>
+<tr class="hl"><td class="name"><b>Нью Ритейл · New Retail</b></td><td>Ритейл-медиа</td><td class="num">4</td><td class="num">1 000</td><td class="num">15%</td><td class="num">150</td><td class="num"><b>7 500</b></td><td class="num">—</td><td><span class="pill n">прайс запросить</span></td></tr>
+<tr class="hl"><td class="name"><b>Категорийный менеджмент (КАТМЕНПРО)</b></td><td>Катмены</td><td class="num">5</td><td class="num">478</td><td class="num">30%</td><td class="num">143</td><td class="num"><b>7 170</b></td><td class="num">—</td><td><span class="pill n">прайс запросить</span></td></tr>
+<tr><td class="name"><b>Фудтех в России</b></td><td>Фудтех</td><td class="num">3</td><td class="num">680</td><td class="num">7%</td><td class="num">48</td><td class="num"><b>2 380</b></td><td class="num">—</td><td><span class="pill n">прайс запросить</span></td></tr>
+<tr><td class="name"><b>Retail · Юлия Джанибекова</b></td><td>Ритейл-медиа</td><td class="num">3</td><td class="num">566</td><td class="num">7%</td><td class="num">40</td><td class="num"><b>1 981</b></td><td class="num">—</td><td><span class="pill n">прайс запросить</span></td></tr>
+<tr><td class="name"><b>В значит Вендинг</b></td><td>Вендинг</td><td class="num">2</td><td class="num">1 305</td><td class="num">3%</td><td class="num">39</td><td class="num"><b>1 958</b></td><td class="num">—</td><td><span class="pill n">прайс запросить</span></td></tr>
+<tr><td class="name"><b>Беспощадный фудтех</b></td><td>Фудтех</td><td class="num">2</td><td class="num">1 210</td><td class="num">3%</td><td class="num">36</td><td class="num"><b>1 815</b></td><td class="num">—</td><td><span class="pill n">прайс запросить</span></td></tr>
+<tr><td class="name"><b>VARKA BUSINESS</b></td><td>Кофе-бизнес</td><td class="num">2</td><td class="num">900</td><td class="num">3%</td><td class="num">27</td><td class="num"><b>1 350</b></td><td class="num">—</td><td><span class="pill n">прайс запросить</span></td></tr>
+<tr><td class="name"><b>coffeemap.ru</b></td><td>Кофе-бизнес</td><td class="num">2</td><td class="num">779</td><td class="num">3%</td><td class="num">23</td><td class="num"><b>1 168</b></td><td class="num">—</td><td><span class="pill n">прайс запросить</span></td></tr>
+<tr><td class="name"><b>I-KM · Каролина Ильенкова</b></td><td>Катмены</td><td class="num">4</td><td class="num">147</td><td class="num">15%</td><td class="num">22</td><td class="num"><b>1 102</b></td><td class="num">—</td><td><span class="pill n">прайс запросить</span></td></tr>
+<tr><td class="name"><b>Русский бариста (Telegram)</b></td><td>Кофе-бизнес</td><td class="num">2</td><td class="num">733</td><td class="num">3%</td><td class="num">22</td><td class="num"><b>1 100</b></td><td class="num">—</td><td><span class="pill n">прайс запросить</span></td></tr>
+<tr><td class="name"><b>Ресторанные Ведомости</b></td><td>HoReCa</td><td class="num">2</td><td class="num">561</td><td class="num">3%</td><td class="num">17</td><td class="num"><b>841</b></td><td class="num">—</td><td><span class="pill n">прайс запросить</span></td></tr>
+<tr><td class="name"><b>Кофеиновый бизнес</b></td><td>Кофе-бизнес</td><td class="num">2</td><td class="num">387</td><td class="num">3%</td><td class="num">12</td><td class="num"><b>580</b></td><td class="num">—</td><td><span class="pill n">прайс запросить</span></td></tr>
+<tr><td class="name"><b>Кофейная вертикаль — данные и тренды</b></td><td>Кофе-бизнес</td><td class="num">3</td><td class="num">96</td><td class="num">7%</td><td class="num">7</td><td class="num"><b>336</b></td><td class="num">—</td><td><span class="pill n">прайс запросить</span></td></tr></tbody></table></div>
+<div class="callout bad">
+<p><b>Что это меняет на практике.</b> «Кухня ритейла» просит 41 958 ₽ за пост, который по модели стоит 900 ₽: переплата в 46 раз. «Околоритейл» просит вдвое больше потолка, «#Фудтех» — втрое. И только «#Технологии HoReCa &amp; Retail» за 7 692 ₽ стоит дешевле расчётного потолка.</p>
+</div>
+<p class="sub">Проверка модели на вменяемость: переведём потолок в привычный CPM и сравним с рынком.</p>
+<div class="tbl"><table>
+<thead><tr><th class="num">ICP</th><th class="num">Доля ЛПР</th><th class="num">Потолок в пересчёте на CPM</th><th class="num">К рынку деловых каналов (3 802 ₽)</th><th>Читается так</th></tr></thead>
+<tbody>
+<tr><td class="num">5</td><td class="num">30 %</td><td class="num">15 000 ₽</td><td class="num">3,9×</td><td class="note">Платим вчетверо выше рынка за плотность. Осознанно.</td></tr>
+<tr><td class="num">4</td><td class="num">15 %</td><td class="num">7 500 ₽</td><td class="num">2,0×</td><td class="note">Вдвое выше рынка. Оправдано попаданием в аудиторию.</td></tr>
+<tr class="hl"><td class="num">3</td><td class="num">7 %</td><td class="num">3 500 ₽</td><td class="num">0,9×</td><td class="note">Почти точно рынок. Модель не занижает.</td></tr>
+<tr><td class="num">2</td><td class="num">3 %</td><td class="num">1 500 ₽</td><td class="num">0,4×</td><td class="note">Ниже рынка. Показ есть, попадания нет.</td></tr>
+<tr><td class="num">1</td><td class="num">1 %</td><td class="num">500 ₽</td><td class="num">0,1×</td><td class="note">Практически отказ платить.</td></tr>
+</tbody></table></div>
+<p class="legend">Рыночные CPM посевов по данным Telega.in, январь 2025: «Бизнес и стартапы» 3 802 ₽, «Инвестиции» 4 713 ₽, «Новости» 749 ₽, медиана по всем нишам 1 100 ₽. Медиана выросла с 230 ₽ в начале 2022 года, то есть в 4–5 раз за четыре года.</p>
+
+<h3>Потолок адресуемого рынка</h3>
+<p class="sub">Прежде чем планировать охват, стоит посчитать, сколько его вообще есть.</p>
+<div class="tbl"><table>
+<thead><tr><th>Величина</th><th class="num">Значение</th><th>Как получено</th></tr></thead>
+<tbody>
+<tr><td>Люди, которых мы хотим достать</td><td class="num">≈ 750</td><td class="note">150 целевых сетей × 5 ролей в группе принятия решения.</td></tr>
+<tr><td>Релевантных контактов за один залп по всем каналам с ICP ≥ 3</td><td class="num">3 678</td><td class="note">Сумма по 14 каналам: медиана просмотров × доля ЛПР.</td></tr>
+<tr><td>То же со всеми каналами, включая слабые</td><td class="num">4 842</td><td class="note">28 каналов с измеренной медианой.</td></tr>
+<tr><td>Цена полного залпа по ICP ≥ 3 по потолкам</td><td class="num">183 855 ₽</td><td class="note">Сумма потолков.</td></tr>
+</tbody></table></div>
+<div class="callout">
+<p><b>Вывод, который определяет весь микс.</b> Весь Telegram-слой отрасли, купленный целиком, — это меньше четырёх тысяч релевантных показов за раз, и стоит он около 184 000 ₽. Докупать охват буквально негде. Значит, деньги дальше идут не в ширину, а в две другие вещи: в <b>частоту</b> касаний по той же небольшой аудитории и в <b>качество</b> самого материала.</p>
+<p>Полезная поправка из мета-анализа рекламных повторов: в категориях с высокой вовлечённостью, а покупка оборудования для сети именно такая, насыщение от повторов наступает раньше, чем в массовых категориях. То есть частота нужна, но умеренная: ориентир — повтор в одном канале не чаще раза в месяц.</p>
+</div>
+
+<h3>Потолок спроса: сколько сетей вообще в рынке</h3>
+<p class="sub">Правило 95-5: в каждый момент до 95 % бизнес-клиентов не выбирают поставщика в вашей категории. Посчитаем свою цифру через частоту пересмотра решения.</p>
+<div class="tbl"><table>
+<thead><tr><th>Сеть пересматривает формат кофейной зоны раз в</th><th class="num">В рынке за год</th><th class="num">За квартал</th><th class="num">Сетей из 150 в квартал</th></tr></thead>
+<tbody>
+<tr><td>3 года</td><td class="num">33 %</td><td class="num">8,3 %</td><td class="num">12</td></tr>
+<tr class="hl"><td>5 лет</td><td class="num">20 %</td><td class="num">5,0 %</td><td class="num">8</td></tr>
+<tr class="hl"><td>7 лет</td><td class="num">14 %</td><td class="num">3,6 %</td><td class="num">5</td></tr>
+<tr class="hl"><td>10 лет — нижняя граница срока службы оборудования</td><td class="num">10 %</td><td class="num">2,5 %</td><td class="num">4</td></tr>
+<tr class="hl"><td>15 лет — верхняя граница</td><td class="num">7 %</td><td class="num">1,7 %</td><td class="num">2–3</td></tr>
+</tbody></table></div>
+<p class="sub">Проверим цифру тремя независимыми способами, а не одной прикидкой.</p>
+<div class="tbl"><table>
+<thead><tr><th>Якорь</th><th class="num">Доля в квартал</th><th class="num">Сетей из 150</th><th>Откуда</th></tr></thead>
+<tbody>
+<tr><td>Формула Дейвса при сроке службы 15 лет</td><td class="num">1,7 %</td><td class="num">2–3</td><td class="note">Сроки службы общепитовского оборудования по дилерским источникам: холодильные шкафы 10–15 лет, плиты и печи 10–15, камеры 15–20</td></tr>
+<tr class="hl"><td>Данные о намерениях: доля в режиме немедленной покупки</td><td class="num">2,3 %</td><td class="num">3–4</td><td class="note">6sense, 594 компании, около 19 млн отслеживаемых аккаунтов, 2025. Около 60 % в спячке, 40 % проявляют активность, и только 2,3 % покупают прямо сейчас</td></tr>
+<tr><td>Формула Дейвса при сроке службы 10 лет</td><td class="num">2,5 %</td><td class="num">4</td><td class="note">Промышленное оборудование меняют примерно раз в десять лет</td></tr>
+<tr><td>Фактическая смена поставщика в общепите</td><td class="num">до 5,0 %</td><td class="num">до 8</td><td class="note">FE&amp;S: 20 % операторов за год сменили хотя бы одного поставщика оборудования. Это весь портфель, не одна категория, поэтому верхняя граница</td></tr>
+</tbody></table></div>
+<div class="callout bad">
+<p><b>Три независимых якоря сходятся на 2–8 сетях в квартал.</b> Никакой бюджет не создаёт спрос там, где сеть не пересматривает формат.</p>
+<p><b>Критика правила идёт в две стороны, и для нашей категории работает та, что ужесточает вывод.</b> Forrester и NetLine доказывают, что в рынке больше пяти процентов: около 15,6 % организаций в год планируют смену поставщика, 30,8 % ждут покупки в течение года. Но если подставить в формулу самого Дейвса срок службы общепитовского оборудования вместо банковских пяти лет, квартальная доля падает до 1,7–2,5 %. В длинном цикле капитального оборудования правило скорее занижает, насколько покупатель вне рынка. Нормальный результат первых 90 дней — не двадцать заявок, а два-четыре разговора с теми, кто сейчас действительно в рынке, плюс присутствие в памяти остальных, которые придут в рынок в следующие кварталы.</p>
+<p>Автор правила подчёркивает, что 95 % — эвристика, а не константа: цифра выведена из допущения о пятилетнем цикле у банков и юридических фирм, поделённого на кварталы, а не из опроса намерений. Критики идут дальше: «не основано ни на каких данных и не соответствует никакому научному стандарту». Но направление правило задаёт верное, и подтверждается с другой стороны: 96 % B2B-маркетологов ждут эффекта кампании в течение двух недель, и именно поэтому большинство программ признают провальными раньше, чем они успевают сработать.</p>
+</div>
+
+<h3>Почему программу нельзя судить по заявкам</h3>
+<p class="sub">Считаем инбаунд-воронку микса A честно. CTR посева взят по российской рабочей вилке 0,5–1,5 %, конверсия лида в SQL — 15 % при отраслевом диапазоне 12–21 %.</p>
+<div class="tbl"><table>
+<thead><tr><th class="num">CTR поста</th><th class="num">Конверсия лендинга</th><th class="num">Заявок</th><th class="num">SQL</th><th class="num">₽ за SQL</th></tr></thead>
+<tbody>
+<tr><td class="num">0,5 %</td><td class="num">8 %</td><td class="num">1,1</td><td class="num">0,16</td><td class="num">1 306 250</td></tr>
+<tr><td class="num">0,5 %</td><td class="num">15 %</td><td class="num">2,1</td><td class="num">0,31</td><td class="num">674 194</td></tr>
+<tr><td class="num">1,0 %</td><td class="num">8 %</td><td class="num">2,2</td><td class="num">0,33</td><td class="num">633 333</td></tr>
+<tr><td class="num">1,0 %</td><td class="num">15 %</td><td class="num">4,1</td><td class="num">0,62</td><td class="num">337 097</td></tr>
+<tr><td class="num">1,5 %</td><td class="num">8 %</td><td class="num">3,3</td><td class="num">0,49</td><td class="num">426 531</td></tr>
+<tr class="hl"><td class="num">1,5 %</td><td class="num">15 %</td><td class="num">6,2</td><td class="num">0,93</td><td class="num">224 731</td></tr>
+</tbody></table></div>
+<p class="legend">2 742 контакта с ЛПР в миксе A, медиабюджет 209 000 ₽.</p>
+<div class="callout bad">
+<p><b>Даже в лучшем сценарии инбаунд даёт меньше одного квалифицированного разговора.</b> Это не приговор каналам — это приговор способу их оценивать. В account-based модели доля pipeline, которую атрибуция засчитает маркетингу, по оценке Forrester составляет 5–20 %. Программа, которую судят по sourced-атрибуции, будет выглядеть провальной при любой реальной эффективности.</p>
+<p>Правильный вопрос к каналу другой: попадаем ли мы в те 750 человек и сколько раз. При 209 000 ₽ и охвате половины этой аудитории выходит 557 ₽ за человека в группе принятия решения. Вот это число и стоит держать в отчёте.</p>
+<p>Отдельное предупреждение по российской практике: РБК Компании прямо относит бизнесы с долгим циклом сделки к тем, кому посев не подходит. Все найденные рабочие B2B-кейсы двухступенчатые — посев ведёт на промежуточный актив, и уже оттуда идёт квалификация. Единственный найденный кейс с посевом прямо на заявку в тяжёлом оборудовании закончился паузой: лиды вышли дороже, чем из Яндекса и Авито.</p>
+</div>
+
+<h3>Формат важнее канала: разбор на цифрах</h3>
+<p class="sub">Самая дорогая строка микса — ролик у Russian Barista. Бриф решает больше, чем выбор канала.</p>
+<div class="tbl"><table>
+<thead><tr><th>Сценарий формата</th><th class="num">Просмотры</th><th class="num">CPV, ₽</th><th class="num">К рынку</th><th class="num">ЛПР</th><th class="num">₽ за ЛПР</th></tr></thead>
+<tbody>
+<tr><td>«Обзор станции DrinkX» — медиана канала по 15 последним роликам</td><td class="num">5 500</td><td class="num">27,3</td><td class="num"><span class="pill bad">7,5×</span></td><td class="num">165</td><td class="num">909</td></tr>
+<tr class="hl"><td>«Обзор кофе в сетях» — консервативная оценка</td><td class="num">40 000</td><td class="num">3,8</td><td class="num"><span class="pill good">1,0×</span></td><td class="num">1 200</td><td class="num">125</td></tr>
+<tr><td>«Обзор кофе в сетях» — по двум фактическим замерам канала</td><td class="num">86 500</td><td class="num">1,7</td><td class="num"><span class="pill good">0,5×</span></td><td class="num">2 595</td><td class="num">58</td></tr>
+</tbody></table></div>
+<p class="legend">Рыночный ориентир CPV для деловых YouTube-каналов — 3,64 ₽ за просмотр, исследование 2 400 авторов, сентябрь 2026. Фактические замеры формата на канале: «Обзор кофе из Skuratov, Дринкит, Stars coffee» 125 000 просмотров, «Обзор кофе из пекарен» 48 000. Доля ЛПР в аудитории кофейного канала принята за 3 %.</p>
+<div class="callout good">
+<p><b>Одна и та же цена, один и тот же канал, разница в семь с половиной раз.</b> За 150 000 ₽ обзор станции даёт 165 релевантных зрителей по 909 ₽. Тот же бюджет в формате «как сети считают кофейную категорию, и где в этой картине автоматическая станция» даёт от 1 200 до 2 600 зрителей по 58–125 ₽.</p>
+<p>Дополнительный аргумент: у канала свой сервис-центр и продажа кофемашин Izensso и LELIT. Прямой обзор DrinkX от продавца конкурирующего железа выглядит слабо. Сравнительный материал про категорию — нормально.</p>
+</div>
+
+<h3>Событие против показа: обменный курс</h3>
+<p class="sub">Стенд стоит на два порядка дороже показа. Вопрос не «дорого ли», а «во сколько показов мы оцениваем один живой разговор».</p>
+<div class="tbl"><table>
+<thead><tr><th>Вариант</th><th class="num">Цена</th><th class="num">Контактов</th><th class="num">₽ за контакт</th><th class="num">Курс в показах</th></tr></thead>
+<tbody>
+<tr><td>Стенд 9 м² на Неделе ритейла 2027, пессимистично</td><td class="num">855 750</td><td class="num">30</td><td class="num">28 525</td><td class="num"><span class="pill bad">570</span></td></tr>
+<tr><td>Стенд 9 м², средний сценарий</td><td class="num">855 750</td><td class="num">60</td><td class="num">14 262</td><td class="num"><span class="pill bad">285</span></td></tr>
+<tr><td>Стенд 9 м², оптимистично</td><td class="num">855 750</td><td class="num">100</td><td class="num">8 558</td><td class="num"><span class="pill warn">171</span></td></tr>
+<tr class="hl"><td>Пакет участника «Стандарт», все дни</td><td class="num">84 000</td><td class="num">30</td><td class="num">2 800</td><td class="num"><span class="pill good">56</span></td></tr>
+<tr class="hl"><td>Билет на VerSous, разведка конкурентов</td><td class="num">2 000</td><td class="num">10</td><td class="num">200</td><td class="num"><span class="pill good">4</span></td></tr>
+</tbody></table></div>
+<p class="legend">Цены Недели ритейла 2027 с retailweek.ru: регистрационный взнос экспонента 50 000 ₽ плюс площадь 35 000 ₽/м² на первом этаже плюс застройка 50 000 ₽/м², НДС 5 % сверху. Пакеты участника: «Стандарт» все дни 84 000 ₽, один день 36 750 ₽, «Селлер/дистрибьютор» 21 000 ₽. Оценка «30–100+ контактов за три дня» — обещание организатора выставки, не замер.</p>
+<div class="callout">
+<p><b>Читается так.</b> Стенд оправдан, только если один разговор на нём стоит дороже 170 показов в отраслевом канале. Пакет участника — если дороже 56. Разговор с категорийным менеджером сети, вероятно, стоит больше 56 показов, но вряд ли больше 570. Поэтому в первый год берём пакет участника и спикерскую заявку, а решение о стенде принимаем по результатам.</p>
+</div>
+<h3>Проверка методологии: что выдерживает источники, а что нет</h3>
+<p class="sub">Предложенная схема состоит из пяти методологий. Я проверил каждую по первоисточникам. Три работают, одна оказалась переименованием пятой, у одной нашлось юридическое ограничение. Ниже — по порядку, с тем, что меняется в плане.</p>
+<div class="tbl"><table>
+<thead><tr><th>Методология</th><th>Статус</th><th>Что показали источники</th><th>Что делаем</th></tr></thead>
+<tbody>
+<tr><td class="name"><b>Demand creation → generation → capture</b></td><td><span class="pill warn">переименование</span></td><td class="note">На уровне предпосылки это то же самое, что бренд и активация у Бине и Филда. Курс Марка Ритсона говорит прямо: Дейвс бюджетного сплита не предлагает, за ним «возвращаемся к Бине и Филду». Авторы из B2B Institute сами писали, что «правило 95:5 — это новое правило 60:40». У Криса Уокера, главного популяризатора, численного сплита нет вообще. Единственные опубликованные цифры Refine Labs — 20–30 % на бренд, то есть <b>ниже</b> 46 % у Бине и Филда.</td><td class="note">Берём как язык для постановки разных KPI разным слоям. Цифры для бюджета берём у Бине и Филда, не у Refine Labs.</td></tr>
+<tr><td class="name"><b>ABM и тиринг A/B/C</b></td><td><span class="pill good">работает с поправкой</span></td><td class="note">Числа в предложении совпадают с бенчмарками: Tier 1 — 5–30 аккаунтов при медиане 13–14, Tier 2 — 50–100, Tier 3 — 500+. Но Forrester даёт норматив ресурса: один штатный ABM-специалист ведёт около <b>пяти</b> аккаунтов в режиме 1:1, и «маркетинг не должен тратить на аккаунт больше времени, чем продавец». Пилотный фреймворк Fullfunnel.io — один маркетолог, один тир, максимум десять аккаунтов, квартал.</td><td class="note">Tier A сокращаем с 10–20 до <b>5–8</b> сетей. Остальное уходит в Tier B. Иначе получится номинальный 1:1, а по факту размытые усилия.</td></tr>
+<tr><td class="name"><b>PESO</b></td><td><span class="pill bad">таксономия</span></td><td class="note">Ни одного исследования, показывающего, что сбалансированная по PESO программа обгоняет чисто платную. В Journal of Public Relations Research ноль статей с PESO в заголовке, в Public Relations Review одна, и та про предпочтения каналов. Главная академическая критика: PESO — «просто классификация», в ней нет целей, весов и логики распределения ресурсов. Отдельно: PESO Model® — зарегистрированный товарный знак, и владелец заявляет, что коммерческое использование для обучения команд и питчей клиентам требует платной лицензии.</td><td class="note">Используем как чек-лист инвентаризации: не забыли ли заработанное, разделённое и собственное. Для распределения бюджета не используем. В коммерческих материалах название не выносим.</td></tr>
+<tr><td class="name"><b>Full-funnel</b></td><td><span class="pill warn">ошибка атрибуции, но тезис верный</span></td><td class="note">Канальный список «верх воронки — PR, контент, social и display» на площадках LinkedIn не находится: LinkedIn публикует воронки в терминах форматов своей рекламы, а не каналов. Зато есть сильное первичное доказательство самого тезиса. WARC вместе с LinkedIn и Stein IAS, июнь 2024: LinkedIn прогнал MMM по собственному маркетингу и получил, что full-funnel даёт более высокий ROI, чем подход demand capture; при переносе бюджета только в низ воронки ROI падал; недополученный прирост — 30 % инкрементальных бронирований; аудитории, видевшие и бренд, и performance, конвертируются в 6 раз чаще.</td><td class="note">Тезис берём, ссылку меняем на WARC 2024. Список каналов не приписываем LinkedIn.</td></tr>
+<tr class="hl"><td class="name"><b>46/54</b></td><td><span class="pill good">единственная цифра с методологией</span></td><td class="note">Бине и Филд, «The 5 Principles of Growth in B2B Marketing», B2B Institute, 2019, подтверждено в «The B2B Effectiveness Code», 2022. Это единственный опубликованный бюджетный сплит для B2B с названным набором данных и описанным методом. Оговорка самих авторов: подвыборка B2B в базе IPA маленькая, в том же отчёте цифра звучит и как 45/55. Защитимая вилка — 45–50 % на бренд.</td><td class="note">Берём как опорную пропорцию и говорим вслух, что это ориентир из чужого рынка, а не закон.</td></tr>
+</tbody></table></div>
+
+<div class="callout bad">
+<p><b>Арифметика предложенного распределения не сходится.</b> Вилки 25–35, 15–25, 25–35, 15–25 и 5–10 дают в сумме от 85 до 130 %, а по серединкам 107,5 %. Внутри этих вилок бесконечно много комбинаций, и часть из них не помещается в бюджет. Чинится одним ограничением: сумма равна 100, а доля создания спроса задана заранее.</p>
+</div>
+
+<h3>Связанная версия распределения</h3>
+<p class="sub">Резерв на измерение снимаем сверху, остальное делим в пропорции 46/54. Суммы сходятся. <b>Это промежуточный вариант</b>: ниже он уточнён по итогам замера поискового спроса, потому что доля перехвата оказалась необоснованной.</p>
+<div class="tbl"><table>
+<thead><tr><th>Блок</th><th class="num">Доля</th><th class="num">Микс A</th><th class="num">Микс B</th><th class="num">Микс C</th><th>Что внутри</th></tr></thead>
+<tbody>
+<tr><td>Экспертные и категорийные активы</td><td class="num">26,2 %</td><td class="num">54 838</td><td class="num">152 183</td><td class="num">739 923</td><td class="note">Ролик, исследование, кейсы, материалы для продавцов</td></tr>
+<tr><td>Отраслевое влияние</td><td class="num">16,1 %</td><td class="num">33 611</td><td class="num">93 273</td><td class="num">453 501</td><td class="note">Посев, отраслевые медиа, события</td></tr>
+<tr><td>ABM и sales activation</td><td class="num">30,8 %</td><td class="num">64 375</td><td class="num">178 649</td><td class="num">868 605</td><td class="note">Персональные касания по Tier A и B, мероприятия, материалы под аккаунт</td></tr>
+<tr><td>Перехват спроса</td><td class="num">18,9 %</td><td class="num">39 456</td><td class="num">109 495</td><td class="num">532 371</td><td class="note">Лендинги, конверсионные форматы, поиск и ретаргетинг — если спрос найдётся</td></tr>
+<tr><td>Резерв на измерение</td><td class="num">8,0 %</td><td class="num">16 720</td><td class="num">46 400</td><td class="num">225 600</td><td class="note">Аналитика, коллтрекинг, продакшн тестов</td></tr>
+</tbody></table></div>
+<div class="callout">
+<p><b>Важное уточнение о том, что именно посчитано в миксах.</b> Миксы A, B и C выше — это блок создания спроса: экспертный актив, отраслевое влияние, события. То есть та самая брендовая половина. Полный маркетинговый бюджет периода считается от неё и выходит больше: 494 000 ₽ для микса A, 1 371 000 ₽ для B, 6 664 000 ₽ для C.</p>
+<p><b>Проверка для менеджера.</b> Если блока перехвата в бюджете нет, программа влияния создаст память, которую нечем снять. Если перехват есть и он в разы больше — компания платит за сбор спроса, который сама не создаёт.</p>
+<p><b>Оговорка, которая сработала.</b> Доля перехвата держалась на допущении, что есть поисковый спрос. Мы его замерили, и спроса нет: весь релевантный сетям кластер запросов — около 85 точных показов в месяц по России. Итоговое распределение с учётом замера — в разделе ниже.</p>
+</div>
+
+<h3>Сколько типов медиа брать</h3>
+<div class="callout">
+<p>IPA Datamine 3, 2011: <b>три рекламных медиа — наиболее эффективное число</b> для жёстких бизнес-эффектов, дальше начинается убывающая отдача. В нашем миксе их ровно три: видео, отраслевой Telegram, отраслевые медиа и события. Четвёртым мог бы стать поиск, и это решается замером спроса, а не вкусом.</p>
+<p>Бине и Филд, 2017: роль канала определяется механизмом. Бренд требует широкого охвата и эмоционального прайминга, активация — точного таргетинга и рациональной аргументации. Самые эффективные брендовые медиа — видео. Самые эффективные активационные — поиск и email. Это и объясняет, почему экспертный ролик стоит в центре плана, а рассылка Restoranoff на 40 тысяч адресов стоит своих 25 000 ₽.</p>
+</div>
+
+<h3>Разметка микса по трём осям сразу</h3>
+<p class="sub">Каждая строка получает роль в PESO, слой спроса и тир аккаунтов. Так видно, не перекошен ли план в платное и не забыт ли какой-то слой.</p>
+<div class="tbl"><table>
+<thead><tr><th>Строка</th><th>PESO</th><th>Слой спроса</th><th>Tier</th><th class="num">₽</th><th>Заметка</th></tr></thead>
+<tbody><tr><td class="name"><b>КП поставщика в канале КАТМЕНПРО</b></td><td><span class="pill good">Shared</span></td><td>Перехват</td><td>A · B</td><td class="num">0</td><td class="note">Свободное размещение коммерческих предложений поставщиков. Аудитория — категорийные менеджеры сетей.</td></tr>
+<tr><td class="name"><b>Спикерские заявки на отраслевые события</b></td><td><span class="pill good">Earned</span></td><td>Создание</td><td>A</td><td class="num">0</td><td class="note">Шанс принять доклад выше, если заявка подана совместно с сетью-клиентом.</td></tr>
+<tr><td class="name"><b>Редакционный питч Shopper's и Retail.ru</b></td><td><span class="pill good">Earned</span></td><td>Создание</td><td>B · C</td><td class="num">0</td><td class="note">Инфоповод: падение продаж кофе навынос на 4 %.</td></tr>
+<tr><td class="name"><b>Поездка на VerSous 29 сентября</b></td><td><span class="pill n">Owned</span></td><td>Перехват</td><td>A</td><td class="num">2 000</td><td class="note">Билет 2 000 ₽. Стоят JETINNO, ProCorner, Vendotek, Uvenco. Разведка и контакты.</td></tr>
+<tr><td class="name"><b>Ролик Russian Barista «Кофе в ритейле»</b></td><td><span class="pill warn">Paid</span></td><td>Создание</td><td>A · B</td><td class="num">150 000</td><td class="note">Главный актив программы. Живёт год, работает во всех остальных слоях.</td></tr>
+<tr><td class="name"><b>Нарезки ролика: свои каналы, лендинг, outreach</b></td><td><span class="pill n">Owned</span></td><td>Создание</td><td>A</td><td class="num">0</td><td class="note">После съёмки стоят ноль. Минимальный коэффициент переработки 1:8.</td></tr>
+<tr><td class="name"><b>Посев: Свободная касса</b></td><td><span class="pill warn">Paid</span></td><td>Создание</td><td>B</td><td class="num">40 000</td><td class="note">ERR 22 %, лучший показатель в кластере ритейл-медиа.</td></tr>
+<tr><td class="name"><b>Посев: #Технологии HoReCa &amp; Retail</b></td><td><span class="pill warn">Paid</span></td><td>Создание</td><td>B</td><td class="num">7 692</td><td class="note">Единственный канал с прайсом ниже расчётного потолка.</td></tr>
+<tr><td class="name"><b>Посев: Продукт Медиа</b></td><td><span class="pill warn">Paid</span></td><td>Создание</td><td>B</td><td class="num">8 750</td><td class="note">Прайс 12 587 ₽, торг до потолка 8 750 ₽.</td></tr>
+<tr><td class="name"><b>Посев: Фудтех в России</b></td><td><span class="pill warn">Paid</span></td><td>Создание</td><td>B</td><td class="num">2 400</td><td class="note">Потолок модели. Прайс запросить.</td></tr>
+<tr><td class="name"><b>Лендинг и PDF «Шаблон пилота»</b></td><td><span class="pill n">Owned</span></td><td>Генерация</td><td>A · B · C</td><td class="num">150 000</td><td class="note">Продакшн, не медиа. Тот самый промежуточный актив, без которого посев не работает.</td></tr>
+<tr><td class="name"><b>Кейс на Retail.ru</b></td><td><span class="pill warn">Paid</span></td><td>Генерация</td><td>B</td><td class="num">80 000</td><td class="note">Гарантия не менее 2 000 просмотров платного материала.</td></tr>
+<tr><td class="name"><b>Интервью в New Retail, рубрика «Персоны»</b></td><td><span class="pill warn">Paid</span></td><td>Создание</td><td>B</td><td class="num">80 000</td><td class="note">450 000+ визитов в месяц, рассылка на 22 000.</td></tr>
+<tr><td class="name"><b>Статья и рассылка Restoranoff</b></td><td><span class="pill warn">Paid</span></td><td>Генерация</td><td>B · C</td><td class="num">95 000</td><td class="note">Статья 70 000 ₽ плюс рассылка 25 000 ₽ на 40 тыс. адресов.</td></tr>
+<tr><td class="name"><b>Пакет участника Недели ритейла 2027</b></td><td><span class="pill n">Owned</span></td><td>Перехват</td><td>A</td><td class="num">84 000</td><td class="note">Мероприятия — канал номер один в российском B2B по опросу NW Comm.</td></tr>
+<tr><td class="name"><b>Outreach по Tier A с активом в руках</b></td><td><span class="pill n">Owned</span></td><td>Перехват</td><td>A</td><td class="num">0</td><td class="note">Время продавцов, не медиабюджет. Ради этого снимался ролик.</td></tr>
+<tr><td class="name"><b>Кейс пилота как история успеха</b></td><td><span class="pill good">Earned</span></td><td>Экспансия</td><td>A · B</td><td class="num">0</td><td class="note">Истории успеха называют рабочим форматом 44 % российских B2B-компаний.</td></tr></tbody></table></div>
+<div class="facts">
+  <div class="fact"><b>66 %</b><span>бюджета в платном. Остальное — заработанное, разделённое и собственное, то есть то, что не исчезает после размещения</span></div>
+  <div class="fact"><b>3 из 4</b><span>слоя спроса закрыты. Экспансия появится, когда будет первый пилот</span></div>
+  <div class="fact"><b>4 строки</b><span>стоят ноль рублей и при этом бьют в Tier A</span></div>
+  <div class="fact"><b>1 актив</b><span>кормит семь строк плана. Ролик снимается один раз, работает год</span></div>
+</div>
+
+<h3>Гейты: когда переходить к следующей волне, когда остановиться</h3>
+<p class="sub">Горизонты замера выбраны не круглыми числами, а по тому, что на каждом сроке вообще можно узнать.</p>
+<div class="tbl"><table>
+<thead><tr><th>Срок</th><th>Что смотрим</th><th>Гейт на продолжение</th><th>Что это НЕ доказывает</th></tr></thead>
+<tbody>
+<tr><td><b>7 дней</b></td><td class="note">Качество дистрибуции: фактические просмотры против медианы канала, CTR, профессиональные вопросы в комментариях, попадание в 1-й, 3-й и 7-й день</td><td class="note">CTR не ниже 0,5 %. Фактические просмотры не ниже 70 % от медианы канала. Хотя бы один содержательный вопрос от человека из сети</td><td class="note">Ничего о программе. Это проверка креатива и площадки, не более</td></tr>
+<tr><td><b>30 дней</b></td><td class="note">Скачивания шаблона пилота, ответы на исходящие касания, вовлечение целевых аккаунтов, упоминания материала в переписке продавцов</td><td class="note">Материал реально используется продавцами. Есть ответы от людей из списка 150. Стоимость контакта с ЛПР в рамках потолка</td><td class="note">Ничего о выручке. Лаг от первого показа до сделки в B2B — порядка 320 дней</td></tr>
+<tr><td><b>90 дней</b></td><td class="note">Встречи, обсуждаемые пилоты, influenced pipeline, доля целевых сетей, которые хоть раз коснулись программы</td><td class="note">2–4 разговора с сетями, которые сейчас в рынке. Это потолок по правилу 95-5, а не скромность</td><td class="note">Ничего об окупаемости. Цикл сделки в оборудовании — 3–9 месяцев</td></tr>
+<tr><td><b>180 дней</b></td><td class="note">Пилоты, КП, первые сделки, стоимость состоявшейся сделки</td><td class="note">Хотя бы один пилот в работе. Программа переходит в режим «всегда в эфире» или закрывается</td><td class="note">—</td></tr>
+</tbody></table></div>
+<div class="callout bad">
+<p><b>Чем мерить нельзя.</b> Модель медиамикса требует такой плотности данных, которой у нас нет: документация Google Meridian прямо называет два года недельных данных по стране недостаточными для надёжной оценки. Мультитач-атрибуция на наших объёмах тоже не измерение: в работе Льюиса и Рао в Quarterly Journal of Economics медианный доверительный интервал по ROI оказался шире ста процентных пунктов, а чтобы отличить нулевой ROI от пятидесяти, медианной кампании нужно было быть в девять раз больше. Удлинение окна замера статистическую силу не улучшает.</p>
+<p><b>Чем мерить можно.</b> Холдаут по аккаунтам: разделить список 150 сетей на тестовую и контрольную группы и читать разницу на уровне аккаунта. Это перенос логики гео-экспериментов Google на аккаунты, метод для нашего случая не валидированный, но честный. Плюс самоотчётная атрибуция в форме и на первом звонке: какие люди и издания повлияли. С оговоркой, что у этого вопроса есть систематическая ошибка недавности, и в одиночку опираться на него нельзя.</p>
+</div>
+
+<h3>Чего не делаем и почему</h3>
+<div class="grid2">
+<div class="card"><h4>Не покупаем массовые ритейл-каналы</h4><p>«Кухня ритейла» при 66 тысячах подписчиков даёт 1 800 просмотров и просит 41 958 ₽ — в 46 раз выше расчётного потолка. Восемь крупнейших каналов ведут одни админы: это одна аудитория, а не восемь.</p></div>
+<div class="card"><h4>Не ведём посев прямо на заявку</h4><p>РБК Компании относит бизнесы с долгим циклом к тем, кому посев не подходит. Все рабочие российские B2B-кейсы двухступенчатые. Единственный найденный кейс с посевом прямо на заявку в тяжёлом оборудовании закончился паузой: лиды вышли дороже, чем из Яндекса и Авито.</p></div>
+<div class="card"><h4>Не ставим стенд в первый год</h4><p>Стенд 9 м² на Неделе ритейла стоит 856 000 ₽ против 84 000 ₽ за пакет участника. Разница оправдана, только если разговор на стенде стоит дороже 170 показов. Проверяем гипотезу пакетом участника.</p></div>
+<div class="card"><h4>Не называем Tier A двадцать сетей</h4><p>По нормативу Forrester это работа для двух-четырёх штатных ABM-специалистов. У нас один маркетолог. Пять-восемь сетей в настоящем 1:1 дадут больше, чем двадцать в номинальном.</p></div>
+<div class="card"><h4>Не судим программу по sourced-атрибуции</h4><p>В ABM доля pipeline, которую атрибуция засчитает маркетингу, по оценке Forrester — 5–20 %. Судить по ней значит гарантированно закрыть работающую программу.</p></div>
+<div class="card"><h4>Не выносим PESO в коммерческие материалы</h4><p>PESO Model® — зарегистрированный товарный знак, владелец заявляет о платной лицензии для коммерческого использования. Как внутренний чек-лист — пожалуйста. В презентации клиенту название лучше не ставить.</p></div>
+</div>
+<h3>Поправка, которая меняет план сильнее всех остальных</h3>
+<p class="sub">Почти вся литература по B2B-маркетингу построена на выборках из софтверных компаний. Покупка оборудования устроена иначе, и по ней есть своя исследовательская традиция.</p>
+<div class="callout">
+<p><b>Сначала оговорка, без которой цифры ниже прочтутся неверно.</b> Исследования по оборудованию распадаются на три профиля покупателя, и они не совпадают между собой. Инженер, специфицирующий компоненты, живёт в цифровом каталожном мире и ставит выставки на 27 %. Завод, покупающий капитальное оборудование, ставит личное присутствие на выставке на первое место с 91 %. Кухня покупает через дилера и торгового представителя.</p>
+<p>Кофейная станция для розничной сети — это капитальное оборудование, которое покупают как кухонное. Значит релевантны второй и третий профили, а не первый, и уж точно не софтверная статистика про «две трети пути пройдены в цифре».</p>
+</div>
+<div class="tbl"><table>
+<thead><tr><th>Факт</th><th class="num">Цифра</th><th>Источник</th><th>Что меняет в плане</th></tr></thead>
+<tbody>
+<tr class="hl"><td class="name"><b>Живой тест оборудования влияет на решение о покупке</b></td><td class="num">91 %</td><td class="note">FE&amp;S Operator Purchasing Study, 2018. В волне 2016 года — 100 % из тех, кто тестировал, сказали, что тест положительно повлиял</td><td class="note">У этого шага нет аналога в контент-маркетинге. Демо-станция у категорийного менеджера — самый сильный ход программы, а не ролик. Всё остальное работает на то, чтобы до демо дойти.</td></tr>
+<tr class="hl"><td class="name"><b>Всегда считают полную стоимость владения</b></td><td class="num">64 %</td><td class="note">Там же. Только 2 % говорят, что TCO не фактор</td><td class="note">«Шаблон пилота» надо строить как калькулятор полной стоимости владения, а не как описание продукта. Особенно против схемы «оборудование бесплатно за объём закупки кофе», которая в России стандарт.</td></tr>
+<tr><td class="name"><b>Гарантия влияет на решение</b></td><td class="num">89 %</td><td class="note">Там же. 55 % хотят гарантию на всё</td><td class="note">Условия гарантии и SLA по сервису — обязательный блок в материалах, а не мелкий шрифт.</td></tr>
+<tr class="hl"><td class="name"><b>Что влияет на выбор поставщика оборудования именно у сетей</b></td><td class="num">40,6 % и 39,1 %</td><td class="note">FER, опрос более 60 сетевых закупщиков, 2013. Закупочный кооператив и аффилированная дистрибуция 40,6 %, независимый дилер и дистрибьютор 39,1 %, независимый консультант по дизайну только 13,0 %</td><td class="note">У сетей решают закупочные объединения и дилеры. Ни того ни другого в плане не было.</td></tr>
+<tr><td class="name"><b>Закупок оборудования идёт через дилеров</b></td><td class="num">43–50 %</td><td class="note">FE&amp;S, волны 2011–2018</td><td class="note">Дилерского канала в плане не было вообще. Это пробел, который стоит закрыть отдельной строкой.</td></tr>
+<tr><td class="name"><b>Обучение по продукту получают от представителей производителя</b></td><td class="num">57 %</td><td class="note">Там же. Сервисные агенты 32 %, дилеры 23 %</td><td class="note">Обучение — канал влияния, а не постпродажная функция.</td></tr>
+<tr><td class="name"><b>При технически похожих решениях выбирают более известный бренд</b></td><td class="num">70 %</td><td class="note">TREW Marketing и GlobalSpec, «State of Marketing to Engineers», 2025. 53 % говорят, что узнаваемость повлияла на последнюю покупку</td><td class="note">Это и есть аргумент за построение бренда, только в промышленной формулировке. Медиа нужны ровно для этого.</td></tr>
+<tr><td class="name"><b>Планируют посетить хотя бы одно офлайн-мероприятие</b></td><td class="num">75 %</td><td class="note">Там же. 91 % подписаны на отраслевые рассылки, 64 % слушают профессиональные подкасты</td><td class="note">Подтверждает приоритет событий и оправдывает рассылку Restoranoff на 40 тысяч адресов.</td></tr>
+<tr class="hl"><td class="name"><b>Личное присутствие на выставках как фактор влияния у покупателей капитального оборудования</b></td><td class="num">91 %</td><td class="note">Gardner Business Media, Industrial Buying Influence, замеры 2022–2026. Фактор влияния номер один на протяжении всего периода. В 2025 году выставки стали ещё и источником информации номер один, это самый сильный годовой скачок за всё время замера</td><td class="note">События поднимаются в плане с «важно» до «первое». Профиль покупателя капитального оборудования, а не инженера-компонентщика, — наш.</td></tr>
+<tr class="hl"><td class="name"><b>Считают отраслевые журналы самым достоверным источником</b></td><td class="num">88 %</td><td class="note">Там же. Формулировка исследования: «ничто другое не приближается»</td><td class="note">Строки Retail.ru, New Retail и Restoranoff в миксе оправданы сильнее, чем я предполагал.</td></tr>
+<tr class="hl"><td class="name"><b>Видео с демонстрацией оборудования — самый востребованный видеоформат</b></td><td class="num">83–90 %</td><td class="note">Там же, каждый год измерения</td><td class="note">Уточняет бриф ролика: нужна демонстрация работы, а не разговорное интервью.</td></tr>
+<tr><td class="name"><b>Используют соцсети для изучения промышленных компаний</b></td><td class="num">31 %</td><td class="note">IEEE Engineering360. Важная оговорка: это профиль инженера, специфицирующего компоненты, а не покупателя капитального оборудования. У операторов общепита в волне 2011 года 73 % вообще не считали соцсети жизнеспособным каналом</td><td class="note">Направление то же: Telegram усиливает программу, но не несёт её.</td></tr>
+<tr><td class="name"><b>Людей в решении со стороны оператора</b></td><td class="num">≈ 3</td><td class="note">FE&amp;S. Против «10+» в общих B2B-исследованиях по софтверным выборкам</td><td class="note">Целевая аудитория не 750 человек, а около 450. Микс становится ещё точечнее.</td></tr>
+</tbody></table></div>
+<div class="callout bad">
+<p><b>Прямая цитата вывода по категории.</b> Набор влияния здесь — дилер, торговый представитель, сервисный агент, консультант, коллега-оператор и выставка, плюс шаг живого теста с эффектом 91–100 %. У этого шага вообще нет контент-маркетингового аналога. Стратегия «экспертный контент в соцсетях» не закрывает почти ничего из этого списка.</p>
+<p>Из этого не следует, что медиа не нужны. Следует, что медиа — вторая по важности часть программы, а первая — демо и сервис. Порядок волн ниже это учитывает.</p>
+</div>
+
+<h3>Что добавить в план по итогам отраслевых данных</h3>
+<div class="grid2">
+<div class="card"><h4>Программа демо-станций</h4><p>Три-пять станций, которые живут у категорийных менеджеров Tier A по две-четыре недели. Это не медиа, это капитальные расходы, но по влиянию на решение — сильнейший инструмент в категории.</p><ul><li>Метрика: сколько сетей потрогали станцию</li><li>Гейт: демо переходит в пилот или не переходит</li></ul></div>
+<div class="card"><h4>Калькулятор полной стоимости владения</h4><p>Вместо описания продукта. Считает пять лет: техника, сервис, простой, зерно, ФОТ. Отдельная колонка — схема «бесплатное оборудование за объём закупки», которую предлагают Nestlé Professional, КультКофе и другие.</p><ul><li>64 % операторов всегда считают TCO</li><li>Это же и есть тот промежуточный актив, на который ведёт посев</li></ul></div>
+<div class="card"><h4>Гарантия и SLA на первом экране</h4><p>89 % смотрят на гарантию, 55 % хотят её на всё. Публичный SLA по времени реакции сервиса отвечает на главную боль, которую ритейл уже озвучил: типичные семь дней ожидания ремонта.</p></div>
+<div class="card"><h4>Дилеры и закупочные объединения</h4><p>У сетевых закупщиков закупочный кооператив и аффилированная дистрибуция влияют на выбор поставщика в 40,6 % случаев, независимый дилер в 39,1 %, а консультант по дизайну только в 13,0 %. Половина закупок идёт через дилеров, 57 % обучения — через представителей производителя.</p><ul><li>Ни дилерского канала, ни закупочных объединений в плане не было</li><li>Минимум: список дилеров HoReCa-оборудования и программа обучения их продавцов</li></ul></div>
+<div class="card"><h4>Сети АЗС в список аккаунтов</h4><p>Самый зрелый опыт кофе в рознице в стране. Газпромнефть: 40,4 млн чашек за 2024, кофемашины примерно на 1 300 из 1 549 станций. Лукойл: 2 880 АЗС, нетопливная прибыль +18 %. Около 29 тысяч станций в стране, более 90 % с кофемашиной.</p></div>
+<div class="card"><h4>Переоценить Retail.ru</h4><p>Директор DrinkX уже выступал на Connected Retail Forum, материал вышел на Retail.ru 2 января 2026. Это не холодный контакт, а продолжение. Big Retail Networking 4 декабря — тот же организатор.</p></div>
+</div>
+
+<h3>Кто в рынке прямо сейчас</h3>
+<p class="sub">Целевой список стоит переупорядочить по тому, кто реально строит кофейную категорию, а не по размеру сети.</p>
+<div class="tbl"><table>
+<thead><tr><th>Сеть</th><th class="num">Точек с кофе</th><th>Что известно</th><th>Вход</th></tr></thead>
+<tbody>
+<tr class="hl"><td class="name"><b>Спар Миддл Волга (Eurospar)</b></td><td class="num">138 магазинов</td><td class="note">≈ 50 000 чашек в день по сети, около 400 чашек на магазин. Кофейная подписка: 500 000 подписчиков, частота визитов +135 %, средний чек +45 %. Лучший публичный кейс с экономикой</td><td><span class="pill good">самый тёплый</span><br><small>Директор по маркетингу публично комментирует тему</small></td></tr>
+<tr><td class="name"><b>Пятёрочка (X5)</b></td><td class="num">14 500 объектов</td><td class="note">≈ 200 млн чашек за 2025, напитки +86 % г/г, кофе в каждом седьмом чеке, 2,6 млрд позиций «Пятёрочка Кафе». Для масштаба: у Coffee Like, крупнейшей сети «кофе с собой», 1 144 точки</td><td><span class="pill warn">крупный, медленный</span></td></tr>
+<tr><td class="name"><b>Магнит</b></td><td class="num">2 470 магазинов</td><td class="note">Кафе-зоны в 60 % магазинов, продажи готового кофе в I квартале ×2,8. Кофе-корнеры открываются в среднем в 50 магазинах в день</td><td><span class="pill warn">активно строит</span><br><small>Владеет изданием Shopper’s</small></td></tr>
+<tr class="hl"><td class="name"><b>Дикси</b></td><td class="num">≈ 1 200 → план 1 800</td><td class="note">Проект идёт около двух лет. После внедрения мониторинга простой оборудования снизился на 40 %</td><td><span class="pill good">в активной фазе</span></td></tr>
+<tr><td class="name"><b>ВкусВилл</b></td><td class="num">2 200 магазинов</td><td class="note">WMF и мониторинг BMS Coffee Control с конца 2021, простой сократился в 4 раза. Цель — приготовление покупателем без бариста</td><td><span class="pill warn">уже выбрал поставщика</span></td></tr>
+<tr><td class="name"><b>Газпромнефть</b></td><td class="num">≈ 1 300 из 1 549 АЗС</td><td class="note">40,4 млн чашек за 2024. После мониторинга простой в 4,5 раза меньше, продажи кофе выросли в 10 раз</td><td><span class="pill good">новый кластер</span></td></tr>
+<tr><td class="name"><b>Лукойл</b></td><td class="num">2 880 АЗС</td><td class="note">Валовая прибыль нетопливного направления +18 % в 2024, растёт вдвое быстрее оборота сети</td><td><span class="pill good">новый кластер</span></td></tr>
+</tbody></table></div>
+<p class="legend">Продажи готового кофе в ритейле за первое полугодие 2025: +82–85 % в натуральном выражении, +107 % в деньгах. Доля россиян, покупающих кофе в супермаркете, выросла с 17 % до 35 % за три года. По данным ОФД за январь–октябрь 2025, самообслуживание прибавило 9 % покупок при среднем чеке 107 ₽, а кофейни потеряли 7,3 % при чеке 412 ₽.</p>
+
+<h3>Честный разбор слабых мест этого плана</h3>
+<p class="sub">Каждая опора, на которой стоит план, имеет опубликованную критику. Вот она, без смягчения.</p>
+<div class="tbl"><table>
+<thead><tr><th>Опора</th><th>Критика</th><th>Что делаем</th></tr></thead>
+<tbody>
+<tr><td class="name"><b>46/54</b></td><td class="note">Байрон Шарп, директор Ehrenberg-Bass, 2022: «они анализировали очень странный набор данных — заявки на премии. Если бы вы хотели решить этот вопрос, вы бы никогда не взяли такие данные». Смещение теперь измерено: по данным Грейс Кайт участники премий показывают ROI примерно на 90 % выше, чем не-участники. Сама IPA в 2021 году дала ей площадку с докладом «новые данные об эффективности за пределами заявок на премии». Про саму цифру 46/54 Бине говорил: «наша ограниченная выборка B2B-кампаний», «предварительный анализ». Независимого аудита этой цифры не существует</td><td class="note">Держим как ориентир пропорции, не как норматив. Проверяем по факту: если перехвата в бюджете нет вовсе — это точно ошибка, а спорить о 46 против 50 смысла нет</td></tr>
+<tr><td class="name"><b>95-5</b></td><td class="note">Дейвс сам: «эвристика, чтобы донести идею», «науки в этом нет, это прикидка на глаз». Пятилетний цикл взят из корпоративных закупок технологий. У общепитовского оборудования срок службы 7–15 лет и замена по поломке. Forrester: около 15,6 % организаций в год активно планируют смену поставщика</td><td class="note">Считаем свою цифру. При сроке службы 7–15 лет в рынке 2–5 сетей в квартал, а не 6–12. Вывод от этого только жёстче</td></tr>
+<tr><td class="name"><b>ESOV</b></td><td class="note">Критика опубликована самой IPA (Пабари, 2023): связь «10 пунктов дают 0,5 пункта доли» надёжно не работает, фрагментация медиа разрушает эквивалентность показов, ESOV стал вероятностным. Драйвер — качество креатива, медиа лишь усилитель</td><td class="note">В плане не используем вовсе. Для нашей категории доля голоса даже не измерима: нет знаменателя по расходам категории</td></tr>
+<tr><td class="name"><b>Экспертный контент</b></td><td class="note">Две рецензируемые работы в Industrial Marketing Management (2022, 2023) говорят не что инфлюенс в B2B не работает, а что доказательной базы под него в B2B почти нет: исследования «почти исключительно B2C», а сами B2B-компании избегают термина. Dentsu: высоко оценивают экспертный контент брендов лишь 26 % покупателей против 31 % в 2022. У Edelman в волне 2017 года 56 % сказали, что не получают от такого контента никакой ценности. Положительные цифры при этом меряются опросами вендоров, которые этот контент продают. Опрос Edelman проводится на площадке LinkedIn среди пользователей LinkedIn. Заявленное против фактического: 45 % покупателей сказали, что контент приводил к контракту, но лишь 20 % авторов видели такой эффект у себя. У 38 % уважение к компании падало после чтения её контента</td><td class="note">Отсюда правило брифа: материал должен оспаривать допущения и содержать цифры, а не хвалить продукт. Плохой экспертный контент хуже, чем никакого</td></tr>
+<tr><td class="name"><b>Оценки охвата у блогеров</b></td><td class="note">Мета-анализ 47 исследований 2018–2024: накрученная вовлечённость затрагивает 15–49 % аккаунтов инфлюенсеров. Если от шестой части до половины аккаунтов с накруткой, ценообразование по охвату систематически неверно</td><td class="note">Поэтому в плане замеры по фактическим просмотрам постов, а не по подписчикам, и запрос статистики у админов до сделки</td></tr>
+</tbody></table></div>
+<div class="callout">
+<p><b>И отдельно про измерения.</b> Forrester, 2024: 64 % руководителей B2B-маркетинга не доверяют собственным измерениям настолько, чтобы принимать на их основе решения. ANA, 2026: 67 % называют измерение инфлюенс-кампаний самым трудным шагом. Это не повод не мерить, а повод заранее договориться, что именно считается результатом, и записать это в гейты.</p>
+<p><b>Что из этого следует.</b> Ни одна из методологий не является законом. Цифры 46/54 и 95-5 полезны как рамка для разговора о пропорции и об ожиданиях, но не как норматив, который надо соблюсти. Единственные вещи в этом плане, которые опираются на прямые замеры, а не на чужие обобщения, — это медианы просмотров каналов, опубликованные прайсы, цены событий и отраслевые данные о покупке оборудования. На них и стоит держать вес.</p>
+</div>
+<h3>Замер, который отменил целую статью бюджета</h3>
+<p class="sub">Предложенная схема отводила на перехват спроса 25–35 % бюджета: поиск, ретаргетинг, продуктовые страницы. Это оправдано, только если поисковый спрос существует. Проверили.</p>
+<div class="tbl"><table>
+<thead><tr><th>Запрос</th><th class="num">Базовая частота</th><th class="num">Точная</th><th class="num">Фраз в семье</th><th>Вердикт</th></tr></thead>
+<tbody>
+<tr><td class="name"><b>кофейная станция</b></td><td class="num">4 001</td><td class="num">350</td><td class="num">324</td><td><span class="pill bad">это бытовая техника</span> Kitfort, Bork, Redmond</td></tr>
+<tr><td>кофейная станция для магазина</td><td class="num">—</td><td class="num">—</td><td class="num">0</td><td><span class="pill bad">запроса не существует</span></td></tr>
+<tr><td>кофемашина для магазина</td><td class="num">—</td><td class="num">—</td><td class="num">1</td><td><span class="pill bad">запроса не существует</span></td></tr>
+<tr><td>кофемашина для сети магазинов</td><td class="num">—</td><td class="num">—</td><td class="num">1</td><td><span class="pill bad">запроса не существует</span></td></tr>
+<tr><td>кофемашина для супермаркета</td><td class="num">12</td><td class="num">0</td><td class="num">10</td><td><span class="pill bad">мёртвый</span></td></tr>
+<tr><td>кофе с собой оборудование</td><td class="num">15</td><td class="num">0</td><td class="num">18</td><td><span class="pill bad">мёртвый</span></td></tr>
+<tr><td>кофейня самообслуживания оборудование</td><td class="num">53</td><td class="num">0</td><td class="num">25</td><td><span class="pill bad">мёртвый</span></td></tr>
+<tr><td>кофейный корнер</td><td class="num">15</td><td class="num">5</td><td class="num">3</td><td><span class="pill warn">отраслевой термин, его не ищут</span></td></tr>
+<tr class="hl"><td>кофейный аппарат для магазина</td><td class="num">54</td><td class="num">31</td><td class="num">22</td><td><span class="pill warn">единственный живой</span></td></tr>
+</tbody></table></div>
+<p class="legend">Частоты по данным зеркала Яндекс.Вордстата, месячные показы по России. Живой Вордстат требует авторизации, обе поисковые выдачи отдали капчу. Перед фиксацией бюджета эти десять фраз стоит перепроверить в авторизованном Вордстате с регионом «Россия» — проверка дешёвая, вывод дорогой. Для масштаба: у запроса «кофемашина для дома» 10 798 фраз в семье, у «кофейный автомат» — 4 949. Семья из одной–двадцати пяти фраз не может прятать заметный объём.</p>
+<div class="callout bad">
+<p><b>Весь релевантный сетям кластер — около 85 точных показов в месяц по всей России.</b> При щедрых 8 % CTR и 3 % конверсии это ноль-два лида в месяц, и те придут не от тех людей. Выдача, которая существует, принадлежит трём аудиториям, и ни одна из них не покупатель из сети: домашняя бытовая техника, предприниматели с вложениями около 250 000 ₽ в вендинг-франшизу, и каталоги HoReCa-оборудования, где машины лежат позициями в корзине.</p>
+<p>Самый показательный факт: главная фраза из предложенной схемы, «кофейная станция», на 350 точных показов состоит из запросов вида «кофейная станция kitfort», «кофейная станция bork», «кофейная станция редмонд cm737». Покупка этой фразы в Директе покупает людей, выбирающих кухонный прибор.</p>
+</div>
+
+<h3>Как сети покупают оборудование на самом деле</h3>
+<p class="sub">Две двери, и поиск — ни одна из них.</p>
+<div class="grid2">
+<div class="card"><h4>Дверь первая: аккредитация и тендерная площадка</h4>
+<p>Магнит ведёт закупки через собственный портал, а все процедуры проходят на B2B-Center, участие бесплатное. X5 — через свой раздел на той же площадке и портал поставщика.</p>
+<ul>
+<li>Найдены живые процедуры на поставку торгового и технологического оборудования для Магнита, Перекрёстка и Пятёрочки</li>
+<li><b>Но тендера именно на кофейное оборудование для торгового зала нет ни одного.</b> Все явные тендеры на кофемашины — офисные: банки, Авито, Роснефть</li>
+<li>Значит кофе в зале покупается либо внутри общих лотов «технологическое оборудование», либо вообще вне тендера</li>
+</ul></div>
+<div class="card"><h4>Дверь вторая: категорийный менеджер и коммерческая модель</h4>
+<p>Так закрылась самая крупная сделка в категории. Цитата из отраслевой публикации о выходе Магнита на рынок кофе с собой: сеть <b>получит оборудование бесплатно</b>, а поставщик будет зарабатывать на продаже кофе и доставке расходных материалов.</p>
+<ul>
+<li>Это не ценовой тендер, а переговоры о коммерческой модели</li>
+<li>У ВкусВилла та же форма: сеть сама обратилась к подрядчику как к эксперту категории, тот разработал рецептуру под бренд сети</li>
+<li>Против такой схемы предложение «купите станцию за N» не продаётся, каким бы хорошим ни был ролик</li>
+</ul></div>
+</div>
+
+<h3>Рынок уже занят: продавать надо замену, а не запуск</h3>
+<div class="tbl"><table>
+<thead><tr><th>Сеть</th><th class="num">Проникновение кофе</th><th>Что это значит для нас</th></tr></thead>
+<tbody>
+<tr><td>X5 — Пятёрочка, Перекрёсток</td><td class="num">&gt; 85 % магазинов</td><td class="note">Гринфилд закрыт. Остаётся цикл замены</td></tr>
+<tr><td>Лента</td><td class="num">100 % из 270 гипермаркетов</td><td class="note">С января 2026 полноформатные мини-кофейни от 59 ₽ за чашку, сопоставимые продажи кофе +168 %</td></tr>
+<tr class="hl"><td>Магнит</td><td class="num">кафе-зоны в 60 %, кофе-поинтов 3 000 → 5 000 за 2025</td><td class="note">Оставшиеся 40 % и продолжающееся расширение — самое живое окно</td></tr>
+<tr><td>ВкусВилл</td><td class="num">120 машин WMF</td><td class="note">Поставщик выбран. Плюс сеть закрыла 286 магазинов за 2025, около 13 % сети</td></tr>
+<tr class="hl"><td>Дикси</td><td class="num">с 12–15 до 40 чашек в день на точку за два года</td><td class="note">Категория растёт внутри сети — значит будут докупать и менять</td></tr>
+<tr><td>Ашан</td><td class="num">кофе с собой +22 % в 2025</td><td class="note">Корнеры ставят на кассовую линию</td></tr>
+</tbody></table></div>
+<p class="legend">По данным АКОРТ, «кофе по пути» — самая продаваемая категория среди всех категорий в продуктовых сетях в 2026 году. Продажи горячих напитков в первом полугодии 2026 выросли на 30–40 %. Доля продуктовых магазинов среди всех покупок кофе — 35 % по данным Ромир. При этом трафик общепита за то же полугодие упал на 6–10 %.</p>
+<div class="callout bad">
+<p><b>Кого вытеснять.</b> Не абстрактного конкурента, а конкретного: WMF и Schaerer через РусХОЛТС. У них более 5 000 установленных и обслуживаемых машин, более 3 000 точек, 52 сервисных инженера и единственный в стране центр удалённого мониторинга кофемашин. Клиенты названы публично: ВкусВилл, Магнит, Дикси, Лента, 7-Eleven, Circle K. Они выигрывают опубликованными кейсами, сервисной инфраструктурой, телеметрией и отраслевыми конференциями, и при этом <b>не играют в перехват спроса вообще</b>.</p>
+<p>Это ещё один аргумент за предложенный микс: соперник побеждает ровно теми инструментами, которые в нём стоят первыми. И проигрывать ему в поиске невозможно, потому что там его нет.</p>
+</div>
+
+<h3>Итоговое распределение после всех замеров</h3>
+<div class="tbl"><table>
+<thead><tr><th>Блок</th><th class="num">Было в предложении</th><th class="num">Стало</th><th class="num">Микс A</th><th class="num">Микс B</th><th class="num">Микс C</th><th>Почему изменилось</th></tr></thead>
+<tbody>
+<tr><td>Экспертные и категорийные активы</td><td class="num">26,2 %</td><td class="num">30,1 %</td><td class="num">62 909</td><td class="num">174 580</td><td class="num">848 820</td><td class="note">При технически похожих решениях 70 % выбирают более известный бренд</td></tr>
+<tr><td>Отраслевое влияние</td><td class="num">16,1 %</td><td class="num">16,1 %</td><td class="num">33 649</td><td class="num">93 380</td><td class="num">454 020</td><td class="note">Без изменений</td></tr>
+<tr class="hl"><td>ABM, аккредитация, демо-станции</td><td class="num">30,8 %</td><td class="num">37,8 %</td><td class="num">79 002</td><td class="num">219 240</td><td class="num">1 065 960</td><td class="note">Сюда уходят деньги из перехвата: аккредитация на B2B-Center, демо у категорийных менеджеров, калькулятор владения, SLA по сервису</td></tr>
+<tr class="hl"><td>Перехват спроса</td><td class="num">18,9 %</td><td class="num">8,0 %</td><td class="num">16 720</td><td class="num">46 400</td><td class="num">225 600</td><td class="note">Перехватывать нечего. Остаётся защита бренда по запросу «DrinkX», узкий длинный хвост и ретаргетинг, который живёт на трафике из других каналов</td></tr>
+<tr><td>Резерв на измерение</td><td class="num">8,0 %</td><td class="num">8,0 %</td><td class="num">16 720</td><td class="num">46 400</td><td class="num">225 600</td><td class="note">Без изменений</td></tr>
+</tbody></table></div>
+<p class="legend">Создание спроса 46 %, перехват и активация 46 %, резерв 8 %. Без резерва это 50 на 50, что попадает в защитимую вилку ориентира Бине и Филда.</p>
+<h3>Конкуренты: кто и как доказывает свою состоятельность</h3>
+<p class="sub">Проверено восемь поставщиков автоматического кофейного оборудования для российских сетей. Вопрос был узкий: что они публикуют о внедрениях, как продвигаются и по какой коммерческой модели работают.</p>
+<div class="tbl"><table>
+<thead><tr><th>Компания</th><th>Именные кейсы с цифрами</th><th>Как продвигается</th><th>Коммерческая модель</th></tr></thead>
+<tbody>
+<tr class="hl"><td class="name"><b>РусХОЛТС</b><small>дистрибьютор WMF и Dr.Coffee</small></td><td class="note">Единственный, кто публикует развёрнутые кейсы с названными сетями: ВкусВилл, Дикси, Сургутнефтегаз, Основа, UPPETIT. Плюс Газпромнефть на 500+ точек</td><td class="note">Кейсы на своём сайте, стенд на ПИР Экспо 2025, конференция РискТЭК, публикации через личность гендиректора в Forbes, Retail.ru, MarketMedia. Публичной дилерской сети нет, продажи прямые</td><td class="note">Открытого прайса нет, в основном «получить КП». Разделение дохода раскрыто только в интервью 2019 года: три схемы для АЗС, включая 50/50 от прибыли с чашки при бесплатном оборудовании. Актуального публичного оффера нет</td></tr>
+<tr><td class="name"><b>Uvenco</b></td><td class="note">Один кейс без единого показателя: «Леруа Мерлен». Именных сетей и АЗС с числом точек нет</td><td class="note">Коммерсантъ, Forbes, Shopper’s, Первый канал; выставка VerSous; франшиза с декабря 2025 с партнёрами во Владивостоке и Екатеринбурге</td><td class="note">Две модели. Автомат не продают, ставят бесплатно, площадка получает от 5 000 ₽ в месяц за место. Либо франшиза: вход от 49–50 тыс. ₽ за автомат или от 299 тыс. ₽ за кофейню</td></tr>
+<tr><td class="name"><b>Jetinno / ProCorner</b></td><td class="note">Ни одной названной сети или АЗС. На сайте «тысячи клиентов по всей России» без имён</td><td class="note">Официальный дистрибьютор с 2022, региональные дилеры, лизинг через Arenza, выставки VerSous и ПИР Экспо, свои Telegram, VK и YouTube</td><td class="note">Продажа, рассрочка и лизинг. JL 300: аванс 127 600 ₽ плюс 24 700 ₽ в месяц на год. JL 22: 56 100 ₽ плюс 10 780 ₽. Разделения дохода нет</td></tr>
+<tr><td class="name"><b>Franke</b></td><td class="note">Один видеокейс 2021 года: АЗС «Нефтьмагистраль», устно «больше ста» станций, точного числа под брендом нет</td><td class="note">Эксклюзивный дистрибьютор ООО «Франко», офисы в шести и более городах, 15 500+ машин на обслуживании, 45–97 сервис-партнёров. Выставка Coffee Tea Cacao Expo</td><td class="note">Продажа и лизинг. Прайс дилера: A300 574 057 ₽, A400 756 463 ₽, A600 около 1,07 млн ₽, A1000 1 819 039 ₽</td></tr>
+<tr><td class="name"><b>WMF</b></td><td class="note">Кейсы существуют, но публикует их дистрибьютор, а не производитель: ВкусВилл 120 машин, Дикси 220 машин</td><td class="note">Дистрибьютор РусХОЛТС с 2013, плюс розничные каналы. ПИР Экспо 2023–2025. Интеграция на канале «Русский бариста» в 2022 году</td><td class="note">У производителя разделения дохода нет. Бесплатную аренду предлагают сторонние арендодатели: WMF 1100S за 0 ₽ при закупке от 18 кг кофе в месяц на 27 000 ₽</td></tr>
+<tr><td class="name"><b>Dr.Coffee</b></td><td class="note">Татнефть: всё оборудование сети подключено к мониторингу, знание бренда АЗС выросло на 67 %. Числа точек нет</td><td class="note">Два параллельных канала: РусХОЛТС с 2023 и Proxima с 2018, плюс несколько дилерских сайтов. ПИР Экспо 2024 и 2025</td><td class="note">Прайса для сетей нет. Розница дилеров: F11 Big 152 118 ₽, F2 Plus 539 608 ₽</td></tr>
+<tr><td class="name"><b>Schaerer</b></td><td class="note">Витрина логотипов без единой цифры: Hyatt, Accor, Крошка Картошка, Лукойл, Газпром, Marriott. Единственная конкретика — 9 машин в офисе Газпромнефти</td><td class="note">Прямые продажи через московский офис. Два разных игрока заявляют себя официальным дилером, кто эксклюзивен — непонятно</td><td class="note">Лизинг Barista 58 013 ₽ в месяц. Розница: Coffee Joy 164–193 тыс. ₽, Prime 500–641 тыс. ₽, Soul 936 тыс. – 1,07 млн ₽</td></tr>
+<tr><td class="name"><b>Izensso</b></td><td class="note">Ни одной названной сети. Единственный именной клиент — обжарщик в Нижнем Новгороде, поставка в офис</td><td class="note">Дилер-импортёр Gustomatica, реселлеры Комплекс-Бар, Барнео, Whitegoods. Канал «Русский бариста» в мае 2026. Выставки «Кофе, чай, какао», Flow Fest, GroCoFest</td><td class="note">Только прямая продажа. Raptor 2G 499 200 ₽, при этом у разных дилеров та же модель стоит от 320 000 до 499 200 ₽</td></tr>
+</tbody></table></div>
+<p class="legend">Разбор сделан двумя независимыми проходами: через Grok и через Claude. Ниже — вторая волна, двенадцать игроков соседнего сегмента.</p>
+
+<div class="callout good">
+<p><b>Поле именных кейсов почти пустое, и это самая дешёвая возможность в плане.</b> Из восьми проверенных компаний развёрнутые кейсы с названными сетями и проверяемыми цифрами публикует ровно одна. У остальных либо витрина логотипов без чисел, либо один кейс без показателей, либо вообще ничего. Один аккуратный кейс с числами, которые сходятся, выделит DrinkX сильнее, чем любой объём посева.</p>
+<p>Это же объясняет, почему в миксе отраслевые медиа стоят дороже посева и почему кейс на Retail.ru идёт отдельной строкой. Он попадает в пустое место, а не в конкурентную толпу.</p>
+</div>
+
+<div class="callout bad">
+<p><b>У главного конкурента публичные цифры не сходятся между собой.</b> На разных страницах одного сайта одни и те же сети фигурируют с разными брендами машин и разными результатами. Дикси: в кейсе 2020 года 220 машин WMF, в статье 2025 года те же 220 точек уже как Dr.Coffee и с приростом выручки 103 %. ВкусВилл: в кейсе 120 машин, в статье 150+ точек и +73,5 %. Газпромнефть на 500+ точек фигурирует то под WMF, то под Dr.Coffee.</p>
+<p>Это не повод для выпада в чужую сторону. Это повод самим публиковать цифры так, чтобы они сходились между материалами и проверялись: с датой замера, методикой и указанием, что именно считали. В категории, где 88 % покупателей называют отраслевые журналы самым достоверным источником, аккуратность к цифрам и есть конкурентное преимущество.</p>
+</div>
+
+
+<h3>Вторая волна: ещё двенадцать игроков</h3>
+<p class="sub">Вендинговые операторы, франшизы самообслуживания и инфраструктурные поставщики. Это соседний сегмент, но он формирует ожидания тех же категорийных менеджеров.</p>
+<div class="callout bad">
+<p><b>Самая неудобная находка за весь разбор: в этом сегменте платит поставщик, а не площадка.</b></p>
+<p>Uvenco: «Кофейный или продуктовый автомат бесплатно — платим за размещение. Установка, обслуживание, заполнение — всё за наш счёт». Take&amp;Wake для владельца площадки держит отдельную модель «Платим аренду» с ежемесячной платой за размещение станции. «Кофелар» предоставляет аппараты в бесплатную аренду: владелец заведения продаёт напитки и платит только за ингредиенты.</p>
+<p>Значит предложение «купите станцию за N» конкурирует не с другой ценой, а с нулём. Это либо отбивается расчётом полной стоимости владения на пять лет, либо требует смены коммерческой модели. Третьего варианта данные не показывают.</p>
+</div>
+
+<div class="tbl"><table>
+<thead><tr><th>Компания</th><th class="num">Масштаб</th><th>Именные сети</th><th>Коммерческая модель</th></tr></thead>
+<tbody>
+<tr class="hl"><td class="name"><b>Briskly</b><small>микромаркеты и автономные точки</small></td><td class="num">15+ тыс. единиц оборудования, ~900 сетей-клиентов, 600 активных микромаркетов</td><td class="note"><b>Азбука Вкуса, Семья, Слобода, Аэромар, Улыбка Радуги, GreenBox.</b> Единственный кроме РусХОЛТС, кто называет сети</td><td class="note">Платформа: оборудование плюс приложение B-Pay плюс подписка. Привлекли более 700 млн ₽, инвестор — венчурный фонд билайна. Решение Corner ONE: автономная точка «кофе плюс готовая еда», оплата за 60 секунд</td></tr>
+<tr class="hl"><td class="name"><b>Uvenco</b></td><td class="num">15 тыс. автоматов, ~2 000 кофеен самообслуживания, оборот 8,5 млрд ₽ за 2024</td><td class="note">Ни одной. Кейсы на сайте не про ритейл: Моспродюсер, транспорт, ГК «Самолёт», МГЮА, «Зарядье»</td><td class="note">Ставят автомат бесплатно и платят площадке за размещение. С 2026 запускают франшизу: кофейня от 299 тыс. ₽, автомат Rosso от 49 тыс. ₽. Закрыли 500 автоматов в Москве после роста торгового сбора до 11 223 ₽</td></tr>
+<tr><td class="name"><b>Take&amp;Wake</b></td><td class="num">2 700+ кофеен, 500+ городов</td><td class="note">Ни одной</td><td class="note">Франшиза без паушального взноса и роялти, вход 180–500 тыс. ₽. Владельцу площадки платят аренду за размещение. Гарантия возврата 60 % инвестиций за три месяца</td></tr>
+<tr><td class="name"><b>«Кофелар»</b></td><td class="num">Цифры расходятся в 13 раз между каталогами: от 150 до 2 001 точки</td><td class="note">Ни одной</td><td class="note"><b>Прямо конкурирующая модель:</b> аппарат в бесплатную аренду в кафе или пекарню, владелец платит только за ингредиенты. Плюс франшиза от 550 тыс. ₽ с гарантией выкупа в течение трёх лет</td></tr>
+<tr><td class="name"><b>Lifehacker Coffee</b></td><td class="num">Заявляют 5 000+, каталоги дают от 2 600 до 5 174</td><td class="note">Ни одной. Собственных точек — одна</td><td class="note">Франшиза без взноса и роялти, вход 245–407 тыс. ₽, окупаемость 5–12 месяцев, себестоимость напитка около 30 ₽</td></tr>
+<tr><td class="name"><b>Vendista</b></td><td class="num">Инфраструктура: эквайринг, телеметрия, фискализация</td><td class="note">Сетей не публикует, но есть режим работы на АЗС</td><td class="note">Терминалы от 9 900 до 20 900 ₽ плюс абонплата. Работают через дилеров</td></tr>
+<tr><td class="name"><b>Unicum, ProCorner, Schaerer (schaerer.ru), Coffeemar и Jofemar</b></td><td class="num">—</td><td class="note">Ни клиентов, ни сетей, ни кейсов. Проверено напрямую по сайтам</td><td class="note">Только прайсы. У Schaerer четыре игрока одновременно называют себя официальным представителем. У Coffeemar российского присутствия нет вовсе, бренд живёт в карточках товара реселлеров</td></tr>
+</tbody></table></div>
+<p class="legend">«Правильный кофе» игроком этого рынка не подтверждается: под этим именем отдельные точки общепита с доставкой. Не путать с «Правда кофе», это 160+ классических кофеен с собственной обжаркой.</p>
+
+<div class="callout bad">
+<p><b>Через тринадцать дней конкуренты будут говорить со сцены той выставки, куда мы собирались просто сходить.</b> В деловой программе VerSous 2026 выступают Борис Белоцерковский из Uvenco и Ольга Гулькова из ProCorner, Unicum стоит со стендом. Выставка собирает 150 с лишним участников и более 4 500 деловых посетителей.</p>
+<p>Строка «билет за 2 000 ₽ на разведку» из этого не исчезает, она остаётся правильной для первого года. Но читать её теперь надо иначе: это не прогулка, а сбор материала о том, что именно соперники говорят со сцены и какие вопросы им задают из зала.</p>
+</div>
+
+<div class="callout">
+<p><b>И про каналы.</b> Take&amp;Wake, Lifehacker Coffee и «Кофелар» кейсов с сетями не публикуют принципиально: их «кейс» — это история дохода франчайзи, и живёт она на франшиза-агрегаторах, а не в отраслевых медиа. На Retail.ru из всей выборки в двенадцать компаний засветились только двое, и то как спикеры в анонсе выставки.</p>
+<p>То есть отраслевой медийный слой, на который опирается наш микс, конкуренты почти не используют. Это подтверждает выбор, но и объясняет, почему там дёшево: спроса на эти площадки со стороны отрасли мало.</p>
+</div>
+
+<h3>Три вывода, меняющие акценты</h3>
+<div class="grid2">
+<div class="card"><h4>Разделение дохода публично не предлагает никто</h4><p>У крупных поставщиков публичного оффера revenue-share нет. РусХОЛТС раскрывал схему 50/50 в интервью 2019 года, актуального предложения на сайте нет. Uvenco ставит автомат бесплатно, но платит площадке за место, а не делится выручкой.</p><p>Схему «оборудование бесплатно за объём закупки кофе» предлагают мелкие арендодатели и федеральная программа Nestlé Professional, но не производители станций.</p><p><b>Значит:</b> внятная публичная схема разделения дохода сделает DrinkX единственным с таким оффером на этом месте.</p></div>
+<div class="card"><h4>Канал «Русский бариста» уже проверен конкурентами</h4><p>На нём выходили и WMF в 2022 году, и Izensso в мае 2026. Площадка рабочая, но сам факт присутствия там уже никого не удивит.</p><p><b>Значит:</b> отличаться надо форматом, а не фактом размещения. Это ещё один довод за «обзор кофе в сетях» вместо обзора станции: конкуренты делали именно обзоры техники.</p></div>
+<div class="card"><h4>ПИР Экспо — общая точка сбора отрасли</h4><p>Там были РусХОЛТС, Jetinno, Dr.Coffee и WMF. VerSous собирает Jetinno, ProCorner, Uvenco, Vendotek.</p><p><b>Значит:</b> на этих площадках вопрос не «идти ли», а «с чем идти». Соперники там будут в любом случае, и приехать без демо-станции означает проиграть тот самый живой тест, который влияет на решение у 91 % операторов.</p></div>
+</div>
+
+</div>
+
+<div class="tab" id="tab-ref">
+  <h2>Справочник: медиа, события, инструменты, закон, бенчмарки</h2>
+  <p class="sub">Исследовательская часть от 15.09.2026. Не редактируется на странице; обновляется новым прогоном.</p>
+<section id="itogi">
+  <h2>Что выяснилось за один проход</h2>
+  <div class="facts">
+    <div class="fact"><b>1,7–56 %</b><span>разброс ERR (просмотры ÷ подписчики) у 15 измеренных каналов. Подписчики как метрика бесполезны</span></div>
+    <div class="fact"><b>8+</b><span>ритейл-каналов с общими админами (@alfapolo, @retail_russ, @dadanil3). Это одна сетка, а не восемь площадок</span></div>
+    <div class="fact"><b>31.12.2026</b><span>конец переходного периода ФАС по рекламе в Telegram и YouTube. План на 2027 нужен уже сейчас</span></div>
+    <div class="fact"><b>−4 %</b><span>покупок кофе навынос за январь–август 2026 (Платформа ОФД). Готовый инфоповод под outreach</span></div>
+  </div>
+  <div class="callout">
+    <p><b>Главное.</b> Кластер с самой высокой плотностью ЛПР в исходном документе отсутствовал: сообщество категорийных менеджеров КАТМЕНПРО (канал, конференция CMCONF и канал с бесплатным размещением коммерческих предложений поставщиков). Крупные ритейл-каналы на 100–300 тыс. подписчиков дают ERR 2–8 % и аудиторию продавцов на маркетплейсах, а не директоров форматов.</p>
+    <p><b>Russian Barista</b> стоит брать, но с поправкой: у канала свой сервис-центр и продажа кофемашин Izensso и LELIT, то есть обзор DrinkX идёт от продавца конкурирующего железа. И самый смотрибельный формат канала не обзор техники, а «обзор кофе в сетях» (125 тыс. просмотров против медианы 5,5 тыс.).</p>
+    <p><b>Ошибка в исходнике.</b> ER 29 % у «Фудтех в России» не подтверждает ни один трекер: Telemetr даёт 11,2 %, по свежим постам ERR 14 %.</p>
+  </div>
+</section>
+
+<section id="media">
+  <h2>Отраслевые медиа и события</h2>
+  <p class="sub">Слой, которого в исходном плане не было совсем: площадки, где читатель не бариста, а сеть. Цены из медиакитов; где стоит «по запросу», медиакит есть, но прайс закрыт.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Площадка</th><th>Аудитория</th><th>Охват</th><th>Форматы</th><th>Цены</th><th>Контакт</th></tr></thead>
+    <tbody>
+      <tr class="hl"><td class="name"><b>Retail.ru</b><small>retail.ru/advert</small></td><td>Сети, фудсервис, FMCG, вендоры; вся Россия</td><td>Гарантия ≥ 2 000 просмотров платной статьи, 8 000 у «Товар на полку»; TG ≈ 13,5 тыс.</td><td>Кейс, статья, интервью, «Товар на полку», фотоотчёт, видео «Диалоги о ритейле», рассылки, стенды на 150+ событий в год</td><td>Статьи по запросу; баннер низ 25 000 ₽/мес; print A5 46 200–52 800 ₽</td><td>sales@retail.ru, Тамара Ревва</td></tr>
+      <tr class="hl"><td class="name"><b>New Retail</b><small>new-retail.ru/o_reklame</small></td><td>Руководители сетей и e-com, директора по развитию, закупкам, IT</td><td>450 000+ визитов/мес, рассылка 22 000+, TG 10 800</td><td>Натив, интервью «Персоны», кейс, спецпроект, исследование, эфир NR.LIVE, баннеры</td><td>По запросу</td><td>adv@new-retail.ru, Андрей Филитов</td></tr>
+      <tr><td class="name"><b>Shopper's</b><small>shoppers.media · издание «Магнита»</small></td><td>Бизнес-аудитория, инвесторы, партнёры, регуляторы</td><td>150 000+ визитов/мес, 500 000+ читателей, TG 26 800</td><td>Только редакция, рекламной страницы нет</td><td>—</td><td>editor@shoppersmedia.ru (пресс-подход, не закупка)</td></tr>
+      <tr><td class="name"><b>Retailer.ru</b></td><td>Ритейл и e-com</td><td>TG 18 200; медиакит 2018 года</td><td>Размещение, спецпроекты</td><td>—</td><td>adv@retailer.ru</td></tr>
+      <tr class="hl"><td class="name"><b>Restoranoff + «Ресторанные ведомости»</b><small>медиакит 2025</small></td><td>Владельцы 27 %, топ-менеджеры 25 %; журнал доходит до кофеен, супермаркетов, фудкортов</td><td>Портал 75 000 уник./мес, 46 000 регистраций, дайджест 50 000+, журнал 11 000 экз.</td><td>Статья компании, партнёрская новость, видео, рассылка, print; события ФУДМАШИНА (форум поставщиков оборудования), Конгресс ТОП-100</td><td>Статья 70 000 ₽; новость 30 000; видео 50 000; рассылка 25 000; 2 полосы натив 120 000; брендирование 170 000</td><td>s.korotkova@restoved.ru</td></tr>
+      <tr><td class="name"><b>HoReCa Magazine</b></td><td>Индустрия гостеприимства</td><td>—</td><td>Экспертные статьи, баннеры, рассылка, пакеты</td><td>Статьи 24 000–30 000 ₽; баннеры 12 000–42 000; пакеты от 45 000</td><td>info@horeca.ru</td></tr>
+      <tr><td class="name"><b>Cafe Future / FoodService</b></td><td>Сетевые и одиночные рестораны, закупки, поставщики</td><td>Трафик низкий (Similarweb ≈ 2,3 млн место)</td><td>Статья в слайдере, спецпроект, закреп новости</td><td>Статья 4 нед 100 000 ₽ + НДС; спецпроект 70 000; закреп 25 000</td><td>foodservice@prph.ru</td></tr>
+      <tr><td class="name"><b>«Кофе и чай в России» / coffeetea.ru</b></td><td>Единственный профессиональный кофейно-чайный журнал</td><td>Тираж 15 000</td><td>Print, баннеры, advertorial с erid; организатор Coffee Tea Cacao Russian Expo</td><td>—</td><td>coffeetea.ru</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Календарь событий как канал</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Событие</th><th>Когда</th><th>Кто там</th><th>Зачем DrinkX</th></tr></thead>
+    <tbody>
+      <tr><td><b>E-Retail Week</b> + Retail Technology &amp; Design Awards</td><td>22–23 сентября 2026</td><td>E-com и омниканальные сети</td><td>Ближайшее. Нетворкинг, не стенд</td></tr>
+      <tr><td><b>VerSous</b> (self-service retail)</td><td>29 сентября – 1 октября 2026, Москва</td><td>Операторы самообслуживания, вендинг, микромаркеты</td><td>Прямое попадание в формат «кофе без бариста»</td></tr>
+      <tr><td><b>Дни ритейла в Сибири</b> (Омск)</td><td>7–9 октября 2026</td><td>Региональные сети</td><td>Региональные пилоты</td></tr>
+      <tr class="hl"><td><b>ПИР Экспо / ПИР-Кофе</b></td><td>26–29 октября 2026, Крокус</td><td>Обжарщики, бариста, владельцы, поставщики; 29-й год</td><td>Стенд или спикерская заявка (Яндекс-форма на pirexpo.com)</td></tr>
+      <tr><td><b>Big Retail Networking</b> (Retail TECH)</td><td>4 декабря 2026</td><td>IT и инновации сетей</td><td>Директора по инновациям, те, кто запускает пилоты</td></tr>
+      <tr><td><b>Сибирская продовольственная неделя</b></td><td>1–3 декабря 2026</td><td>Ритейл и HoReCa Сибири</td><td>Резерв</td></tr>
+      <tr><td><b>Coffee Tea Cacao Russian Expo</b></td><td>апрель 2027 (в 2026: 15–17 апреля, ≈ 20 000 посетителей, 250 экспонентов)</td><td>Кофейная индустрия и ритейл</td><td>Главная кофейная выставка года</td></tr>
+      <tr class="hl"><td><b>Неделя Российского Ритейла</b></td><td>31 мая – 3 июня 2027, ЦМТ</td><td>8 000+ участников, 500+ сетей, X5, Магнит, Лента, ВкусВилл, METRO; треки «готовая еда», FOOD</td><td>Главная точка входа к ЛПР сетей. «Рекламные опции» скачиваются на retailweek.ru</td></tr>
+      <tr><td><b>ФУДМАШИНА</b> (Restoranoff)</td><td>уточнить дату</td><td>Форум поставщиков оборудования для общепита</td><td>Прямой формат для оборудования</td></tr>
+      <tr><td><b>CMCONF</b> «Категорийный менеджмент в Белые Ночи»</td><td>уточнить дату</td><td>Категорийные менеджеры сетей (КАТМЕНПРО)</td><td>Самая плотная аудитория катменов в стране</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="infopovod">
+  <h2>Инфоповод на эту неделю</h2>
+  <div class="callout good">
+    <p><b>«Продажи кофе навынос упали впервые после многолетнего роста»</b>, Shopper's, 14.09.2026, по данным «Платформы ОФД» для «Известий». Покупок кофе 150–200 мл в общепите и рознице за январь–август 2026 стало меньше на 4 % год к году, чашка подорожала на 13 % до 215 ₽ при инфляции 4,72 %. По 2ГИС в Москве число кофеен за год сократилось на 15,1 %, по стране классические кофейни минус 13 %, а точки формата «кофе навынос» растут. Ещё в марте директор по маркетингу «Спар Миддл Волга» говорила, что продажи кофе в ритейле будут расти, а операционный директор Uvenco описывал, за что покупатель променяет кофейню на корнер самообслуживания: скорость, отсутствие очереди, цена.</p>
+    <p>Это ровно тезис DrinkX: кофе уходит из кофеен в ритейл, а сети упираются в персонал и себестоимость. Инфоповод живёт две-три недели. Использовать в outreach по Tier A/B сразу, в брифе Russian Barista и в питче Retail.ru и New Retail как тему для колонки.</p>
+  </div>
+</section>
+
+<section id="toolkit">
+  <h2>Инструментарий маркетолога</h2>
+  <p class="sub">Три слоя: что уже есть у нас в этой среде и стоит копейки, что нужно купить для due diligence, через что закупать с автоматической маркировкой.</p>
+  <div class="grid2">
+    <div class="card"><h4>Уже подключено: Apify-акторы (использованы сегодня)</h4>
+      <ul>
+        <li><b>tgkit-telegram-channel-finder</b>: поиск каналов по ключевым словам через TGKit и TGStat. 52 канала за 12 секунд, около 1 цента.</li>
+        <li><b>khadinakbar/telegram-channel-scraper</b>: подписчики, просмотры и реакции по постам, без логина. 15 каналов × 10 постов = 150 сообщений, около 30 центов. Даёт медиану и ERR.</li>
+        <li><b>automation-lab/telegram-scraper</b>: профиль канала с описанием и контактами админа, 0,2 цента за канал.</li>
+        <li><b>streamers/youtube-channel-scraper</b>: подписчики и просмотры последних роликов, 0,13 цента за ролик.</li>
+        <li><b>youtube-channel-lookalike-finder</b>: похожие каналы по контенту с фильтрами по подписчикам и стране, 12 центов за канал. Для расширения Sprint 1.</li>
+      </ul>
+      <p>Ежемесячный пересчёт всей карты обойдётся примерно в 1 доллар. tgstat.ru напрямую отдаёт 403, поэтому акторы и t.me/s/ надёжнее.</p>
+    </div>
+    <div class="card"><h4>Уже подключено: поиск и данные</h4>
+      <ul>
+        <li><b>Exa, Tavily, WebSearch</b>: разведка каналов, медиакитов, инфоповодов. Сегодня 123 вызова.</li>
+        <li><b>Similarweb, Ahrefs, HubSpot</b> подключены как коннекторы, но не авторизованы. Similarweb нужен для проверки трафика медиа (Retail.ru, New Retail, Cafe Future), включить через настройки коннекторов claude.ai.</li>
+        <li><b>Grok-разведка</b> не отработала: CLI не авторизован. Команда для включения: <kbd>grok login</kbd>.</li>
+      </ul>
+    </div>
+    <div class="card"><h4>Купить для due diligence (этап 3 workflow)</h4>
+      <ul>
+        <li><b>Telemetr, тариф «Профи»</b> 4 900 ₽/мес: история рекламных постов канала (3,16 млрд индексировано, включая удалённые), красная метка накрутки, доля Premium-подписчиков, анализ аудитории. Главный инструмент проверки.</li>
+        <li><b>TGStat Premium</b> 3 360 ₽/мес физлицу или 6 720 ₽ на юрлицо: источники прироста подписчиков, индекс цитирования, история закупок рекламы самим каналом.</li>
+        <li><b>LabelUp</b> 12 500 ₽/мес: пересечение аудиторий блогеров, LQI-скор фрода, Telegram + YouTube + MAX + Rutube + Дзен, выгрузка статистики в ОРД OZON. Нужен, если выйдем за Telegram.</li>
+        <li><b>Popsters</b> 799 ₽/мес: ER по постам и лучшее время публикации, без проверки накрутки. Дёшево, но вторично.</li>
+        <li><b>Yoloco</b> от 150 $/мес: единственный, кто считает пересечение аудиторий между Telegram и YouTube. Только если бюджет программы оправдает.</li>
+      </ul>
+    </div>
+    <div class="card"><h4>Через что закупать</h4>
+      <ul>
+        <li><b>Telega.in</b>: 16–20 тыс. модерированных каналов плюс 8 000 каналов MAX, эскроу, автоматическая маркировка erid и отчёт в ЕРИР, комиссия около 15 %. Для «Околоритейл», «Продукт Медиа», «Кухни ритейла» карточки есть.</li>
+        <li><b>Pomogach.io</b>: 0 % комиссии с рекламодателя, ручная проверка каналов, авто-UTM, Telegram и MAX.</li>
+        <li><b>WOWBlogger</b> (eLama): 25 тыс. каналов и блогеров, минимальный бюджет 5 000 ₽, авто-маркировка.</li>
+        <li><b>Perfluence</b>: только CPA, бюджет от 100 000 ₽. Для B2B-пилота не подходит: лид от ЛПР сети не «действие за 300 ₽».</li>
+        <li><b>Напрямую</b>: «Свободная касса» (ИД НОМ, @id_nom), Shopper's, КАТМЕНПРО, Retail.ru, New Retail. У них карточек на биржах нет, маркировку делать самим.</li>
+      </ul>
+    </div>
+    <div class="card"><h4>Атрибуция для маленькой B2B-команды</h4>
+      <ul>
+        <li><b>UTM</b>: генератор Tilda или Callibri; один utm_campaign на кампанию, utm_content на канал и пост.</li>
+        <li><b>Telegram deep-link</b>: <kbd>t.me/&lt;bot&gt;?start=&lt;код&gt;</kbd>, до 64 символов, свой код на каждый пост. Ссылка на канал параметр не принимает, нужен бот или сайт.</li>
+        <li><b>Bitrix24</b> сквозная аналитика по utm_source и Открытым линиям; <b>amoCRM</b> хранит все UTM в карточке сделки и умеет цели Яндекс Метрики.</li>
+        <li><b>Яндекс Метрика</b>: цель «Переход в мессенджер» и составная цель под воронку «лендинг → шаблон пилота → заявка».</li>
+      </ul>
+    </div>
+    <div class="card"><h4>Что вернуть в Sprint 2 из этого прохода</h4>
+      <ul>
+        <li>Запросить статистику у админов пяти жёлтых каналов: скрин просмотров за 30 дней, доля Premium, источники прироста.</li>
+        <li>Проверить каждый канал с 10 000+ подписчиков в реестре Роскомнадзора (бейдж «А+», бот @TrustChannelBot). Реклама в незарегистрированном канале штрафуется и для рекламодателя.</li>
+        <li>Прогнать шорт-лист через Telemetr на историю рекламных постов: сколько рекламы в ленте и какой.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="law">
+  <h2>Закон: чего нет в исходном плане</h2>
+  <p class="sub">Исходный документ не упоминает маркировку рекламы вообще. В 2026 году это не формальность: каждый пост без erid обходится юрлицу в 200–500 тыс. ₽, а Роскомнадзор с конца 2024 года ищет нарушения роботом.</p>
+  <div class="grid2">
+    <div class="card"><h4>Маркировка каждого размещения (ст. 18.1 ФЗ «О рекламе»)</h4>
+      <ol class="steps">
+        <li><b>Договор</b> с блогером или агентством, где прописано, кто регистрирует креатив и кто отчитывается. Ответственность всё равно на рекламодателе.</li>
+        <li><b>Регистрация креатива в ОРД до публикации</b>, получение токена erid. Восемь аккредитованных ОРД в реестре Роскомнадзора.</li>
+        <li><b>В посте</b>: слово «Реклама», название и ИНН DrinkX, erid в тексте, на картинке или в ссылке <kbd>?erid=…</kbd>.</li>
+        <li><b>Отчёт</b> в ОРД → ЕРИР в течение 30 дней после месяца размещения: акт и статистика показов. Любая правка поста после выдачи erid требует нового токена.</li>
+        <li>Это касается и нативных постов, и YouTube-интеграций, и бартера. Репост чужой рекламы тоже распространение (письмо ФАС от 20.06.2025).</li>
+      </ol>
+    </div>
+    <div class="card"><h4>Штрафы для юрлица (ст. 14.3 КоАП)</h4>
+      <ul>
+        <li>Нет erid или он не там: 200 000–500 000 ₽ за пост.</li>
+        <li>Не сдали или опоздали с отчётом в ЕРИР: 200 000–500 000 ₽.</li>
+        <li>Нет слова «Реклама» или данных рекламодателя: 100 000–500 000 ₽.</li>
+        <li>С 2025 года расходы на немаркированную рекламу не уменьшают налог на прибыль.</li>
+        <li>За первые 14 месяцев работы робота Роскомнадзора: 376 постановлений на 24,4 млн ₽.</li>
+      </ul>
+    </div>
+    <div class="card"><h4>Где рекламировать нельзя</h4>
+      <ul>
+        <li><b>Instagram и Facebook</b>: запрет с 01.09.2025 на любые форматы, включая интеграции у блогеров. Старые посты можно не удалять, если не продвигать и не закреплять.</li>
+        <li><b>LinkedIn и X</b>: под тот же запрет как заблокированные ресурсы.</li>
+        <li><b>Каналы с 10 000+ подписчиков без регистрации в РКН</b>: реклама запрещена с 01.01.2025, рекламодателя штрафуют тоже.</li>
+      </ul>
+    </div>
+    <div class="card"><h4>Telegram и YouTube: риск 2027 года</h4>
+      <ul>
+        <li>В марте 2026 ФАС заявила, что реклама в Telegram и YouTube имеет признаки нарушения, потому что доступ к ним ограничен, и завела первые дела.</li>
+        <li><b>25.03.2026</b>: переходный период <b>до 31.12.2026</b>, меры ответственности не применяются. Маркировка при этом обязательна как и раньше.</li>
+        <li><b>29–30.07.2026</b>: Дурову предъявлено обвинение по ст. 205.1 УК, Росфинмониторинг внёс его в перечень террористов и экстремистов. Если Telegram признают заблокированным ресурсом, реклама в нём попадёт под режим Instagram.</li>
+        <li>Практика рынка: 73 % рекламодателей планируют блогеров в Telegram на 2027 «если останется можно». Хедж уже есть: у «Свободной кассы» и «Околоритейла» зеркала в MAX, у Telega.in 8 000 каналов MAX, Rutube и VK Video закрывают видео.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="benchmarks">
+  <h2>Бенчмарки для бюджета и стоп-критериев</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Показатель</th><th class="num">Значение</th><th>Источник, дата</th><th>Как применять</th></tr></thead>
+    <tbody>
+      <tr><td>Цена поста, Telegram, бизнес и финансы</td><td class="num">15 000–25 000 ₽</td><td>Gooroo Tools, Sostav, май 2025</td><td>«Околоритейл» за 69 930 ₽ втрое дороже рынка при ERR 12–13 %. Торговаться или брать пакет</td></tr>
+      <tr><td>CPM, Telegram, B2B-услуги и IT</td><td class="num">&gt; 1 000 ₽; IT-натив до 16 200 ₽</td><td>Gooroo; iTrend через Habr и Forbes, 2025</td><td>Верхняя граница, не медиана</td></tr>
+      <tr><td>CPV, Telegram, маркетинг и новости</td><td class="num">2,80 ₽/просмотр</td><td>Исследование 2 400 авторов, Klerk, 09.09.2026</td><td>Порог: CPV выше 10 ₽ оправдан только при ICP ≥ 4</td></tr>
+      <tr><td>CPV, YouTube, бизнес и финансы</td><td class="num">3,64 ₽/просмотр</td><td>Там же</td><td>Ролик Russian Barista на 30 000 просмотров ≈ 110 000 ₽ по рынку</td></tr>
+      <tr><td>Интеграция YouTube, 50–500 тыс. подписчиков</td><td class="num">38 000–55 000 ₽ (WOWBlogger) · 70 000–250 000 ₽ (PromoPult, бизнес-тематика)</td><td>eLama 2025; Klerk</td><td>Вилка для переговоров с Russian Barista за два ролика</td></tr>
+      <tr><td>Инфляция цен у блогеров</td><td class="num">+32 % в 2025, прогноз +15–25 % в 2026</td><td>МТС AdTech, Коммерсантъ</td><td>Бюджет 2027 закладывать с запасом</td></tr>
+      <tr><td>Telegram Ads, Q2 2026</td><td class="num">CPM 0,98 €, CTR 0,86 %</td><td>Magnetto через Sostav</td><td>Через реселлеров (eLama, OneSpot) с авто-маркировкой; минимум 250–500 €</td></tr>
+      <tr><td>Барьеры рекламодателей в Telegram</td><td class="num">63 % не верят качеству аудитории</td><td>АЦ РИР, 300 рекламодателей, июль 2026</td><td>Аргумент за ERR-фильтр и запрос статистики до сделки</td></tr>
+      <tr><td>B2B-инфлюенс, глобально</td><td class="num">+39 % вовлечения, +30 % лидов у брендов с программами</td><td>LinkedIn и Ipsos, 2025, n = 1 500</td><td>Российских B2B-бенчмарков по CTR и CPL нет; свои первые 90 дней и будут бенчмарком</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="plan">
+  <h2>Что добавить и поправить в плане</h2>
+  <ol class="steps">
+    <li><b>Жёсткие гейты до scorecard.</b> ERR ниже 5 % и CPV выше 15 ₽ при ICP ≤ 3 отсекают канал до всякой оценки. Это убирает «Ритейл в России», «Кухню ритейла» и весь массовый кластер из дорогих слотов.</li>
+    <li><b>Правило одной сетки.</b> Каналы с общими контактами админов считать одной площадкой: одна цена, одна аудитория, одна строка в таблице.</li>
+    <li><b>Кластер категорийных менеджеров в Tier A.</b> КАТМЕНПРО: канал, бесплатное размещение КП поставщиков в @kpcatmanpro, конференция CMCONF. Плотность ЛПР выше, чем у любого ритейл-медиа, при цене близкой к нулю.</li>
+    <li><b>Отраслевые медиа и события как отдельный этап.</b> Retail.ru, New Retail, Restoranoff с ценами уже есть; календарь на 12 месяцев вперёд с ПИР-Кофе в октябре и Неделей ритейла в мае–июне 2027.</li>
+    <li><b>Слой комплаенса в Sprint 3.</b> Договор с ОРД, шаблон текста с erid, реестр РКН по каналам 10 000+, календарь отчётов в ЕРИР. Плюс сценарий 2027 без Telegram: MAX-зеркала, Rutube, VK Video, Дзен, trade media.</li>
+    <li><b>Бриф Russian Barista переписать.</b> Формат «обзор кофе в сетях с DrinkX в сравнении», а не обзор станции; раскрытие конфликта интересов (сервис-центр, Izensso, LELIT); оговорка на использование ролика в outreach и на лендинге; два ролика по рыночной вилке 70–250 тыс. ₽ каждый.</li>
+    <li><b>Исправить метрику.</b> «Фудтех в России»: 4 790 подписчиков, 680 просмотров медиана, ERR 14 %, ER 11 % по Telemetr. Цифру 29 % убрать.</li>
+    <li><b>Инфоповод как поле кампании.</b> В таблицу campaigns добавить поле <kbd>hook</kbd> и держать список: сейчас это «−4 % кофе навынос, +13 % цена чашки, −15 % кофеен в Москве».</li>
+    <li><b>Регламент обновления данных.</b> Раз в месяц прогонять три Apify-актора по шорт-листу, пересчитывать медиану и ERR, обновлять таблицу. Стоимость около 1 $, время 10 минут.</li>
+  </ol>
+  </section>
+
+<section id="sources">
+  <h2>Источники</h2>
+  <ul class="src">
+    <li>Apify: automation-lab/tgkit-telegram-channel-finder-scraper, khadinakbar/telegram-channel-scraper, automation-lab/telegram-scraper, streamers/youtube-channel-scraper, запуски 15.09.2026</li>
+    <li>telega.in/channels/okoloretail/card, …/producttoday/card, …/retail_kitchen/card, …/foodtechonline/card, …/the_technologies/card</li>
+    <li>telemetr.me/content/foodtech_russia; telegramstats.net; tg.me; telagon.io; t.me/s/&lt;handle&gt;</li>
+    <li>shoppers.media/news/29986 (14.09.2026); shoppers.media/news/27268 (10.03.2026); finance.mail.ru, «Известия»; restoranoved.ru (14.09.2026)</li>
+    <li>mycoffeenation.ru/blog/diveintocoffee/coffee-youtube (2022); dzen.ru и rutube.ru страницы Russian Barista; app.postbox.so</li>
+    <li>retail.ru/advert, retail.ru/advert/paid_content, retail.ru/advert/newspaper_banners</li>
+    <li>new-retail.ru/o_reklame; медиакит New Retail (Google Drive)</li>
+    <li>restoranoff.ru/upload/media-kity/Media_Kit_2025_jan.pdf</li>
+    <li>horeca-magazine.ru/advert; cafe-future.ru/adv-site; coffeetea.ru; globemedia.ru</li>
+    <li>pirexpo.com/theme/coffee; retailweek.ru; retailevent.ru; eretailweek.ru; retailtech.ru; expomap.ru (VerSous, Coffee Tea Cacao Expo)</li>
+    <li>tgstat.ru/p/prices; telemetr.me/premium; telega.in/package; popsters.ru; livedune.ru/pricing; labelup.ru; yoloco.io/pricing; perfluence.net</li>
+    <li>consultant.ru, ФЗ-38 ст. 18.1; rkn.gov.ru (ЕРИР, реестр ОРД, FAQ); fas.gov.ru/news/34584 (25.03.2026); interfax.ru/russia/1079848 и /1106589; law.ru, elama.ru о запрете с 01.09.2025</li>
+    <li>sostav.ru (Gooroo, май 2025; Magnetto, Q2 2026); klerk.ru/user/2721482/708284 (CPV, 09.09.2026); elama.ru/blog/skolko-stoit-reklama-u-blogerov; kommersant.ru/doc/8399528; ppc.world (АЦ РИР, июль 2026)</li>
+    <li>core.telegram.org/api/links; helpdesk.bitrix24.ru/open/6266591; amocrm.ru/support/leads; yandex.ru/support/metrica/general/goals.html</li>
+    <li>Не проверено: подписчики Retail.ru и New Retail на YouTube; цены статей Retail.ru и New Retail; даты ФУДМАШИНА и CMCONF; юридический статус переходного периода ФАС (пресс-релиз, не акт); ER 8 % на telegramstats.net одинаков у всех каналов и похож на модельную оценку</li>
+  </ul>
+</section>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+const SEED = {"channels": [{"id": "catmanpro_org", "name": "Категорийный менеджмент (КАТМЕНПРО)", "platform": "Telegram", "cluster": "Катмены", "subs": 3780, "med": 478, "err": 12.6, "price": null, "priceNote": "прайс на Я.Диске", "contact": "t.me/catmanpro_org", "role": "Executive influence", "scores": {"icp": 5, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Профессиональное сообщество категорийных менеджеров, конференция CMCONF. Самая плотная ICP-аудитория из найденных.", "hl": true, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "kpcatmanpro", "name": "Коммерческое предложение. Категорийный менеджмент", "platform": "Telegram", "cluster": "Катмены", "subs": 2048, "med": null, "err": null, "price": 0, "priceNote": "бесплатно", "contact": "t.me/kpcatmanpro/5", "role": "Demand capture", "scores": {"icp": 5, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Свободное размещение КП поставщиков для ритейла. Нулевая цена, прямой формат.", "hl": true, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "krok_catman", "name": "Krok pro CatMan", "platform": "Telegram", "cluster": "Катмены", "subs": 1600, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "t.me/krok_catman", "role": "Category education", "scores": {"icp": 4, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Категорийный менеджмент; данные 2024 года, проверить активность.", "hl": false, "source": "Grok-разведка, tlgbot.ru", "updatedAt": "2026-09-15"}, {"id": "PRORETAILCOMMUNITY", "name": "Про Ритейл Дейли (INFOLine)", "platform": "Telegram", "cluster": "Катмены", "subs": 4000, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "t.me/PRORETAILCOMMUNITY", "role": "Category education", "scores": {"icp": 4, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Аналитика FMCG-сетей от INFOLine. Аудитория аналитики и катмены.", "hl": false, "source": "Grok-разведка", "updatedAt": "2026-09-15"}, {"id": "ikmmarketing", "name": "I-KM · Каролина Ильенкова", "platform": "Telegram", "cluster": "Катмены", "subs": 3450, "med": 147, "err": 4.3, "price": null, "priceNote": "—", "contact": "@kilyenkova", "role": "Category education", "scores": {"icp": 4, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Школа категорийного менеджмента; посты редкие, май–июнь 2026, просмотры низкие.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "Catman_Sergey_Iluha", "name": "Категорийный менеджмент от Сергея Илюхи", "platform": "Telegram", "cluster": "Катмены", "subs": 538, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "liga-commersantov.ru", "role": "Category education", "scores": {"icp": 4, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Тренинги для закупщиков. Маленький, но точный.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "svobodakassa", "name": "Свободная касса (ритейл & e-com)", "platform": "Telegram", "cluster": "Ритейл-медиа", "subs": 31500, "med": 7040, "err": 22.3, "price": null, "priceNote": "напрямую, ИД НОМ", "contact": "@id_nom", "role": "Executive influence", "scores": {"icp": 4, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Лучший ERR среди ритейл-медиа; Telemetr даёт ER 29 % (похоже, именно эта цифра попала в исходник как «Фудтех в России»). 15.09 пост про падение кофе навынос. Зеркало в MAX.", "hl": true, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "okoloretail", "name": "Околоритейл", "platform": "Telegram", "cluster": "Ритейл-медиа", "subs": 36900, "med": 4865, "err": 13.2, "price": 69930, "priceNote": "1/24, telega.in", "contact": "@dadanil3", "role": "Executive influence", "scores": {"icp": 4, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Автор Даниил Баздырев, ex-PR МТС Ритейл. ~9 постов в день, частота падает. Контакт общий с сеткой. Цена втрое выше рынка.", "hl": true, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "newspotreb", "name": "Shopper's", "platform": "Telegram", "cluster": "Ритейл-медиа", "subs": 26800, "med": 2100, "err": 7.8, "price": null, "priceNote": "рекламы нет", "contact": "editor@shoppersmedia.ru", "role": "Executive influence", "scores": {"icp": 4, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Издание «Магнита»: ритейл-профи, но медиа конкурента-сети. Через редакцию и инфоповоды.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "newretail", "name": "Нью Ритейл · New Retail", "platform": "Telegram", "cluster": "Ритейл-медиа", "subs": 10800, "med": 1000, "err": 9.3, "price": null, "priceNote": "adv@new-retail.ru", "contact": "Андрей Филитов, +7 903 184-70-06", "role": "Executive influence", "scores": {"icp": 4, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "По медиакиту: руководители сетей, директора по развитию и закупкам.", "hl": true, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "retailer_news", "name": "RETAILER.ru — новости", "platform": "Telegram", "cluster": "Ритейл-медиа", "subs": 18200, "med": 3600, "err": 19.8, "price": null, "priceNote": "adv@retailer.ru", "contact": "+7 999 217-32-45", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Telemetr: 3 085–4 171 просмотров, ER 17–19 %, 4 поста в день.", "hl": false, "source": "Grok-разведка, telemetr", "updatedAt": "2026-09-15"}, {"id": "retail_ru", "name": "Retail.ru", "platform": "Telegram", "cluster": "Ритейл-медиа", "subs": 17800, "med": 1300, "err": 7.3, "price": null, "priceNote": "sales@retail.ru", "contact": "Тамара Ревва, +7 903 119-47-73", "role": "Executive influence", "scores": {"icp": 4, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Посты 1,1–1,5 тыс. Главное не канал, а платные форматы на сайте (см. Медиа).", "hl": false, "source": "Grok-разведка, t.me/s", "updatedAt": "2026-09-15"}, {"id": "fmcg_ru", "name": "FMCG Report (ИД НОМ)", "platform": "Telegram", "cluster": "Ритейл-медиа", "subs": 42900, "med": null, "err": null, "price": null, "priceNote": "напрямую, ИД НОМ", "contact": "@id_nom", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Производство и полка FMCG. Тот же издатель, что «Свободная касса»: пакет из двух каналов.", "hl": false, "source": "Grok-разведка, t.me/s", "updatedAt": "2026-09-15"}, {"id": "retailweek", "name": "Retail Week · Неделя ритейла", "platform": "Telegram", "cluster": "Ритейл-медиа", "subs": 4500, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "retailweek.ru", "role": "Executive influence", "scores": {"icp": 4, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Канал форума: тренды, программа, участники. Вход в оргкомитет.", "hl": false, "source": "Grok-разведка", "updatedAt": "2026-09-15"}, {"id": "producttoday", "name": "Продукт Медиа", "platform": "Telegram", "cluster": "Ритейл-медиа", "subs": 13100, "med": 2500, "err": 19.1, "price": 12587, "priceNote": "1/24, telega.in", "contact": "telega.in", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Производители продуктов и продовольственный ритейл. Дёшево при хорошем ERR.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "retail", "name": "Retail · Юлия Джанибекова", "platform": "Telegram", "cluster": "Ритейл-медиа", "subs": 3141, "med": 566, "err": 18.0, "price": null, "priceNote": "карточка telega.in", "contact": "telega.in/c/retail", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Омниканальный ритейл, авторский.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "technoretail_nom", "name": "ТехноРитейл (ИД НОМ)", "platform": "Telegram", "cluster": "Ритейл-медиа", "subs": 11500, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "@id_nom", "role": "Brand amplification", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Электроника и техноритейл. Не наш формат.", "hl": false, "source": "Grok-разведка", "updatedAt": "2026-09-15"}, {"id": "datainsight", "name": "Data Insight. Цифры E-commerce", "platform": "Telegram", "cluster": "Ритейл-медиа", "subs": 20000, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "t.me/datainsight", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Исследования e-com. Слабое пересечение с офлайн-форматом.", "hl": false, "source": "Grok-разведка", "updatedAt": "2026-09-15"}, {"id": "foodtechonline", "name": "#Фудтех", "platform": "Telegram", "cluster": "Фудтех", "subs": 21200, "med": 4000, "err": 18.9, "price": 38794, "priceNote": "натив, пауза заявок", "contact": "@mLccrew", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "В реестре блогеров РКН. Самый живой фудтех-канал.", "hl": true, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "foodtech_russia", "name": "Фудтех в России", "platform": "Telegram", "cluster": "Фудтех", "subs": 4790, "med": 680, "err": 14.2, "price": null, "priceNote": "@adv_tgc", "contact": "@adv_tgc", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "ER 29 % из исходника не подтверждён: 11–12 % по Telemetr. Проект ИД TG Creator.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "the_technologies", "name": "#Технологии HoReCa & Retail", "platform": "Telegram", "cluster": "Фудтех", "subs": 10800, "med": 3785, "err": 35.0, "price": 7692, "priceNote": "натив, пауза заявок", "contact": "@RestoAdmin", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "ERR подозрительно высок; Wowblogger даёт охват 1 884. Проверить накрутку в Telemetr.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "bfoodtech", "name": "Беспощадный фудтех", "platform": "Telegram", "cluster": "Фудтех", "subs": 9390, "med": 1210, "err": 12.9, "price": null, "priceNote": "сетка @retail_russ", "contact": "@retail_russ", "role": "Brand amplification", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Та же сетка, что массовый ритейл.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "iiko_russia", "name": "iiko", "platform": "Telegram", "cluster": "Фудтех", "subs": 11000, "med": null, "err": null, "price": null, "priceNote": "вендор", "contact": "t.me/iiko_russia", "role": "Партнёр", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Канал вендора автоматизации общепита. Партнёрство, не закупка.", "hl": false, "source": "Grok-разведка", "updatedAt": "2026-09-15"}, {"id": "coffee_vertikal", "name": "Кофейная вертикаль — данные и тренды", "platform": "Telegram", "cluster": "Кофе-бизнес", "subs": 1147, "med": 96, "err": 8.4, "price": null, "priceNote": "—", "contact": "t.me/coffee_vertikal", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Аналитика кофейного рынка для владельцев и закупщиков.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "russianbarista", "name": "Русский бариста (Telegram)", "platform": "Telegram", "cluster": "Кофе-бизнес", "subs": 7020, "med": 733, "err": 10.4, "price": null, "priceNote": "в пакете с YouTube", "contact": "@Russian_barista", "role": "Expert proof", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Поддержка YouTube-ролика.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "billoncoffee", "name": "Ярд на кофе. Дринкит", "platform": "Telegram", "cluster": "Кофе-бизнес", "subs": 5570, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "t.me/billoncoffee", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Крупнейший франчайзи Дринкит, экономика сети. Читать, не покупать.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "streamcoffeelive", "name": "SC: кофе и бизнес (Stream Coffee)", "platform": "Telegram", "cluster": "Кофе-бизнес", "subs": 6300, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "business.streamcoffee.ru", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Клуб владельцев кофеен.", "hl": false, "source": "Grok-разведка", "updatedAt": "2026-09-15"}, {"id": "scopening", "name": "гуща экспертиз (ex «Как открыть кофейню»)", "platform": "Telegram", "cluster": "Кофе-бизнес", "subs": 3200, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "t.me/scopening", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Открытие и управление кофейней.", "hl": false, "source": "Grok-разведка", "updatedAt": "2026-09-15"}, {"id": "pircoffee", "name": "ПИР-КОФЕ", "platform": "Telegram", "cluster": "Кофе-бизнес", "subs": 6200, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "info@pirexpo.com", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Официальный канал выставки. Спикерство и стенд 26–29 октября.", "hl": false, "source": "Grok-разведка", "updatedAt": "2026-09-15"}, {"id": "coffeeteanet", "name": "КИЧ · coffeetea.ru", "platform": "Telegram", "cluster": "Кофе-бизнес", "subs": 3300, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "coffeetea.ru", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Журнал «Кофе и чай в России».", "hl": false, "source": "Grok-разведка", "updatedAt": "2026-09-15"}, {"id": "viktor_skuratov", "name": "Виктор Скуратов", "platform": "Telegram", "cluster": "Кофе-бизнес", "subs": 2900, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "t.me/viktor_skuratov", "role": "Expert proof", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Основатель Skuratov Coffee. Потенциальный эксперт-спикер.", "hl": false, "source": "Grok-разведка", "updatedAt": "2026-09-15"}, {"id": "varka_business", "name": "VARKA BUSINESS", "platform": "Telegram", "cluster": "Кофе-бизнес", "subs": 6700, "med": 900, "err": 13.4, "price": null, "priceNote": "—", "contact": "t.me/varka_business", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Кофейни самообслуживания; операторы, не сети.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "caffeine_business", "name": "Кофеиновый бизнес", "platform": "Telegram", "cluster": "Кофе-бизнес", "subs": 4154, "med": 387, "err": 9.3, "price": null, "priceNote": "—", "contact": "t.me/caffeine_business", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Сообщество кофейной индустрии.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "coffeemapru", "name": "coffeemap.ru", "platform": "Telegram", "cluster": "Кофе-бизнес", "subs": 9700, "med": 779, "err": 8.0, "price": null, "priceNote": "—", "contact": "t.me/coffeemapru", "role": "Brand amplification", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Кофейная индустрия Москвы, 0,6 поста в день.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "gdekoferf", "name": "Take&Wake — кофейни самообслуживания", "platform": "Telegram", "cluster": "Кофе-бизнес", "subs": 5074, "med": 412, "err": 8.1, "price": null, "priceNote": "—", "contact": "t.me/gdekoferf", "role": "—", "scores": {"icp": 1, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Франшиза, конкурирующий формат.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "vendista", "name": "Vendista", "platform": "Telegram", "cluster": "Вендинг", "subs": 10600, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "t.me/vendista", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Операторы вендинга: эквайринг, телеметрия, 54-ФЗ. Самый большой вендинг-канал.", "hl": false, "source": "Grok-разведка", "updatedAt": "2026-09-15"}, {"id": "v_vending", "name": "В значит Вендинг", "platform": "Telegram", "cluster": "Вендинг", "subs": 2310, "med": 1305, "err": 56.5, "price": null, "priceNote": "@bis4bis", "contact": "@bis4bis", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Самый живой канал в выборке, плюс YouTube @bisforbusiness.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "infovendru", "name": "Infovend", "platform": "Telegram", "cluster": "Вендинг", "subs": 1250, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "infovend.ru", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Независимое вендинг-медиа.", "hl": false, "source": "Grok-разведка", "updatedAt": "2026-09-15"}, {"id": "Brskl", "name": "Briskly Club", "platform": "Telegram", "cluster": "Вендинг", "subs": 1260, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "t.me/Brskl", "role": "Партнёр", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Микромаркеты и умные холодильники в ритейле и офисах. Смежный формат, возможный партнёр.", "hl": false, "source": "Grok-разведка", "updatedAt": "2026-09-15"}, {"id": "rustamkalko", "name": "Вендинг и кофейный бизнес", "platform": "Telegram", "cluster": "Вендинг", "subs": 492, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "t.me/rustamkalko", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Практика операторов и экономика точек.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "redmatrixru", "name": "RED — фудтех дистрибьютор", "platform": "Telegram", "cluster": "Партнёры", "subs": 1580, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "redmachine.pro", "role": "Партнёр", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Дистрибьютор оборудования HoReCa («Деловая Русь»).", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "restorator_channel", "name": "РЕСТОРАТОР", "platform": "Telegram", "cluster": "HoReCa", "subs": 14600, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "t.me/restorator_channel", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Ресторанный бизнес. Резерв.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "restovedofficial", "name": "Ресторанные Ведомости", "platform": "Telegram", "cluster": "HoReCa", "subs": 7024, "med": 561, "err": 8.0, "price": null, "priceNote": "по медиакиту Restoranoff", "contact": "s.korotkova@restoved.ru", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Идёт в пакете с порталом и журналом.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "retailrus", "name": "Русский ритейл и бизнес", "platform": "Telegram", "cluster": "Массовый ритейл", "subs": 292000, "med": 16500, "err": 5.7, "price": null, "priceNote": "@zubar89", "contact": "@zubar89", "role": "Brand amplification", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Развлекательно-новостной. Самый большой охват, низкая плотность ЛПР.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "real_retail", "name": "Реальный Ритейл", "platform": "Telegram", "cluster": "Массовый ритейл", "subs": 95300, "med": 7945, "err": 8.3, "price": null, "priceNote": "@rust_sales", "contact": "@rust_sales", "role": "Brand amplification", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Ровные просмотры, без сетки в описании.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "b_retail", "name": "Беспощадный ритейл", "platform": "Telegram", "cluster": "Массовый ритейл", "subs": 141000, "med": 6085, "err": 4.3, "price": null, "priceNote": "сетка", "contact": "@retail_russ", "role": "Brand amplification", "scores": {"icp": 1, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "ERR 4 % при 141 тыс. подписчиков.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "retail_kitchen", "name": "Кухня ритейла", "platform": "Telegram", "cluster": "Массовый ритейл", "subs": 66400, "med": 1800, "err": 2.7, "price": 41958, "priceNote": "1/24, telega.in", "contact": "@alfapolo", "role": "—", "scores": {"icp": 1, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "CPV 23 ₽ при ERR 2,7 %. Худшее соотношение в выборке.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "retailerblog", "name": "Ритейл в России", "platform": "Telegram", "cluster": "Массовый ритейл", "subs": 39600, "med": 689, "err": 1.7, "price": null, "priceNote": "сетка", "contact": "@retail_russ", "role": "—", "scores": {"icp": 1, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "689 просмотров на 39,6 тыс. подписчиков. Красный флаг.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "retail_bez_network", "name": "Сетка: Ритейл без сдачи · Ритейл заказывали? · Ритейл Медиа · Будни русского ритейла · Около кассы", "platform": "Telegram", "cluster": "Массовый ритейл", "subs": 288000, "med": null, "err": null, "price": null, "priceNote": "сетка @alfapolo", "contact": "@alfapolo", "role": "Brand amplification", "scores": {"icp": 1, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Пять каналов одной сетки, 288 тыс. подписчиков суммарно; ожидаю ERR 3–6 %.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "yt_russianbarista", "name": "Russian Barista", "platform": "YouTube", "cluster": "Кофе-бизнес", "subs": 340000, "med": 5500, "err": null, "price": null, "priceNote": "рынок 70–250 тыс. ₽ за ролик", "contact": "school@russianbarista.ru, @Russian_barista", "role": "Expert proof", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Медиана 15 роликов 5 500; «Обзор кофе из Skuratov, Дринкит, Stars» 125 000. Свой сервис-центр, продажа Izensso и LELIT: оговорить конфликт интересов. Формат: «обзор кофе в ритейле + DrinkX».", "hl": true, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "yt_iden", "name": "АЙДЕН (влог Meren Coffee)", "platform": "YouTube", "cluster": "Кофе-бизнес", "subs": null, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "iden@techsquad.ru", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "«Кофейня в убытках?» 707 000 просмотров; серия с P&L точки. Аудитория SMB.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "yt_perfetto", "name": "Perfetto · Андрей Костанян", "platform": "YouTube", "cluster": "Кофе-бизнес", "subs": 194000, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "manager@perfetto-coffee.ru", "role": "Expert proof", "scores": {"icp": 1, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Просьюмер и дом; 22 700 за 8 дней на Q&A с Tasty Coffee.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "yt_retailru", "name": "Retail.ru «Диалоги о ритейле»", "platform": "YouTube", "cluster": "Ритейл-медиа", "subs": null, "med": null, "err": null, "price": null, "priceNote": "по запросу", "contact": "sales@retail.ru", "role": "Executive influence", "scores": {"icp": 5, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Единственный видеоформат с аудиторией сетей: 2–3-часовые эфиры, туры по магазинам.", "hl": true, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "yt_newretail", "name": "New Retail NR.LIVE", "platform": "YouTube", "cluster": "Ритейл-медиа", "subs": null, "med": null, "err": null, "price": null, "priceNote": "по запросу", "contact": "adv@new-retail.ru", "role": "Executive influence", "scores": {"icp": 4, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Эфиры про выход в федеральные сети; продаются как продукт.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "yt_welder", "name": "Сварщица Екатерина", "platform": "YouTube", "cluster": "Кофе-бизнес", "subs": 29400, "med": null, "err": null, "price": null, "priceNote": "партнёрство", "contact": "t.me/theweldercatherine", "role": "Expert proof", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Канал обжарщика, TG 19 800. Партнёрский, не рекламный.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "tastycoffee", "name": "Tasty Coffee Roasters", "platform": "Telegram", "cluster": "Партнёры", "subs": 24800, "med": 5500, "err": 22.2, "price": null, "priceNote": "партнёрство", "contact": "tastycoffee.ru", "role": "Партнёр", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Обжарщик с оптом; Дмитрий Корюкин их продукт-директор. Со-спикер по качеству чашки.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "m_retailru", "name": "Retail.ru (портал)", "platform": "Медиа", "cluster": "Ритейл-медиа", "subs": null, "med": null, "err": null, "price": null, "priceNote": "статьи по запросу; баннер 25 000 ₽/мес", "contact": "sales@retail.ru, Тамара Ревва", "role": "Executive influence", "scores": {"icp": 5, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Гарантия ≥ 2 000 просмотров платной статьи, 8 000 у «Товар на полку». Кейс, интервью, «Диалоги о ритейле», рассылки, стенды на 150+ событий.", "hl": true, "source": "retail.ru/advert", "updatedAt": "2026-09-15"}, {"id": "m_newretail", "name": "New Retail (портал)", "platform": "Медиа", "cluster": "Ритейл-медиа", "subs": null, "med": null, "err": null, "price": null, "priceNote": "по запросу", "contact": "adv@new-retail.ru", "role": "Executive influence", "scores": {"icp": 5, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "450 000+ визитов/мес, рассылка 22 000+. Натив, интервью «Персоны», кейс, спецпроект, NR.LIVE.", "hl": true, "source": "new-retail.ru/o_reklame", "updatedAt": "2026-09-15"}, {"id": "m_shoppers", "name": "Shopper's (портал)", "platform": "Медиа", "cluster": "Ритейл-медиа", "subs": null, "med": null, "err": null, "price": null, "priceNote": "рекламы нет", "contact": "editor@shoppersmedia.ru", "role": "Executive influence", "scores": {"icp": 4, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "150 000+ визитов/мес, 500 000+ читателей. Только редакция: питчить инфоповоды и экспертные комментарии.", "hl": false, "source": "shoppers.media/about", "updatedAt": "2026-09-15"}, {"id": "m_retailer", "name": "Retailer.ru (портал)", "platform": "Медиа", "cluster": "Ритейл-медиа", "subs": null, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "adv@retailer.ru", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Медиакит 2018 года; актуальную аудиторию запросить.", "hl": false, "source": "retailer.ru", "updatedAt": "2026-09-15"}, {"id": "m_restoranoff", "name": "Restoranoff + «Ресторанные ведомости»", "platform": "Медиа", "cluster": "HoReCa", "subs": null, "med": null, "err": null, "price": 70000, "priceNote": "статья компании; новость 30 000; видео 50 000; рассылка 25 000; 2 полосы натив 120 000", "contact": "s.korotkova@restoved.ru, +7 960 517 10 92", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Портал 75 000 уник./мес, журнал 11 000 экз. доходит до супермаркетов и фудкортов. События ФУДМАШИНА (поставщики оборудования), Конгресс ТОП-100.", "hl": true, "source": "Media Kit 2025", "updatedAt": "2026-09-15"}, {"id": "m_horeca", "name": "HoReCa Magazine", "platform": "Медиа", "cluster": "HoReCa", "subs": null, "med": null, "err": null, "price": 24000, "priceNote": "статьи 24 000–30 000; баннеры 12 000–42 000; пакеты от 45 000", "contact": "info@horeca.ru", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Деловой журнал индустрии гостеприимства.", "hl": false, "source": "horeca-magazine.ru/advert", "updatedAt": "2026-09-15"}, {"id": "m_cafefuture", "name": "Cafe Future / FoodService", "platform": "Медиа", "cluster": "HoReCa", "subs": null, "med": null, "err": null, "price": 100000, "priceNote": "статья 4 нед + НДС; спецпроект 70 000; закреп 25 000", "contact": "foodservice@prph.ru", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Трафик низкий (Similarweb ≈ 2,3 млн место). Дорого за охват.", "hl": false, "source": "cafe-future.ru/adv-site", "updatedAt": "2026-09-15"}, {"id": "m_coffeetea", "name": "«Кофе и чай в России» / coffeetea.ru", "platform": "Медиа", "cluster": "Кофе-бизнес", "subs": null, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "coffeetea.ru", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Единственный профессиональный журнал отрасли, тираж 15 000; организатор Coffee Tea Cacao Expo.", "hl": false, "source": "coffeetea.ru", "updatedAt": "2026-09-15"}], "campaigns": [{"id": "c_example_rb", "name": "ПРИМЕР · Russian Barista: обзор кофе в ритейле", "channelId": "yt_russianbarista", "objective": "Expert proof + category education", "segment": "Retail networks · category / F&B", "cta": "Получить шаблон пилота кофейной зоны для сети", "contentType": "2 ролика YouTube + 4 нарезки", "landing": "drinkx.ru/pilot (создать)", "utm": "rb_retail_review_2026q4", "budget": 200000, "launchDate": "2026-11-15", "status": "идея", "hook": "−4 % кофе навынос, +13 % цена чашки, −15 % кофеен в Москве (Платформа ОФД, сентябрь 2026)", "notes": "Пример строки. Удалите или замените."}], "accounts": [{"id": "a_x5", "company": "X5 Group (Пятёрочка, Перекрёсток)", "tier": "A", "segment": "Федеральные продуктовые сети", "priority": "1", "lprs": "", "campaigns": "", "owner": "", "status": "не начато", "notes": "Черновик списка Tier A из участников Недели ритейла."}, {"id": "a_magnit", "company": "Магнит", "tier": "A", "segment": "Федеральные продуктовые сети", "priority": "1", "lprs": "", "campaigns": "", "owner": "", "status": "не начато", "notes": "Издание Shopper's принадлежит сети."}, {"id": "a_lenta", "company": "Лента", "tier": "A", "segment": "Федеральные продуктовые сети", "priority": "1", "lprs": "", "campaigns": "", "owner": "", "status": "не начато", "notes": "Формат «Лента» XS показан в «Диалогах о ритейле» Retail.ru."}, {"id": "a_vkusvill", "company": "ВкусВилл", "tier": "A", "segment": "Сети с кофейными зонами", "priority": "1", "lprs": "", "campaigns": "", "owner": "", "status": "не начато", "notes": "Развивает кофе-корнеры в магазинах (Известия, сентябрь 2026)."}, {"id": "a_azbuka", "company": "Азбука вкуса", "tier": "B", "segment": "Премиальные сети", "priority": "2", "lprs": "", "campaigns": "", "owner": "", "status": "не начато", "notes": ""}, {"id": "a_metro", "company": "METRO", "tier": "B", "segment": "Cash & carry", "priority": "2", "lprs": "", "campaigns": "", "owner": "", "status": "не начато", "notes": ""}, {"id": "a_spar_mv", "company": "Спар Миддл Волга (Spar, Eurospar)", "tier": "B", "segment": "Региональные сети", "priority": "2", "lprs": "Елена Кульпина, директор по маркетингу и клиентскому сервису (цитата в Shopper's, март 2026)", "campaigns": "", "owner": "", "status": "не начато", "notes": "Публично говорит о росте кофе навынос в ритейле."}, {"company": "Ашан", "tier": "B", "segment": "Федеральные продуктовые сети", "priority": "2", "lprs": "", "campaigns": "", "owner": "", "status": "не начато", "notes": "Кофе с собой +22 % в 2025 и +16 % в начале 2026. Корнеры ставят на кассовую линию.", "updatedAt": "2026-09-16", "id": "a_auchan"}, {"company": "Чижик (X5)", "tier": "B", "segment": "Новые форматы", "priority": "2", "lprs": "", "campaigns": "", "owner": "", "status": "не начато", "notes": "Новый формат внутри X5. Гринфилд там, где в основной сети проникновение выше 85 %.", "updatedAt": "2026-09-16", "id": "a_chizhik"}, {"company": "Дикси", "tier": "A", "segment": "Федеральные продуктовые сети", "priority": "1", "lprs": "", "campaigns": "", "owner": "", "status": "не начато", "notes": "Около 1 200 магазинов с кофе-поинтами, план 1 800. Средние продажи выросли с 12–15 до 40 чашек в день за два года. Простой оборудования снижен на 40 % после внедрения мониторинга. Активная фаза проекта.", "updatedAt": "2026-09-16", "id": "a_dixy"}, {"company": "Газпромнефть (сеть АЗС)", "tier": "A", "segment": "Сети АЗС", "priority": "1", "lprs": "", "campaigns": "", "owner": "", "status": "не начато", "notes": "1 549 АЗС, кофемашины примерно на 1 300. 40,4 млн чашек за 2024. После внедрения мониторинга простой сократился в 4,5 раза, продажи кофе выросли в 10 раз. Самый зрелый опыт кофе в рознице в стране.", "updatedAt": "2026-09-16", "id": "a_gazpromneft"}, {"company": "Лукойл (сеть АЗС)", "tier": "A", "segment": "Сети АЗС", "priority": "1", "lprs": "", "campaigns": "", "owner": "", "status": "не начато", "notes": "2 880 АЗС. Валовая прибыль нетопливного направления +18 % в 2024, растёт вдвое быстрее оборота сети.", "updatedAt": "2026-09-16", "id": "a_lukoil"}, {"company": "Роснефть (сеть АЗС)", "tier": "B", "segment": "Сети АЗС", "priority": "2", "lprs": "", "campaigns": "", "owner": "", "status": "не начато", "notes": "Исторически: 29 млн чашек и 2,4 млрд ₽ в 2016, план 45 млн чашек и 4 млрд ₽ на 2018. Найден сервисный контракт на кофейное оборудование на тендерной площадке.", "updatedAt": "2026-09-16", "id": "a_rosneft"}], "opportunities": [{"id": "o_example", "accountId": "a_vkusvill", "campaignId": "c_example_rb", "firstTouch": "", "lastTouch": "", "influencedBy": "", "meeting": false, "pilot": false, "proposal": false, "revenue": 0, "stage": "пример", "notes": "Пример строки. Удалите, когда появится первая реальная сделка."}]};
+const W={icp:30,trust:20,format:15,reach:10,engage:10,measure:10,econ:5};
+const SK=["icp","trust","format","reach","engage","measure","econ"];
+const CH_STATUS=["не трогали","запрос статистики","переговоры","в пилоте","итерация","масштаб","отказ","стоп"];
+const CAMP_STATUS=["идея","подготовка","в эфире","оценка 7 дн","оценка 30 дн","оценка 90 дн","закрыта"];
+const ACC_STATUS=["не начато","outreach","встреча","пилот обсуждается","КП отправлено","сделка","отказ"];
+const OPP_STAGE=["пример","квалификация","встреча","пилот","КП","сделка","проиграно"];
+const fmt=n=>(n==null||n==="")?"—":Number(n).toLocaleString("ru-RU");
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const state={channels:new Map(),campaigns:new Map(),accounts:new Map(),opportunities:new Map()};
+let db=null, mode="loading", open=new Set(), sortKey="total", asc=false, cluster="Все", platform="Все", pendingRender=false;
+const $=s=>document.querySelector(s);
+const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("on"),1800);};
+
+// ---------- scoring ----------
+function total(ch){const s=ch.scores||{};let sw=0,acc=0,n=0;for(const k of SK){const v=Number(s[k]);if(v>=1&&v<=5){acc+=v*W[k];sw+=W[k];n++;}}return {t:sw?acc/sw:null,n};}
+function gate(ch){const {t,n}=total(ch);const icp=Number(ch.scores?.icp);if(n<7)return {ok:null,label:"не оценён"};return {ok:t>=3.5&&icp>=4,label:(t>=3.5&&icp>=4)?"в пилот":"нет"};}
+function cpv(ch){if(ch.price==null||ch.price==="")return null;if(Number(ch.price)===0)return 0;if(!ch.med)return null;return Number(ch.price)/Number(ch.med);}
+
+// ---------- persistence ----------
+const queues=new Map();
+function write(col,id,patch){
+  const key=col+"/"+id;const cur=state[col].get(id)||{};const next=deepMerge(structuredClone(cur),patch);next.updatedAt=new Date().toISOString().slice(0,10);state[col].set(id,next);
+  if(!db) return Promise.resolve();
+  const run=()=>db.doc(key).update({...patch,updatedAt:next.updatedAt}).catch(e=>{if(e&&e.code==="invalid_argument")return db.doc(key).set(next);throw e;}).catch(e=>{console.error(e);toast("Не сохранилось: "+(e.code||e.message));});
+  const p=(queues.get(key)||Promise.resolve()).then(run);queues.set(key,p);return p;
+}
+function deepMerge(a,b){for(const k in b){if(b[k]&&typeof b[k]==="object"&&!Array.isArray(b[k])){a[k]=deepMerge(a[k]&&typeof a[k]==="object"?a[k]:{},b[k]);}else a[k]=b[k];}return a;}
+async function addRow(col,data){
+  if(db){try{const ref=await db.collection(col).add(data);toast("Добавлено");}catch(e){toast("Не добавилось: "+(e.code||e.message));}}
+  else{const id="l"+Date.now();state[col].set(id,{...data,id});render();}
+}
+async function delRow(col,id){
+  if(!confirm("Удалить строку? Это нельзя отменить."))return;
+  state[col].delete(id);render();
+  if(db){try{await db.doc(col+"/"+id).delete();toast("Удалено");}catch(e){toast("Не удалилось: "+(e.code||e.message));}}
+}
+
+// ---------- generic table schemas ----------
+const chOpts=()=>[...state.channels.values()].sort((a,b)=>a.name.localeCompare(b.name,"ru")).map(c=>[c.id,c.name]);
+const accOpts=()=>[...state.accounts.values()].sort((a,b)=>(a.company||"").localeCompare(b.company||"","ru")).map(c=>[c.id,c.company]);
+const campOpts=()=>[...state.campaigns.values()].map(c=>[c.id,c.name]);
+const SCHEMAS={
+ campaigns:{cols:[
+  ["name","Кампания","text"],["channelId","Канал","ref",chOpts],["objective","Цель","text"],["segment","Сегмент и роль","text"],["cta","CTA","text"],["contentType","Формат","text"],["landing","Лендинг","text"],["utm","utm_campaign","text"],["budget","Бюджет, ₽","number"],["launchDate","Запуск","date"],["status","Статус","select",CAMP_STATUS],["hook","Инфоповод","area"],["notes","Заметки","area"]],
+  blank:()=>({name:"Новая кампания",channelId:"",objective:"",segment:"Retail networks",cta:"Получить шаблон пилота кофейной зоны для сети",contentType:"",landing:"",utm:"",budget:0,launchDate:"",status:"идея",hook:"",notes:""})},
+ accounts:{cols:[
+  ["company","Сеть","text"],["tier","Tier","select",["A","B","C"]],["segment","Сегмент","text"],["priority","Приоритет","select",["1","2","3"]],["lprs","Известные ЛПР","area"],["campaigns","Кампании-касания","text"],["owner","Владелец (sales)","text"],["status","Статус","select",ACC_STATUS],["notes","Заметки","area"]],
+  blank:()=>({company:"Новая сеть",tier:"B",segment:"",priority:"2",lprs:"",campaigns:"",owner:"",status:"не начато",notes:""})},
+ opportunities:{cols:[
+  ["accountId","Сеть","ref",accOpts],["campaignId","Кампания","ref",campOpts],["firstTouch","Первое касание","date"],["lastTouch","Последнее касание","date"],["influencedBy","Чем повлияли","text"],["meeting","Встреча","bool"],["pilot","Пилот обсуждался","bool"],["proposal","КП отправлено","bool"],["revenue","Оценка выручки, ₽","number"],["stage","Стадия","select",OPP_STAGE],["notes","Заметки","area"]],
+  blank:()=>({accountId:"",campaignId:"",firstTouch:"",lastTouch:"",influencedBy:"",meeting:false,pilot:false,proposal:false,revenue:0,stage:"квалификация",notes:""})},
+};
+function cell(col,id,key,type,val,opts){
+  const a=`data-col="${col}" data-id="${id}" data-key="${key}" data-type="${type}"`;
+  const dis=mode==="loading"?" disabled":"";
+  if(type==="text")return `<input type="text" ${a} value="${esc(val)}"${dis}>`;
+  if(type==="area")return `<textarea ${a}${dis}>${esc(val)}</textarea>`;
+  if(type==="number")return `<input type="number" ${a} value="${esc(val??"")}"${dis}>`;
+  if(type==="date")return `<input type="date" ${a} value="${esc(val??"")}"${dis}>`;
+  if(type==="bool")return `<input type="checkbox" ${a}${val?" checked":""}${dis}>`;
+  if(type==="select")return `<select class="st" ${a}${dis}>${opts.map(o=>`<option${o===val?" selected":""}>${esc(o)}</option>`).join("")}</select>`;
+  if(type==="ref"){const os=opts();return `<select class="st" ${a}${dis}><option value="">—</option>${os.map(([v,l])=>`<option value="${esc(v)}"${v===val?" selected":""}>${esc(l)}</option>`).join("")}</select>`;}
+  return esc(val);
+}
+function renderGeneric(col){
+  const sc=SCHEMAS[col];const t=document.getElementById("t-"+col);
+  t.querySelector("thead").innerHTML="<tr>"+sc.cols.map(c=>`<th${c[2]==="number"?' class="num"':""}>${c[1]}</th>`).join("")+"<th></th></tr>";
+  const rows=[...state[col].values()];
+  if(!rows.length){t.querySelector("tbody").innerHTML=`<tr><td colspan="${sc.cols.length+1}" class="empty">Пока пусто. Нажмите «+», чтобы добавить первую строку.</td></tr>`;return;}
+  t.querySelector("tbody").innerHTML=rows.map(r=>"<tr>"+sc.cols.map(c=>`<td${c[2]==="number"?' class="num"':""}>${cell(col,r.id,c[0],c[2],r[c[0]],c[3])}</td>`).join("")+`<td><button class="del" type="button" data-del="${col}" data-id="${esc(r.id)}" title="Удалить">✕</button></td></tr>`).join("");
+}
+
+// ---------- channels table ----------
+function chRow(c){
+  const {t,n}=total(c);const g=gate(c);const cv=cpv(c);const isOpen=open.has(c.id);const dis=mode==="loading"?" disabled":"";
+  const sel=k=>{const v=c.scores?.[k];return `<select class="sc${v?"":" empty"}" data-col="channels" data-id="${esc(c.id)}" data-key="scores.${k}" data-type="score"${dis}><option value="">·</option>${[1,2,3,4,5].map(i=>`<option${Number(v)===i?" selected":""}>${i}</option>`).join("")}</select>`;};
+  const errPill=c.err==null?'<span class="pill n">—</span>':`<span class="pill ${c.err>=15?"good":c.err>=5?"warn":"bad"}">${Number(c.err).toFixed(1).replace(".",",")} %</span>`;
+  const gatePill=g.ok==null?`<span class="pill n">${n}/7</span>`:g.ok?'<span class="pill good">в пилот</span>':'<span class="pill bad">нет</span>';
+  const main=`<tr${c.hl?' class="hl"':""}>
+   <td><button class="exp" type="button" data-exp="${esc(c.id)}" aria-expanded="${isOpen}" title="Подробнее">${isOpen?"▾":"▸"}</button></td>
+   <td class="name"><b>${esc(c.name)}</b><small>${esc(c.platform)}${c.platform==="Telegram"?" · @"+esc(c.id):""}</small></td>
+   <td>${esc(c.cluster)}</td>
+   <td class="num">${fmt(c.subs)}</td><td class="num">${fmt(c.med)}</td><td class="num">${errPill}</td>
+   <td class="num">${c.price==null?"—":Number(c.price)===0?"0":fmt(c.price)}</td>
+   <td class="num">${cv==null?"—":cv===0?"0":cv.toFixed(1).replace(".",",")}</td>
+   <td><select class="st" data-col="channels" data-id="${esc(c.id)}" data-key="status" data-type="select"${dis}>${CH_STATUS.map(o=>`<option${o===c.status?" selected":""}>${o}</option>`).join("")}</select></td>
+   ${SK.map(sel).map(s=>"<td>"+s+"</td>").join("")}
+   <td class="tot">${t==null?"—":t.toFixed(2).replace(".",",")}${n<7&&n>0?` <span class="pill n">${n}/7</span>`:""}</td>
+   <td>${gatePill}</td></tr>`;
+  if(!isOpen)return main;
+  return main+`<tr class="det"><td></td><td colspan="18"><div class="detgrid">
+    <div><label>Заметки</label><textarea data-col="channels" data-id="${esc(c.id)}" data-key="notes" data-type="area"${dis}>${esc(c.notes)}</textarea></div>
+    <div><label>Контакт</label><input type="text" data-col="channels" data-id="${esc(c.id)}" data-key="contact" data-type="text" value="${esc(c.contact)}"${dis}></div>
+    <div><label>Владелец в команде</label><input type="text" data-col="channels" data-id="${esc(c.id)}" data-key="owner" data-type="text" value="${esc(c.owner)}"${dis}></div>
+    <div><label>Роль в программе</label><input type="text" data-col="channels" data-id="${esc(c.id)}" data-key="role" data-type="text" value="${esc(c.role)}"${dis}></div>
+    <div><label>Формат цены</label><input type="text" data-col="channels" data-id="${esc(c.id)}" data-key="priceNote" data-type="text" value="${esc(c.priceNote)}"${dis}></div>
+    <div><label>Источник данных</label><div class="ro">${esc(c.source)} · обновлено ${esc(c.updatedAt)}</div></div>
+  </div></td></tr>`;
+}
+function renderChannels(){
+  const tb=$("#tg tbody");let list=[...state.channels.values()];
+  const clusters=["Все",...new Set([...state.channels.values()].map(c=>c.cluster))];
+  const platforms=["Все",...new Set([...state.channels.values()].map(c=>c.platform))];
+  chips("#clusterChips",clusters,cluster,v=>{cluster=v;renderChannels();});
+  chips("#platformChips",platforms,platform,v=>{platform=v;renderChannels();});
+  if(cluster!=="Все")list=list.filter(c=>c.cluster===cluster);
+  if(platform!=="Все")list=list.filter(c=>c.platform===platform);
+  if($("#onlyGate").checked)list=list.filter(c=>gate(c).ok===true);
+  if($("#hideStop").checked)list=list.filter(c=>c.status!=="стоп"&&c.status!=="отказ");
+  const val=c=>{switch(sortKey){case"total":return total(c).t;case"cpv":return cpv(c);case"icp":return c.scores?.icp;default:return c[sortKey];}};
+  list.sort((a,b)=>{const x=val(a),y=val(b);if(x==null&&y==null)return (b.hl?1:0)-(a.hl?1:0)||Number(b.scores?.icp||0)-Number(a.scores?.icp||0);if(x==null)return 1;if(y==null)return -1;return asc?x-y:y-x;});
+  tb.innerHTML=list.length?list.map(chRow).join(""):`<tr><td colspan="19" class="empty">${mode==="db"&&!state.channels.size?"База пуста: стартовые данные ещё заливаются.":"Ничего не подходит под фильтры."}</td></tr>`;
+  document.querySelectorAll("#tg th[data-sort]").forEach(th=>{th.classList.toggle("on",th.dataset.sort===sortKey);th.classList.toggle("asc",th.dataset.sort===sortKey&&asc);});
+  const all=[...state.channels.values()];const scored=all.filter(c=>total(c).n===7);const passed=all.filter(c=>gate(c).ok===true);
+  $("#chfacts").innerHTML=`<div class="fact"><b>${all.length}</b><span>каналов и площадок в базе</span></div><div class="fact"><b>${all.filter(c=>c.hl).length}</b><span>рекомендованы в первую волну</span></div><div class="fact"><b>${scored.length}</b><span>оценены по всем семи критериям</span></div><div class="fact"><b>${passed.length}</b><span>прошли гейт в пилот</span></div><div class="fact"><b>${all.filter(c=>["переговоры","в пилоте","масштаб"].includes(c.status)).length}</b><span>в переговорах или в пилоте</span></div>`;
+}
+function chips(sel,items,active,on){const el=$(sel);el.innerHTML=items.map(i=>`<button type="button" aria-pressed="${i===active}">${esc(i)}</button>`).join("");el.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>on(b.textContent)));}
+function renderOppFacts(){const o=[...state.opportunities.values()].filter(x=>x.stage!=="пример");const sum=o.reduce((s,x)=>s+(Number(x.revenue)||0),0);
+  $("#oppfacts").innerHTML=`<div class="fact"><b>${o.length}</b><span>сделок с касанием программы</span></div><div class="fact"><b>${o.filter(x=>x.meeting).length}</b><span>встреч</span></div><div class="fact"><b>${o.filter(x=>x.pilot).length}</b><span>пилотов обсуждается</span></div><div class="fact"><b>${o.filter(x=>x.proposal).length}</b><span>КП отправлено</span></div><div class="fact"><b>${fmt(sum)} ₽</b><span>оценка influenced-выручки</span></div>`;}
+function render(){
+  if(document.activeElement&&document.activeElement.closest&&document.activeElement.closest("table")){pendingRender=true;return;}
+  pendingRender=false;renderChannels();renderGeneric("campaigns");renderGeneric("accounts");renderGeneric("opportunities");renderOppFacts();
+}
+document.addEventListener("focusout",()=>{if(pendingRender)setTimeout(()=>{if(pendingRender&&!(document.activeElement&&document.activeElement.closest("table")))render();},50);});
+
+// ---------- events ----------
+document.addEventListener("change",e=>{
+  const el=e.target;if(!el.dataset||!el.dataset.col)return;
+  if(mode==="loading")return;
+  const {col,id,key,type}=el.dataset;let v;
+  if(type==="bool")v=el.checked;else if(type==="number")v=el.value===""?0:Number(el.value);else if(type==="score")v=el.value===""?null:Number(el.value);else v=el.value;
+  const patch=key.includes(".")?key.split(".").reduceRight((acc,k)=>({[k]:acc}),v):{[key]:v};
+  write(col,id,patch).then(()=>{if(col==="channels"||type==="ref")render();});
+  if(col==="channels"&&type==="score"){el.classList.toggle("empty",v==null);}
+});
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;
+  if(b.dataset.exp){const id=b.dataset.exp;open.has(id)?open.delete(id):open.add(id);renderChannels();}
+  else if(b.dataset.add){if(mode==="loading")return;addRow(b.dataset.add,SCHEMAS[b.dataset.add].blank());}
+  else if(b.dataset.del){delRow(b.dataset.del,b.dataset.id);}
+});
+document.querySelectorAll("#tg th[data-sort]").forEach(th=>{th.tabIndex=0;const go=()=>{if(sortKey===th.dataset.sort)asc=!asc;else{sortKey=th.dataset.sort;asc=false;}renderChannels();};th.addEventListener("click",go);th.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go();}});});
+$("#onlyGate").addEventListener("change",renderChannels);$("#hideStop").addEventListener("change",renderChannels);
+// tabs
+function showTab(name){document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("on",t.id==="tab-"+name));document.querySelectorAll("nav.tabs a").forEach(a=>{if(a.dataset.tab===name)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");});try{localStorage.setItem("dx-tab",name);}catch(_){}}
+document.querySelectorAll("nav.tabs a").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();history.replaceState(null,"","#"+a.dataset.tab);showTab(a.dataset.tab);}));
+(function(){let t=(location.hash||"").slice(1);if(!t){try{t=localStorage.getItem("dx-tab")||"";}catch(_){}}if(!document.getElementById("tab-"+t))t="channels";showTab(t);})();
+
+// ---------- boot ----------
+function loadSeedLocal(){for(const col of Object.keys(state)){state[col]=new Map((SEED[col]||[]).map(r=>[r.id,r]));}}
+loadSeedLocal();render();
+const setPill=(cls,txt)=>{const p=$("#dbpill");p.className="pill "+cls;p.textContent=txt;};
+window.claude?.use?.("db").then(d=>{
+  if(!d){mode="local";setPill("warn","без сохранения");$("#banner").textContent="База недоступна в этом окне: показаны данные снимка от 15.09.2026, правки не сохранятся. Откройте страницу в claude.ai.";$("#banner").classList.add("on");render();return;}
+  db=d;mode="db";setPill("good","база подключена");
+  for(const col of Object.keys(state)){
+    db.collection(col).onSnapshot(snap=>{state[col]=new Map(snap.docs.map(x=>[x.id,{...x.data(),id:x.id}]));render();},err=>{console.error(col,err);setPill("bad","ошибка базы: "+err.code);});
+  }
+}).catch?.(()=>{});
+if(!window.claude||!window.claude.use){mode="local";setPill("warn","без сохранения");$("#banner").textContent="Страница открыта вне claude.ai: данные снимка от 15.09.2026, правки не сохранятся.";$("#banner").classList.add("on");render();}
+// downloads
+window.claude?.use?.("downloads").then(dl=>{
+  if(!dl)return;const b=$("#csvBtn");b.hidden=false;
+  b.addEventListener("click",async()=>{
+    const head=["id","name","platform","cluster","subs","median_views","err","price","cpv","status","icp","trust","format","reach","engage","measure","econ","total","gate","role","contact","owner","notes"];
+    const rows=[...state.channels.values()].map(c=>{const s=c.scores||{};const t=total(c);return [c.id,c.name,c.platform,c.cluster,c.subs,c.med,c.err,c.price,cpv(c)==null?"":cpv(c).toFixed(2),c.status,s.icp,s.trust,s.format,s.reach,s.engage,s.measure,s.econ,t.t==null?"":t.t.toFixed(2),gate(c).label,c.role,c.contact,c.owner,c.notes];});
+    const csv="﻿"+[head,...rows].map(r=>r.map(v=>`"${String(v??"").replace(/"/g,'""')}"`).join(";")).join("\r\n");
+    try{await dl.save({filename:"drinkx-channels-"+new Date().toISOString().slice(0,10)+".csv",data:csv});toast("Сохранено");}catch(e){if(e.code!=="declined")toast("Не удалось: "+e.code);}
+  });
+});
+})();
+</script>
