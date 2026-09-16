@@ -6,22 +6,22 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
 :root{
-  --bg:#F4F5F2; --surface:#FFFFFF; --surface-2:#EBEEE9; --ink:#14181A; --muted:#5B6468; --line:#D9DEDA;
-  --accent:#0E5A5F; --accent-ink:#FFFFFF; --tag:#F2C230; --tag-ink:#2A2200;
-  --good:#2A7A4B; --good-bg:#E3F1E8; --warn:#B86E00; --warn-bg:#FBEFD9; --bad:#B4271F; --bad-bg:#F9E3E0;
+  --bg:#F6F7F4; --surface:#FFFFFF; --surface-2:#EFF1EC; --zebra:#F7F8F5;
+  --ink:#14181A; --muted:#5B6468; --line:#DFE3DE; --line-strong:#8A938D;
+  --accent:#0E5A5F; --accent-ink:#FFFFFF; --accent-soft:#D9EDEC; --tag:#F2C230; --tag-ink:#2A2200;
+  --good:#1F6B3E; --good-bg:#E3F1E8; --warn:#8A5200; --warn-bg:#FBEFD9; --bad:#A32119; --bad-bg:#F9E3E0;
+  --k1:#E4E6F5; --k1i:#343A86; --k2:#D9EDEC; --k2i:#0E5A5F; --k3:#E1F0E4; --k3i:#215F33; --k4:#F2E7D8; --k4i:#6E461A;
+  --k5:#DEEAF6; --k5i:#1C4E7B; --k6:#EDE3F2; --k6i:#63357E; --k7:#F7E2E4; --k7i:#8A2F3A; --k8:#E6E9EA; --k8i:#434D51;
+  --z-head:1; --z-subnav:4; --z-nav:6; --z-toast:50;
   --display:'Unbounded',system-ui,sans-serif; --body:'Onest',system-ui,-apple-system,'Segoe UI',sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#121716; --surface:#1A211F; --surface-2:#222B28; --ink:#ECEFEA; --muted:#9AA5A0; --line:#2C3633;
-    --accent:#5FC3C4; --accent-ink:#0B1A1B; --tag:#E9BE3A; --tag-ink:#2A2200;
-    --good:#6CC48F; --good-bg:#1B3226; --warn:#E0A34A; --warn-bg:#3A2A10; --bad:#EF7A70; --bad-bg:#3E1B18;
-  }
-}
 :root[data-theme="dark"]{
-  --bg:#121716; --surface:#1A211F; --surface-2:#222B28; --ink:#ECEFEA; --muted:#9AA5A0; --line:#2C3633;
-  --accent:#5FC3C4; --accent-ink:#0B1A1B; --tag:#E9BE3A; --tag-ink:#2A2200;
+  --bg:#121716; --surface:#1A211F; --surface-2:#222B28; --zebra:#1E2523;
+  --ink:#ECEFEA; --muted:#9AA5A0; --line:#2C3633; --line-strong:#5A6764;
+  --accent:#5FC3C4; --accent-ink:#0B1A1B; --accent-soft:#173636; --tag:#E9BE3A; --tag-ink:#2A2200;
   --good:#6CC48F; --good-bg:#1B3226; --warn:#E0A34A; --warn-bg:#3A2A10; --bad:#EF7A70; --bad-bg:#3E1B18;
+  --k1:#262A4A; --k1i:#AFB5EA; --k2:#173636; --k2i:#6FC8C9; --k3:#1B3325; --k3i:#7FCB99; --k4:#382A18; --k4i:#D9AE72;
+  --k5:#1A2C41; --k5i:#8CBCE8; --k6:#2F2140; --k6i:#C29BDD; --k7:#3B1F24; --k7i:#E5949D; --k8:#262D2F; --k8i:#A7B2B6;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;padding-inline:clamp(16px,3vw,40px);padding-block:0 96px}
@@ -35,9 +35,9 @@ header.top{padding-block:32px 18px;display:flex;flex-wrap:wrap;gap:12px 32px;ali
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 h1{font-family:var(--display);font-weight:600;font-size:clamp(24px,3.4vw,34px);line-height:1.1;margin:8px 0 8px;letter-spacing:-.01em}
 .lede{max-width:70ch;color:var(--muted);margin:0}
-.dbstate{display:flex;flex-direction:column;gap:6px;align-items:flex-end;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.dbstate{display:flex;flex-direction:column;gap:8px;align-items:flex-end;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
 .dbstate .pill{font-size:12px}
-nav.tabs{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);overflow-x:auto}
+nav.tabs{position:sticky;top:0;z-index:var(--z-nav);background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);overflow-x:auto}
 nav.tabs ul{list-style:none;margin:0;padding:0;display:flex;gap:2px;white-space:nowrap}
 nav.tabs a{display:block;padding:12px 16px;border-bottom:3px solid transparent;color:var(--muted);font-weight:500;border-radius:0}
 nav.tabs a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent)}
@@ -57,10 +57,13 @@ p{max-width:76ch}
 .btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:500}
 .btn.ghost{border-color:transparent;color:var(--muted)}
 .btn:disabled{opacity:.5;cursor:default}
-.tbl{overflow-x:auto;border:1px solid var(--line);background:var(--surface)}
-table{border-collapse:collapse;width:100%;font-size:13.5px}
-th,td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
-th{font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:500;background:var(--surface-2);position:sticky;top:0;white-space:nowrap;z-index:1}
+.tbl{overflow-x:auto;border:1px solid var(--line-strong);border-radius:10px;background:var(--surface);margin:14px 0}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+tbody tr:nth-child(odd of :not(.det)) td{background:var(--zebra)}
+tbody tr:last-child td{border-bottom:0}
+td.note{color:var(--muted);font-size:13.5px;max-width:42ch;text-wrap:pretty}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;background:var(--surface-2);border-bottom:1px solid var(--line-strong);position:sticky;top:0;white-space:nowrap;z-index:var(--z-head)}
 th[data-sort]{cursor:pointer}
 th[data-sort]:hover{color:var(--ink)}
 th[data-sort].on::after{content:" ↓";color:var(--accent)}
@@ -68,11 +71,17 @@ th[data-sort].on.asc::after{content:" ↑"}
 td.num,th.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
 td.name{min-width:200px}
 td.name b{font-weight:600}
-td.name small{display:block;color:var(--muted);font-family:var(--mono);font-size:11.5px}
-tr.hl td{background:color-mix(in srgb,var(--tag) 14%,var(--surface))}
-tr.det td{background:var(--surface-2);font-size:13px}
+td.name small{display:block;color:var(--muted);font-family:var(--mono);font-size:12px;margin-top:2px}
+tbody tr.hl td{background:color-mix(in srgb,var(--tag) 13%,var(--surface))}
+td.name .flag{display:inline-block;white-space:nowrap;color:var(--tag-ink);background:var(--tag);border-radius:3px;font-size:11px;padding:0 5px;margin-left:6px;vertical-align:1px}
+tbody tr.det td{background:var(--surface-2);font-size:13.5px}
+tr.det .detgrid > div{min-width:0}
 tr.det .detgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px 24px}
-tr.det label{display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:3px}
+tr.det label{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:4px}
+.scorebox{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:8px 16px;margin-top:2px}
+.scorebox .sr{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13px;border-bottom:1px solid var(--line);padding-bottom:4px}
+.scorebox .sr span{color:var(--muted)}
+.scorebox .sr b{font-weight:500;font-family:var(--mono);font-size:11px;color:var(--muted)}
 tr.det .ro{color:var(--ink)}
 .pill{display:inline-block;border-radius:4px;padding:1px 7px;font-family:var(--mono);font-size:12px;font-weight:500;white-space:nowrap}
 .pill.good{background:var(--good-bg);color:var(--good)}
@@ -80,6 +89,31 @@ tr.det .ro{color:var(--ink)}
 .pill.bad{background:var(--bad-bg);color:var(--bad)}
 .pill.n{background:var(--surface-2);color:var(--muted)}
 .pill.tag{background:var(--tag);color:var(--tag-ink)}
+.cl{display:inline-block;border-radius:5px;padding:2px 9px;font-size:13px;font-weight:500;white-space:nowrap;background:var(--surface-2);color:var(--muted)}
+.cl[data-cl="k1"]{background:var(--k1);color:var(--k1i)}
+.cl[data-cl="k2"]{background:var(--k2);color:var(--k2i)}
+.cl[data-cl="k3"]{background:var(--k3);color:var(--k3i)}
+.cl[data-cl="k4"]{background:var(--k4);color:var(--k4i)}
+.cl[data-cl="k5"]{background:var(--k5);color:var(--k5i)}
+.cl[data-cl="k6"]{background:var(--k6);color:var(--k6i)}
+.cl[data-cl="k7"]{background:var(--k7);color:var(--k7i)}
+.cl[data-cl="k8"]{background:var(--k8);color:var(--k8i)}
+.chips button[data-cl="k1"][aria-pressed="true"]{background:var(--k1);color:var(--k1i);border-color:color-mix(in srgb,var(--k1i) 35%,transparent)}
+.chips button[data-cl="k2"][aria-pressed="true"]{background:var(--k2);color:var(--k2i);border-color:color-mix(in srgb,var(--k2i) 35%,transparent)}
+.chips button[data-cl="k3"][aria-pressed="true"]{background:var(--k3);color:var(--k3i);border-color:color-mix(in srgb,var(--k3i) 35%,transparent)}
+.chips button[data-cl="k4"][aria-pressed="true"]{background:var(--k4);color:var(--k4i);border-color:color-mix(in srgb,var(--k4i) 35%,transparent)}
+.chips button[data-cl="k5"][aria-pressed="true"]{background:var(--k5);color:var(--k5i);border-color:color-mix(in srgb,var(--k5i) 35%,transparent)}
+.chips button[data-cl="k6"][aria-pressed="true"]{background:var(--k6);color:var(--k6i);border-color:color-mix(in srgb,var(--k6i) 35%,transparent)}
+.chips button[data-cl="k7"][aria-pressed="true"]{background:var(--k7);color:var(--k7i);border-color:color-mix(in srgb,var(--k7i) 35%,transparent)}
+.chips button[data-cl="k8"][aria-pressed="true"]{background:var(--k8);color:var(--k8i);border-color:color-mix(in srgb,var(--k8i) 35%,transparent)}
+.chips button[data-cl="k1"]::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--k1i);margin-right:6px;vertical-align:0}
+.chips button[data-cl="k2"]::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--k2i);margin-right:6px;vertical-align:0}
+.chips button[data-cl="k3"]::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--k3i);margin-right:6px;vertical-align:0}
+.chips button[data-cl="k4"]::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--k4i);margin-right:6px;vertical-align:0}
+.chips button[data-cl="k5"]::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--k5i);margin-right:6px;vertical-align:0}
+.chips button[data-cl="k6"]::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--k6i);margin-right:6px;vertical-align:0}
+.chips button[data-cl="k7"]::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--k7i);margin-right:6px;vertical-align:0}
+.chips button[data-cl="k8"]::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--k8i);margin-right:6px;vertical-align:0}
 select.sc{font:inherit;font-family:var(--mono);font-size:13px;width:46px;padding:2px 2px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--ink)}
 select.sc.empty{color:var(--muted)}
 select.st,td input,td select,td textarea{font:inherit;font-size:13px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--ink);padding:3px 6px;max-width:100%}
@@ -111,16 +145,44 @@ ol.steps li{margin:8px 0}
 ol.steps li b{font-weight:600}
 .src{font-size:13px;color:var(--muted);columns:2;column-gap:32px}
 .src li{break-inside:avoid;margin:3px 0}
-.legend{font-size:13px;color:var(--muted);margin:8px 0 0}
+.legend{font-size:13.5px;color:var(--muted);margin:8px 0 0;max-width:86ch;text-wrap:pretty}
+details.note{border:1px solid var(--line);border-radius:10px;background:var(--surface);margin:12px 0;max-width:86ch}
+details.note > summary{cursor:pointer;padding:10px 14px;font-size:14px;font-weight:500;list-style:none;display:flex;align-items:center;gap:8px}
+details.note > summary::-webkit-details-marker{display:none}
+details.note > summary::before{content:"▸";color:var(--muted);font-size:12px}
+details.note[open] > summary::before{content:"▾"}
+details.note[open] > summary{border-bottom:1px solid var(--line)}
+details.note .body{padding:12px 14px;color:var(--muted);font-size:14px}
+details.note .body p{margin:0 0 8px;max-width:none}
+details.note .body p:last-child{margin:0}
+details.note .body dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:13.5px}
+details.note .body dt{font-weight:500;color:var(--ink);white-space:nowrap}
+details.note .body dd{margin:0}
+nav.subtabs{position:sticky;top:51px;z-index:var(--z-subnav);background:var(--bg);padding-block:10px;margin-bottom:4px;border-bottom:1px solid var(--line);overflow-x:auto}
+nav.subtabs ul{list-style:none;margin:0;padding:0;display:flex;gap:6px;white-space:nowrap}
+nav.subtabs button{font:inherit;font-size:13.5px;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:999px;padding:6px 14px;cursor:pointer}
+nav.subtabs button[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent);border-color:color-mix(in srgb,var(--accent) 35%,transparent);font-weight:500}
+nav.subtabs button:hover{color:var(--ink)}
+h3[id]{scroll-margin-top:118px}
+.subsec{display:none;padding-block:0}
+.subsec.on{display:block}
+.toc{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:12px 16px;margin:16px 0}
+.toc b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;margin-bottom:8px}
+.toc ul{list-style:none;margin:0;padding:0;columns:2;column-gap:32px;font-size:14px}
+.toc li{break-inside:avoid;margin:4px 0}
+.toc a{border-bottom:0;color:var(--ink)}
+.toc a:hover{color:var(--accent)}
+@media (max-width:640px){.toc ul{columns:1}}
 .empty{padding:28px;text-align:center;color:var(--muted)}
 kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1px 5px;border-radius:3px}
 .banner{background:var(--warn-bg);color:var(--warn);border:1px solid color-mix(in srgb,var(--warn) 30%,transparent);padding:10px 14px;margin:12px 0;font-size:14px;display:none}
 .banner.on{display:block}
-.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:6px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast{position:fixed;left:50%;bottom:max(20px,env(safe-area-inset-bottom));z-index:var(--z-toast);transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:6px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s}
 .toast.on{opacity:1}
 @media (max-width:640px){.src{columns:1} .facts{grid-template-columns:1fr 1fr} header.top{flex-direction:column;align-items:flex-start} .dbstate{align-items:flex-start}}
 @media (prefers-reduced-motion: reduce){.toast{transition:none}}
 </style>
+<script>try{var _t=localStorage.getItem("dx-theme");if(_t==="dark")document.documentElement.setAttribute("data-theme","dark");}catch(e){}</script>
 
 <div class="wrap">
 <header class="top">
@@ -129,7 +191,10 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
     <h1>Карта каналов DrinkX</h1>
     <p class="lede">Рабочая база маркетолога: каналы с живыми метриками и scorecard, кампании, целевые сети и influenced-сделки. Всё, что вы меняете, сохраняется и видно команде.</p>
   </div>
-  <div class="dbstate"><span id="dbpill" class="pill n">подключаюсь к базе…</span><span>данные сняты 15.09.2026</span></div>
+  <div class="dbstate">
+  <div class="grp"><button class="btn" type="button" id="themeBtn" aria-pressed="false">Тёмная тема</button></div>
+  <span id="dbpill" class="pill n">подключаюсь к базе…</span><span>данные сняты 15.09.2026</span>
+</div>
 </header>
 
 <nav class="tabs" aria-label="Разделы"><ul>
@@ -145,7 +210,22 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 
 <div class="tab on" id="tab-channels">
   <h2>Каналы и площадки</h2>
-  <p class="sub">Scorecard из фреймворка: семь критериев по шкале 1–5 с весами ICP 30 %, доверие 20 %, формат 15 %, охват 10 %, вовлечение 10 %, измеримость 10 %, экономика 5 %. Гейт в пилот: итог ≥ 3,5 и ICP ≥ 4. Оценка ICP проставлена предварительно по разведке, остальные шесть ставит маркетолог после due diligence. ERR и медиана просмотров сняты по 10 последним постам.</p>
+  <p class="sub">Каждый канал получает оценку по семи критериям. В пилот проходит тот, у кого итог не ниже 3,5 и плотность нужной аудитории не ниже 4.</p>
+  <details class="note">
+    <summary>Как считается оценка</summary>
+    <div class="body">
+      <dl>
+        <dt>Плотность аудитории — 30 %</dt><dd>сколько подписчиков действительно принимают решения по закупке</dd>
+        <dt>Доверие — 20 %</dt><dd>верят ли рекомендациям канала</dd>
+        <dt>Формат влияния — 15 %</dt><dd>подходит ли формат под нашу задачу</dd>
+        <dt>Реальный охват — 10 %</dt><dd>медиана просмотров, а не число подписчиков</dd>
+        <dt>Вовлечение — 10 %</dt><dd>живая реакция против накрутки</dd>
+        <dt>Измеримость — 10 %</dt><dd>можно ли отследить результат</dd>
+        <dt>Экономика — 5 %</dt><dd>цена контакта против потолка</dd>
+      </dl>
+      <p style="margin-top:10px">Плотность аудитории проставлена предварительно по открытым данным. Остальные шесть критериев ставит маркетолог после проверки канала — они спрятаны в раскрытии строки, чтобы не загромождать таблицу. ERR и медиана просмотров сняты по десяти последним постам.</p>
+    </div>
+  </details>
   <div class="facts" id="chfacts"></div>
   <div class="toolbar">
     <div class="grp chips" id="clusterChips"></div>
@@ -163,7 +243,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
       <th class="num" data-sort="price">Цена, ₽</th>
       <th class="num" data-sort="cpv">CPV</th>
       <th>Статус</th>
-      <th title="ICP-плотность, 30 %">ICP</th><th title="Доверие, 20 %">Дов.</th><th title="Формат влияния, 15 %">Форм.</th><th title="Реальный охват, 10 %">Охв.</th><th title="Качество вовлечения, 10 %">Вовл.</th><th title="Измеримость, 10 %">Изм.</th><th title="Экономика, 5 %">Экон.</th>
+      <th title="Плотность нужной аудитории, вес 30 %">ICP</th>
       <th class="num" data-sort="total">Итог</th><th>Гейт</th>
     </tr></thead>
     <tbody></tbody>
@@ -213,7 +293,8 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 <p><b>Чего не делаем.</b> Не делаем Telegram основой микса: соцсети для изучения промышленных компаний используют только 31 % покупателей. Не покупаем массовые ритейл-каналы на сотни тысяч подписчиков. Не платим прайс там, где он выше расчётного потолка. Не ставим стенд на Неделе ритейла в первый год. Не ведём посев прямо на заявку. Не судим программу по заявкам с лендинга.</p>
 </div>
 
-<h3>Порядок волн</h3>
+<nav class="subtabs" aria-label="Разделы части"><ul><li><button type="button" data-sub="mix-plan" aria-pressed="true">План и деньги</button></li><li><button type="button" data-sub="mix-econ" aria-pressed="false">Экономика контакта</button></li><li><button type="button" data-sub="mix-method" aria-pressed="false">Методология</button></li><li><button type="button" data-sub="mix-field" aria-pressed="false">Отраслевые данные</button></li><li><button type="button" data-sub="mix-rivals" aria-pressed="false">Конкуренты</button></li></ul></nav><section class="subsec on" id="sub-mix-plan"><div class="toc"><b>В разделе</b><ul><li><a href="#mix-plan-1">Порядок волн</a></li><li><a href="#mix-plan-2">Три микса по бюджету</a></li><li><a href="#mix-plan-3">Календарь диктует порядок</a></li></ul></div>
+<h3 id="mix-plan-1">Порядок волн</h3>
 <div class="tbl"><table>
 <thead><tr><th>Волна</th><th>Когда</th><th>Что делаем</th><th class="num">Медиа, ₽</th><th>Почему именно здесь</th></tr></thead>
 <tbody>
@@ -229,7 +310,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 </tbody></table></div>
 <p class="legend">Суммы по волнам — медиа без продакшна. Подробные строки с обоснованием цены ниже.</p>
 
-<h3>Три микса по бюджету</h3>
+<h3 id="mix-plan-2">Три микса по бюджету</h3>
 <p class="sub">Каждая строка с ценой: либо из опубликованного прайса, либо по потолку из модели. Продакшн вынесен отдельно — это не медиа.</p>
 <h4>Микс A — «Экспертный актив», 45 дней</h4><p class="sub">Получить один сильный актив и проверить допущения на малых деньгах. Медиа 208 842 ₽, продакшн 150 000 ₽, всего 358 842 ₽.</p><div class="tbl"><table><thead><tr><th>Волна</th><th>Строка</th><th>Роль</th><th class="num">₽</th><th>Откуда цена</th></tr></thead><tbody><tr><td>Волна 1</td><td class="name"><b>КАТМЕНПРО: КП поставщика в @kpcatmanpro</b></td><td>Demand capture</td><td class="num">0</td><td class="note">факт: бесплатное размещение</td></tr>
 <tr><td>Волна 1</td><td class="name"><b>Спикерские заявки: VerSous, ПИР-Кофе, Big Retail Networking</b></td><td>Executive influence</td><td class="num">0</td><td class="note">медиа 0 ₽, только время</td></tr>
@@ -256,7 +337,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 <tr><td>Волна 9</td><td class="name"><b>Второй экспертный голос: Корюкин или Скуратов</b></td><td>Expert proof</td><td class="num">200 000</td><td class="note">оценка</td></tr>
 <tr><td>Волна 9</td><td class="name"><b>Кофе и чай в России: advertorial + выставка</b></td><td>Category education</td><td class="num">150 000</td><td class="note">оценка</td></tr></tbody></table></div>
 
-<h3>Календарь диктует порядок</h3>
+<h3 id="mix-plan-3">Календарь диктует порядок</h3>
 <p class="sub">Даты событий фиксированы, и это единственное жёсткое ограничение в плане. Два ближайших уже внутри горизонта принятия решения.</p>
 <div class="tbl"><table>
 <thead><tr><th>Событие</th><th class="num">Дата</th><th class="num">Через</th><th>Вход</th><th>Заметка</th></tr></thead>
@@ -269,7 +350,8 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 <tr><td class="name"><b>Coffee Tea Cacao Russian Expo</b><small>Тимирязев Центр</small></td><td class="num">15.04.2027</td><td class="num"><span class="pill n">211 дн.</span></td><td>стенд по запросу</td><td class="note">≈20 000 посетителей, 250 экспонентов (по 2026 году).</td></tr>
 <tr><td class="name"><b>Неделя российского ритейла 2027</b><small>ЦМТ</small></td><td class="num">31.05.2027</td><td class="num"><span class="pill n">257 дн.</span></td><td>участник 84 000 ₽ / стенд 9 м² ≈ 856 000 ₽</td><td class="note">8 000+ участников, 500+ сетей. Треки «готовая еда», FOOD.</td></tr></tbody></table></div>
 
-<h3>Метрика отбора: сколько стоит один контакт с релевантным человеком</h3>
+</section><section class="subsec" id="sub-mix-econ"><div class="toc"><b>В разделе</b><ul><li><a href="#mix-econ-1">Метрика отбора: сколько стоит один контакт с релевантным человеком</a></li><li><a href="#mix-econ-2">Потолок адресуемого рынка</a></li><li><a href="#mix-econ-3">Потолок спроса: сколько сетей вообще в рынке</a></li><li><a href="#mix-econ-4">Почему программу нельзя судить по заявкам</a></li><li><a href="#mix-econ-5">Формат важнее канала: разбор на цифрах</a></li><li><a href="#mix-econ-6">Событие против показа: обменный курс</a></li></ul></div>
+<h3 id="mix-econ-1">Метрика отбора: сколько стоит один контакт с релевантным человеком</h3>
 <p class="sub">CPM и цена поста ничего не говорят о канале, где 95 % читателей вам не нужны. Считаем иначе: медиана просмотров умножается на предполагаемую долю ЛПР в аудитории, цена делится на результат. Доля ЛПР — допущение из оценки ICP: 5 баллов это 30 % аудитории, 4 — 15 %, 3 — 7 %, 2 — 3 %, 1 — 1 %. Оно заменяется фактом после первого замера.</p>
 <p>Из метрики выводится <b>потолок цены</b>: сколько максимум имеет смысл платить за пост, чтобы контакт с ЛПР не выходил дороже 50 ₽. Пять каналов с опубликованным прайсом проверяются напрямую, и четыре из пяти его не проходят.</p>
 <div class="tbl"><table>
@@ -313,7 +395,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 </tbody></table></div>
 <p class="legend">Рыночные CPM посевов по данным Telega.in, январь 2025: «Бизнес и стартапы» 3 802 ₽, «Инвестиции» 4 713 ₽, «Новости» 749 ₽, медиана по всем нишам 1 100 ₽. Медиана выросла с 230 ₽ в начале 2022 года, то есть в 4–5 раз за четыре года.</p>
 
-<h3>Потолок адресуемого рынка</h3>
+<h3 id="mix-econ-2">Потолок адресуемого рынка</h3>
 <p class="sub">Прежде чем планировать охват, стоит посчитать, сколько его вообще есть.</p>
 <div class="tbl"><table>
 <thead><tr><th>Величина</th><th class="num">Значение</th><th>Как получено</th></tr></thead>
@@ -328,7 +410,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 <p>Полезная поправка из мета-анализа рекламных повторов: в категориях с высокой вовлечённостью, а покупка оборудования для сети именно такая, насыщение от повторов наступает раньше, чем в массовых категориях. То есть частота нужна, но умеренная: ориентир — повтор в одном канале не чаще раза в месяц.</p>
 </div>
 
-<h3>Потолок спроса: сколько сетей вообще в рынке</h3>
+<h3 id="mix-econ-3">Потолок спроса: сколько сетей вообще в рынке</h3>
 <p class="sub">Правило 95-5: в каждый момент до 95 % бизнес-клиентов не выбирают поставщика в вашей категории. Посчитаем свою цифру через частоту пересмотра решения.</p>
 <div class="tbl"><table>
 <thead><tr><th>Сеть пересматривает формат кофейной зоны раз в</th><th class="num">В рынке за год</th><th class="num">За квартал</th><th class="num">Сетей из 150 в квартал</th></tr></thead>
@@ -354,7 +436,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 <p>Автор правила подчёркивает, что 95 % — эвристика, а не константа: цифра выведена из допущения о пятилетнем цикле у банков и юридических фирм, поделённого на кварталы, а не из опроса намерений. Критики идут дальше: «не основано ни на каких данных и не соответствует никакому научному стандарту». Но направление правило задаёт верное, и подтверждается с другой стороны: 96 % B2B-маркетологов ждут эффекта кампании в течение двух недель, и именно поэтому большинство программ признают провальными раньше, чем они успевают сработать.</p>
 </div>
 
-<h3>Почему программу нельзя судить по заявкам</h3>
+<h3 id="mix-econ-4">Почему программу нельзя судить по заявкам</h3>
 <p class="sub">Считаем инбаунд-воронку микса A честно. CTR посева взят по российской рабочей вилке 0,5–1,5 %, конверсия лида в SQL — 15 % при отраслевом диапазоне 12–21 %.</p>
 <div class="tbl"><table>
 <thead><tr><th class="num">CTR поста</th><th class="num">Конверсия лендинга</th><th class="num">Заявок</th><th class="num">SQL</th><th class="num">₽ за SQL</th></tr></thead>
@@ -373,7 +455,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 <p>Отдельное предупреждение по российской практике: РБК Компании прямо относит бизнесы с долгим циклом сделки к тем, кому посев не подходит. Все найденные рабочие B2B-кейсы двухступенчатые — посев ведёт на промежуточный актив, и уже оттуда идёт квалификация. Единственный найденный кейс с посевом прямо на заявку в тяжёлом оборудовании закончился паузой: лиды вышли дороже, чем из Яндекса и Авито.</p>
 </div>
 
-<h3>Формат важнее канала: разбор на цифрах</h3>
+<h3 id="mix-econ-5">Формат важнее канала: разбор на цифрах</h3>
 <p class="sub">Самая дорогая строка микса — ролик у Russian Barista. Бриф решает больше, чем выбор канала.</p>
 <div class="tbl"><table>
 <thead><tr><th>Сценарий формата</th><th class="num">Просмотры</th><th class="num">CPV, ₽</th><th class="num">К рынку</th><th class="num">ЛПР</th><th class="num">₽ за ЛПР</th></tr></thead>
@@ -388,7 +470,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 <p>Дополнительный аргумент: у канала свой сервис-центр и продажа кофемашин Izensso и LELIT. Прямой обзор DrinkX от продавца конкурирующего железа выглядит слабо. Сравнительный материал про категорию — нормально.</p>
 </div>
 
-<h3>Событие против показа: обменный курс</h3>
+<h3 id="mix-econ-6">Событие против показа: обменный курс</h3>
 <p class="sub">Стенд стоит на два порядка дороже показа. Вопрос не «дорого ли», а «во сколько показов мы оцениваем один живой разговор».</p>
 <div class="tbl"><table>
 <thead><tr><th>Вариант</th><th class="num">Цена</th><th class="num">Контактов</th><th class="num">₽ за контакт</th><th class="num">Курс в показах</th></tr></thead>
@@ -403,7 +485,8 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 <div class="callout">
 <p><b>Читается так.</b> Стенд оправдан, только если один разговор на нём стоит дороже 170 показов в отраслевом канале. Пакет участника — если дороже 56. Разговор с категорийным менеджером сети, вероятно, стоит больше 56 показов, но вряд ли больше 570. Поэтому в первый год берём пакет участника и спикерскую заявку, а решение о стенде принимаем по результатам.</p>
 </div>
-<h3>Проверка методологии: что выдерживает источники, а что нет</h3>
+</section><section class="subsec" id="sub-mix-method"><div class="toc"><b>В разделе</b><ul><li><a href="#mix-method-1">Проверка методологии: что выдерживает источники, а что нет</a></li><li><a href="#mix-method-2">Связанная версия распределения</a></li><li><a href="#mix-method-3">Сколько типов медиа брать</a></li><li><a href="#mix-method-4">Разметка микса по трём осям сразу</a></li><li><a href="#mix-method-5">Гейты: когда переходить к следующей волне, когда остановиться</a></li><li><a href="#mix-method-6">Чего не делаем и почему</a></li></ul></div>
+<h3 id="mix-method-1">Проверка методологии: что выдерживает источники, а что нет</h3>
 <p class="sub">Предложенная схема состоит из пяти методологий. Я проверил каждую по первоисточникам. Три работают, одна оказалась переименованием пятой, у одной нашлось юридическое ограничение. Ниже — по порядку, с тем, что меняется в плане.</p>
 <div class="tbl"><table>
 <thead><tr><th>Методология</th><th>Статус</th><th>Что показали источники</th><th>Что делаем</th></tr></thead>
@@ -419,7 +502,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 <p><b>Арифметика предложенного распределения не сходится.</b> Вилки 25–35, 15–25, 25–35, 15–25 и 5–10 дают в сумме от 85 до 130 %, а по серединкам 107,5 %. Внутри этих вилок бесконечно много комбинаций, и часть из них не помещается в бюджет. Чинится одним ограничением: сумма равна 100, а доля создания спроса задана заранее.</p>
 </div>
 
-<h3>Связанная версия распределения</h3>
+<h3 id="mix-method-2">Связанная версия распределения</h3>
 <p class="sub">Резерв на измерение снимаем сверху, остальное делим в пропорции 46/54. Суммы сходятся. <b>Это промежуточный вариант</b>: ниже он уточнён по итогам замера поискового спроса, потому что доля перехвата оказалась необоснованной.</p>
 <div class="tbl"><table>
 <thead><tr><th>Блок</th><th class="num">Доля</th><th class="num">Микс A</th><th class="num">Микс B</th><th class="num">Микс C</th><th>Что внутри</th></tr></thead>
@@ -436,13 +519,13 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 <p><b>Оговорка, которая сработала.</b> Доля перехвата держалась на допущении, что есть поисковый спрос. Мы его замерили, и спроса нет: весь релевантный сетям кластер запросов — около 85 точных показов в месяц по России. Итоговое распределение с учётом замера — в разделе ниже.</p>
 </div>
 
-<h3>Сколько типов медиа брать</h3>
+<h3 id="mix-method-3">Сколько типов медиа брать</h3>
 <div class="callout">
 <p>IPA Datamine 3, 2011: <b>три рекламных медиа — наиболее эффективное число</b> для жёстких бизнес-эффектов, дальше начинается убывающая отдача. В нашем миксе их ровно три: видео, отраслевой Telegram, отраслевые медиа и события. Четвёртым мог бы стать поиск, и это решается замером спроса, а не вкусом.</p>
 <p>Бине и Филд, 2017: роль канала определяется механизмом. Бренд требует широкого охвата и эмоционального прайминга, активация — точного таргетинга и рациональной аргументации. Самые эффективные брендовые медиа — видео. Самые эффективные активационные — поиск и email. Это и объясняет, почему экспертный ролик стоит в центре плана, а рассылка Restoranoff на 40 тысяч адресов стоит своих 25 000 ₽.</p>
 </div>
 
-<h3>Разметка микса по трём осям сразу</h3>
+<h3 id="mix-method-4">Разметка микса по трём осям сразу</h3>
 <p class="sub">Каждая строка получает роль в PESO, слой спроса и тир аккаунтов. Так видно, не перекошен ли план в платное и не забыт ли какой-то слой.</p>
 <div class="tbl"><table>
 <thead><tr><th>Строка</th><th>PESO</th><th>Слой спроса</th><th>Tier</th><th class="num">₽</th><th>Заметка</th></tr></thead>
@@ -470,7 +553,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
   <div class="fact"><b>1 актив</b><span>кормит семь строк плана. Ролик снимается один раз, работает год</span></div>
 </div>
 
-<h3>Гейты: когда переходить к следующей волне, когда остановиться</h3>
+<h3 id="mix-method-5">Гейты: когда переходить к следующей волне, когда остановиться</h3>
 <p class="sub">Горизонты замера выбраны не круглыми числами, а по тому, что на каждом сроке вообще можно узнать.</p>
 <div class="tbl"><table>
 <thead><tr><th>Срок</th><th>Что смотрим</th><th>Гейт на продолжение</th><th>Что это НЕ доказывает</th></tr></thead>
@@ -485,7 +568,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 <p><b>Чем мерить можно.</b> Холдаут по аккаунтам: разделить список 150 сетей на тестовую и контрольную группы и читать разницу на уровне аккаунта. Это перенос логики гео-экспериментов Google на аккаунты, метод для нашего случая не валидированный, но честный. Плюс самоотчётная атрибуция в форме и на первом звонке: какие люди и издания повлияли. С оговоркой, что у этого вопроса есть систематическая ошибка недавности, и в одиночку опираться на него нельзя.</p>
 </div>
 
-<h3>Чего не делаем и почему</h3>
+<h3 id="mix-method-6">Чего не делаем и почему</h3>
 <div class="grid2">
 <div class="card"><h4>Не покупаем массовые ритейл-каналы</h4><p>«Кухня ритейла» при 66 тысячах подписчиков даёт 1 800 просмотров и просит 41 958 ₽ — в 46 раз выше расчётного потолка. Восемь крупнейших каналов ведут одни админы: это одна аудитория, а не восемь.</p></div>
 <div class="card"><h4>Не ведём посев прямо на заявку</h4><p>РБК Компании относит бизнесы с долгим циклом к тем, кому посев не подходит. Все рабочие российские B2B-кейсы двухступенчатые. Единственный найденный кейс с посевом прямо на заявку в тяжёлом оборудовании закончился паузой: лиды вышли дороже, чем из Яндекса и Авито.</p></div>
@@ -494,7 +577,8 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 <div class="card"><h4>Не судим программу по sourced-атрибуции</h4><p>В ABM доля pipeline, которую атрибуция засчитает маркетингу, по оценке Forrester — 5–20 %. Судить по ней значит гарантированно закрыть работающую программу.</p></div>
 <div class="card"><h4>Не выносим PESO в коммерческие материалы</h4><p>PESO Model® — зарегистрированный товарный знак, владелец заявляет о платной лицензии для коммерческого использования. Как внутренний чек-лист — пожалуйста. В презентации клиенту название лучше не ставить.</p></div>
 </div>
-<h3>Поправка, которая меняет план сильнее всех остальных</h3>
+</section><section class="subsec" id="sub-mix-field"><div class="toc"><b>В разделе</b><ul><li><a href="#mix-field-1">Поправка, которая меняет план сильнее всех остальных</a></li><li><a href="#mix-field-2">Что добавить в план по итогам отраслевых данных</a></li><li><a href="#mix-field-3">Кто в рынке прямо сейчас</a></li><li><a href="#mix-field-4">Честный разбор слабых мест этого плана</a></li><li><a href="#mix-field-5">Замер, который отменил целую статью бюджета</a></li><li><a href="#mix-field-6">Как сети покупают оборудование на самом деле</a></li><li><a href="#mix-field-7">Рынок уже занят: продавать надо замену, а не запуск</a></li><li><a href="#mix-field-8">Итоговое распределение после всех замеров</a></li></ul></div>
+<h3 id="mix-field-1">Поправка, которая меняет план сильнее всех остальных</h3>
 <p class="sub">Почти вся литература по B2B-маркетингу построена на выборках из софтверных компаний. Покупка оборудования устроена иначе, и по ней есть своя исследовательская традиция.</p>
 <div class="callout">
 <p><b>Сначала оговорка, без которой цифры ниже прочтутся неверно.</b> Исследования по оборудованию распадаются на три профиля покупателя, и они не совпадают между собой. Инженер, специфицирующий компоненты, живёт в цифровом каталожном мире и ставит выставки на 27 %. Завод, покупающий капитальное оборудование, ставит личное присутствие на выставке на первое место с 91 %. Кухня покупает через дилера и торгового представителя.</p>
@@ -522,7 +606,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 <p>Из этого не следует, что медиа не нужны. Следует, что медиа — вторая по важности часть программы, а первая — демо и сервис. Порядок волн ниже это учитывает.</p>
 </div>
 
-<h3>Что добавить в план по итогам отраслевых данных</h3>
+<h3 id="mix-field-2">Что добавить в план по итогам отраслевых данных</h3>
 <div class="grid2">
 <div class="card"><h4>Программа демо-станций</h4><p>Три-пять станций, которые живут у категорийных менеджеров Tier A по две-четыре недели. Это не медиа, это капитальные расходы, но по влиянию на решение — сильнейший инструмент в категории.</p><ul><li>Метрика: сколько сетей потрогали станцию</li><li>Гейт: демо переходит в пилот или не переходит</li></ul></div>
 <div class="card"><h4>Калькулятор полной стоимости владения</h4><p>Вместо описания продукта. Считает пять лет: техника, сервис, простой, зерно, ФОТ. Отдельная колонка — схема «бесплатное оборудование за объём закупки», которую предлагают Nestlé Professional, КультКофе и другие.</p><ul><li>64 % операторов всегда считают TCO</li><li>Это же и есть тот промежуточный актив, на который ведёт посев</li></ul></div>
@@ -532,7 +616,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 <div class="card"><h4>Переоценить Retail.ru</h4><p>Директор DrinkX уже выступал на Connected Retail Forum, материал вышел на Retail.ru 2 января 2026. Это не холодный контакт, а продолжение. Big Retail Networking 4 декабря — тот же организатор.</p></div>
 </div>
 
-<h3>Кто в рынке прямо сейчас</h3>
+<h3 id="mix-field-3">Кто в рынке прямо сейчас</h3>
 <p class="sub">Целевой список стоит переупорядочить по тому, кто реально строит кофейную категорию, а не по размеру сети.</p>
 <div class="tbl"><table>
 <thead><tr><th>Сеть</th><th class="num">Точек с кофе</th><th>Что известно</th><th>Вход</th></tr></thead>
@@ -547,7 +631,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 </tbody></table></div>
 <p class="legend">Продажи готового кофе в ритейле за первое полугодие 2025: +82–85 % в натуральном выражении, +107 % в деньгах. Доля россиян, покупающих кофе в супермаркете, выросла с 17 % до 35 % за три года. По данным ОФД за январь–октябрь 2025, самообслуживание прибавило 9 % покупок при среднем чеке 107 ₽, а кофейни потеряли 7,3 % при чеке 412 ₽.</p>
 
-<h3>Честный разбор слабых мест этого плана</h3>
+<h3 id="mix-field-4">Честный разбор слабых мест этого плана</h3>
 <p class="sub">Каждая опора, на которой стоит план, имеет опубликованную критику. Вот она, без смягчения.</p>
 <div class="tbl"><table>
 <thead><tr><th>Опора</th><th>Критика</th><th>Что делаем</th></tr></thead>
@@ -562,7 +646,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 <p><b>И отдельно про измерения.</b> Forrester, 2024: 64 % руководителей B2B-маркетинга не доверяют собственным измерениям настолько, чтобы принимать на их основе решения. ANA, 2026: 67 % называют измерение инфлюенс-кампаний самым трудным шагом. Это не повод не мерить, а повод заранее договориться, что именно считается результатом, и записать это в гейты.</p>
 <p><b>Что из этого следует.</b> Ни одна из методологий не является законом. Цифры 46/54 и 95-5 полезны как рамка для разговора о пропорции и об ожиданиях, но не как норматив, который надо соблюсти. Единственные вещи в этом плане, которые опираются на прямые замеры, а не на чужие обобщения, — это медианы просмотров каналов, опубликованные прайсы, цены событий и отраслевые данные о покупке оборудования. На них и стоит держать вес.</p>
 </div>
-<h3>Замер, который отменил целую статью бюджета</h3>
+<h3 id="mix-field-5">Замер, который отменил целую статью бюджета</h3>
 <p class="sub">Предложенная схема отводила на перехват спроса 25–35 % бюджета: поиск, ретаргетинг, продуктовые страницы. Это оправдано, только если поисковый спрос существует. Проверили.</p>
 <div class="tbl"><table>
 <thead><tr><th>Запрос</th><th class="num">Базовая частота</th><th class="num">Точная</th><th class="num">Фраз в семье</th><th>Вердикт</th></tr></thead>
@@ -583,7 +667,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 <p>Самый показательный факт: главная фраза из предложенной схемы, «кофейная станция», на 350 точных показов состоит из запросов вида «кофейная станция kitfort», «кофейная станция bork», «кофейная станция редмонд cm737». Покупка этой фразы в Директе покупает людей, выбирающих кухонный прибор.</p>
 </div>
 
-<h3>Как сети покупают оборудование на самом деле</h3>
+<h3 id="mix-field-6">Как сети покупают оборудование на самом деле</h3>
 <p class="sub">Две двери, и поиск — ни одна из них.</p>
 <div class="grid2">
 <div class="card"><h4>Дверь первая: аккредитация и тендерная площадка</h4>
@@ -602,7 +686,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 </ul></div>
 </div>
 
-<h3>Рынок уже занят: продавать надо замену, а не запуск</h3>
+<h3 id="mix-field-7">Рынок уже занят: продавать надо замену, а не запуск</h3>
 <div class="tbl"><table>
 <thead><tr><th>Сеть</th><th class="num">Проникновение кофе</th><th>Что это значит для нас</th></tr></thead>
 <tbody>
@@ -619,7 +703,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 <p>Это ещё один аргумент за предложенный микс: соперник побеждает ровно теми инструментами, которые в нём стоят первыми. И проигрывать ему в поиске невозможно, потому что там его нет.</p>
 </div>
 
-<h3>Итоговое распределение после всех замеров</h3>
+<h3 id="mix-field-8">Итоговое распределение после всех замеров</h3>
 <div class="tbl"><table>
 <thead><tr><th>Блок</th><th class="num">Было в предложении</th><th class="num">Стало</th><th class="num">Микс A</th><th class="num">Микс B</th><th class="num">Микс C</th><th>Почему изменилось</th></tr></thead>
 <tbody>
@@ -630,7 +714,8 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 <tr><td>Резерв на измерение</td><td class="num">8,0 %</td><td class="num">8,0 %</td><td class="num">16 720</td><td class="num">46 400</td><td class="num">225 600</td><td class="note">Без изменений</td></tr>
 </tbody></table></div>
 <p class="legend">Создание спроса 46 %, перехват и активация 46 %, резерв 8 %. Без резерва это 50 на 50, что попадает в защитимую вилку ориентира Бине и Филда.</p>
-<h3>Конкуренты: кто и как доказывает свою состоятельность</h3>
+</section><section class="subsec" id="sub-mix-rivals"><div class="toc"><b>В разделе</b><ul><li><a href="#mix-rivals-1">Конкуренты: кто и как доказывает свою состоятельность</a></li><li><a href="#mix-rivals-2">Вторая волна: ещё двенадцать игроков</a></li><li><a href="#mix-rivals-3">Три вывода, меняющие акценты</a></li></ul></div>
+<h3 id="mix-rivals-1">Конкуренты: кто и как доказывает свою состоятельность</h3>
 <p class="sub">Проверено восемь поставщиков автоматического кофейного оборудования для российских сетей. Вопрос был узкий: что они публикуют о внедрениях, как продвигаются и по какой коммерческой модели работают.</p>
 <div class="tbl"><table>
 <thead><tr><th>Компания</th><th>Именные кейсы с цифрами</th><th>Как продвигается</th><th>Коммерческая модель</th></tr></thead>
@@ -644,7 +729,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 <tr><td class="name"><b>Schaerer</b></td><td class="note">Витрина логотипов без единой цифры: Hyatt, Accor, Крошка Картошка, Лукойл, Газпром, Marriott. Единственная конкретика — 9 машин в офисе Газпромнефти</td><td class="note">Прямые продажи через московский офис. Два разных игрока заявляют себя официальным дилером, кто эксклюзивен — непонятно</td><td class="note">Лизинг Barista 58 013 ₽ в месяц. Розница: Coffee Joy 164–193 тыс. ₽, Prime 500–641 тыс. ₽, Soul 936 тыс. – 1,07 млн ₽</td></tr>
 <tr><td class="name"><b>Izensso</b></td><td class="note">Ни одной названной сети. Единственный именной клиент — обжарщик в Нижнем Новгороде, поставка в офис</td><td class="note">Дилер-импортёр Gustomatica, реселлеры Комплекс-Бар, Барнео, Whitegoods. Канал «Русский бариста» в мае 2026. Выставки «Кофе, чай, какао», Flow Fest, GroCoFest</td><td class="note">Только прямая продажа. Raptor 2G 499 200 ₽, при этом у разных дилеров та же модель стоит от 320 000 до 499 200 ₽</td></tr>
 </tbody></table></div>
-<p class="legend">Разбор сделан двумя независимыми проходами: через Grok и через Claude. Ниже — вторая волна, двенадцать игроков соседнего сегмента.</p>
+<p class="legend">Разбор сделан двумя независимыми проверками. Ниже — вторая волна, двенадцать игроков соседнего сегмента.</p>
 
 <div class="callout good">
 <p><b>Поле именных кейсов почти пустое, и это самая дешёвая возможность в плане.</b> Из восьми проверенных компаний развёрнутые кейсы с названными сетями и проверяемыми цифрами публикует ровно одна. У остальных либо витрина логотипов без чисел, либо один кейс без показателей, либо вообще ничего. Один аккуратный кейс с числами, которые сходятся, выделит DrinkX сильнее, чем любой объём посева.</p>
@@ -657,7 +742,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 </div>
 
 
-<h3>Вторая волна: ещё двенадцать игроков</h3>
+<h3 id="mix-rivals-2">Вторая волна: ещё двенадцать игроков</h3>
 <p class="sub">Вендинговые операторы, франшизы самообслуживания и инфраструктурные поставщики. Это соседний сегмент, но он формирует ожидания тех же категорийных менеджеров.</p>
 <div class="callout bad">
 <p><b>Самая неудобная находка за весь разбор: в этом сегменте платит поставщик, а не площадка.</b></p>
@@ -688,20 +773,20 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 <p>То есть отраслевой медийный слой, на который опирается наш микс, конкуренты почти не используют. Это подтверждает выбор, но и объясняет, почему там дёшево: спроса на эти площадки со стороны отрасли мало.</p>
 </div>
 
-<h3>Три вывода, меняющие акценты</h3>
+<h3 id="mix-rivals-3">Три вывода, меняющие акценты</h3>
 <div class="grid2">
 <div class="card"><h4>Разделение дохода публично не предлагает никто</h4><p>У крупных поставщиков публичного оффера revenue-share нет. РусХОЛТС раскрывал схему 50/50 в интервью 2019 года, актуального предложения на сайте нет. Uvenco ставит автомат бесплатно, но платит площадке за место, а не делится выручкой.</p><p>Схему «оборудование бесплатно за объём закупки кофе» предлагают мелкие арендодатели и федеральная программа Nestlé Professional, но не производители станций.</p><p><b>Значит:</b> внятная публичная схема разделения дохода сделает DrinkX единственным с таким оффером на этом месте.</p></div>
 <div class="card"><h4>Канал «Русский бариста» уже проверен конкурентами</h4><p>На нём выходили и WMF в 2022 году, и Izensso в мае 2026. Площадка рабочая, но сам факт присутствия там уже никого не удивит.</p><p><b>Значит:</b> отличаться надо форматом, а не фактом размещения. Это ещё один довод за «обзор кофе в сетях» вместо обзора станции: конкуренты делали именно обзоры техники.</p></div>
 <div class="card"><h4>ПИР Экспо — общая точка сбора отрасли</h4><p>Там были РусХОЛТС, Jetinno, Dr.Coffee и WMF. VerSous собирает Jetinno, ProCorner, Uvenco, Vendotek.</p><p><b>Значит:</b> на этих площадках вопрос не «идти ли», а «с чем идти». Соперники там будут в любом случае, и приехать без демо-станции означает проиграть тот самый живой тест, который влияет на решение у 91 % операторов.</p></div>
 </div>
-
+</section>
 </div>
 
 <div class="tab" id="tab-ref">
   <h2>Справочник: медиа, события, инструменты, закон, бенчмарки</h2>
-  <p class="sub">Исследовательская часть от 15.09.2026. Не редактируется на странице; обновляется новым прогоном.</p>
+  <p class="sub">Исследовательская часть от 15.09.2026. На странице не редактируется — обновляется при следующем сборе данных.</p>
 <section id="itogi">
-  <h2>Что выяснилось за один проход</h2>
+  <h2>Главные выводы разведки</h2>
   <div class="facts">
     <div class="fact"><b>1,7–56 %</b><span>разброс ERR (просмотры ÷ подписчики) у 15 измеренных каналов. Подписчики как метрика бесполезны</span></div>
     <div class="fact"><b>8+</b><span>ритейл-каналов с общими админами (@alfapolo, @retail_russ, @dadanil3). Это одна сетка, а не восемь площадок</span></div>
@@ -715,6 +800,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
   </div>
 </section>
 
+<nav class="subtabs" aria-label="Разделы части"><ul><li><button type="button" data-sub="ref-media" aria-pressed="true">Медиа и события</button></li><li><button type="button" data-sub="ref-tools" aria-pressed="false">Инструменты и закон</button></li><li><button type="button" data-sub="ref-bench" aria-pressed="false">Бенчмарки и источники</button></li></ul></nav><section class="subsec on" id="sub-ref-media">
 <section id="media">
   <h2>Отраслевые медиа и события</h2>
   <p class="sub">Слой, которого в исходном плане не было совсем: площадки, где читатель не бариста, а сеть. Цены из медиакитов; где стоит «по запросу», медиакит есть, но прайс закрыт.</p>
@@ -732,7 +818,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
     </tbody>
   </table></div>
 
-  <h3>Календарь событий как канал</h3>
+  <h3 id="ref-media-1">Календарь событий как канал</h3>
   <div class="tbl"><table>
     <thead><tr><th>Событие</th><th>Когда</th><th>Кто там</th><th>Зачем DrinkX</th></tr></thead>
     <tbody>
@@ -758,34 +844,27 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
   </div>
 </section>
 
+</section><section class="subsec" id="sub-ref-tools">
 <section id="toolkit">
   <h2>Инструментарий маркетолога</h2>
-  <p class="sub">Три слоя: что уже есть у нас в этой среде и стоит копейки, что нужно купить для due diligence, через что закупать с автоматической маркировкой.</p>
+  <p class="sub">Три слоя: откуда берутся цифры по каналам, что купить для проверки перед закупкой, через кого закупать с автоматической маркировкой.</p>
   <div class="grid2">
-    <div class="card"><h4>Уже подключено: Apify-акторы (использованы сегодня)</h4>
+    <div class="card"><h4>Откуда берутся цифры по каналам</h4>
       <ul>
-        <li><b>tgkit-telegram-channel-finder</b>: поиск каналов по ключевым словам через TGKit и TGStat. 52 канала за 12 секунд, около 1 цента.</li>
-        <li><b>khadinakbar/telegram-channel-scraper</b>: подписчики, просмотры и реакции по постам, без логина. 15 каналов × 10 постов = 150 сообщений, около 30 центов. Даёт медиану и ERR.</li>
-        <li><b>automation-lab/telegram-scraper</b>: профиль канала с описанием и контактами админа, 0,2 цента за канал.</li>
-        <li><b>streamers/youtube-channel-scraper</b>: подписчики и просмотры последних роликов, 0,13 цента за ролик.</li>
-        <li><b>youtube-channel-lookalike-finder</b>: похожие каналы по контенту с фильтрами по подписчикам и стране, 12 центов за канал. Для расширения Sprint 1.</li>
+        <li><b>Telegram</b>: подписчики, медиана просмотров, реакции и ERR — по десяти последним постам, с публичных страниц, без доступа к каналу.</li>
+        <li><b>YouTube</b>: подписчики и просмотры последних роликов, плюс подбор похожих каналов по теме.</li>
+        <li><b>Профиль канала</b>: описание и контакты администратора — отсюда заполняется поле «Контакт» в базе.</li>
       </ul>
-      <p>Ежемесячный пересчёт всей карты обойдётся примерно в 1 доллар. tgstat.ru напрямую отдаёт 403, поэтому акторы и t.me/s/ надёжнее.</p>
+      <p>Полный пересчёт карты стоит около доллара, поэтому обновлять её можно хоть ежемесячно. Прямой доступ к tgstat.ru закрыт, цифры снимаются с открытых страниц.</p>
     </div>
-    <div class="card"><h4>Уже подключено: поиск и данные</h4>
-      <ul>
-        <li><b>Exa, Tavily, WebSearch</b>: разведка каналов, медиакитов, инфоповодов. Сегодня 123 вызова.</li>
-        <li><b>Similarweb, Ahrefs, HubSpot</b> подключены как коннекторы, но не авторизованы. Similarweb нужен для проверки трафика медиа (Retail.ru, New Retail, Cafe Future), включить через настройки коннекторов claude.ai.</li>
-        <li><b>Grok-разведка</b> не отработала: CLI не авторизован. Команда для включения: <kbd>grok login</kbd>.</li>
-      </ul>
-    </div>
-    <div class="card"><h4>Купить для due diligence (этап 3 workflow)</h4>
+    <div class="card"><h4>Купить для проверки каналов</h4>
       <ul>
         <li><b>Telemetr, тариф «Профи»</b> 4 900 ₽/мес: история рекламных постов канала (3,16 млрд индексировано, включая удалённые), красная метка накрутки, доля Premium-подписчиков, анализ аудитории. Главный инструмент проверки.</li>
         <li><b>TGStat Premium</b> 3 360 ₽/мес физлицу или 6 720 ₽ на юрлицо: источники прироста подписчиков, индекс цитирования, история закупок рекламы самим каналом.</li>
         <li><b>LabelUp</b> 12 500 ₽/мес: пересечение аудиторий блогеров, LQI-скор фрода, Telegram + YouTube + MAX + Rutube + Дзен, выгрузка статистики в ОРД OZON. Нужен, если выйдем за Telegram.</li>
         <li><b>Popsters</b> 799 ₽/мес: ER по постам и лучшее время публикации, без проверки накрутки. Дёшево, но вторично.</li>
         <li><b>Yoloco</b> от 150 $/мес: единственный, кто считает пересечение аудиторий между Telegram и YouTube. Только если бюджет программы оправдает.</li>
+        <li><b>Similarweb</b>: проверка трафика отраслевых медиа — Retail.ru, New Retail, Cafe Future. Нужен до того, как платить за статью.</li>
       </ul>
     </div>
     <div class="card"><h4>Через что закупать</h4>
@@ -805,7 +884,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
         <li><b>Яндекс Метрика</b>: цель «Переход в мессенджер» и составная цель под воронку «лендинг → шаблон пилота → заявка».</li>
       </ul>
     </div>
-    <div class="card"><h4>Что вернуть в Sprint 2 из этого прохода</h4>
+    <div class="card"><h4>Что сделать до первой закупки</h4>
       <ul>
         <li>Запросить статистику у админов пяти жёлтых каналов: скрин просмотров за 30 дней, доля Premium, источники прироста.</li>
         <li>Проверить каждый канал с 10 000+ подписчиков в реестре Роскомнадзора (бейдж «А+», бот @TrustChannelBot). Реклама в незарегистрированном канале штрафуется и для рекламодателя.</li>
@@ -855,6 +934,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
   </div>
 </section>
 
+</section><section class="subsec" id="sub-ref-bench">
 <section id="benchmarks">
   <h2>Бенчмарки для бюджета и стоп-критериев</h2>
   <div class="tbl"><table>
@@ -908,23 +988,7 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
     <li>Не проверено: подписчики Retail.ru и New Retail на YouTube; цены статей Retail.ru и New Retail; даты ФУДМАШИНА и CMCONF; юридический статус переходного периода ФАС (пресс-релиз, не акт); ER 8 % на telegramstats.net одинаков у всех каналов и похож на модельную оценку</li>
   </ul>
 </section>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
+</section>
 </div>
 </div>
 <div class="toast" id="toast" role="status"></div>
@@ -934,6 +998,9 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
 const SEED = {"channels": [{"id": "catmanpro_org", "name": "Категорийный менеджмент (КАТМЕНПРО)", "platform": "Telegram", "cluster": "Катмены", "subs": 3780, "med": 478, "err": 12.6, "price": null, "priceNote": "прайс на Я.Диске", "contact": "t.me/catmanpro_org", "role": "Executive influence", "scores": {"icp": 5, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Профессиональное сообщество категорийных менеджеров, конференция CMCONF. Самая плотная ICP-аудитория из найденных.", "hl": true, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "kpcatmanpro", "name": "Коммерческое предложение. Категорийный менеджмент", "platform": "Telegram", "cluster": "Катмены", "subs": 2048, "med": null, "err": null, "price": 0, "priceNote": "бесплатно", "contact": "t.me/kpcatmanpro/5", "role": "Demand capture", "scores": {"icp": 5, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Свободное размещение КП поставщиков для ритейла. Нулевая цена, прямой формат.", "hl": true, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "krok_catman", "name": "Krok pro CatMan", "platform": "Telegram", "cluster": "Катмены", "subs": 1600, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "t.me/krok_catman", "role": "Category education", "scores": {"icp": 4, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Категорийный менеджмент; данные 2024 года, проверить активность.", "hl": false, "source": "Grok-разведка, tlgbot.ru", "updatedAt": "2026-09-15"}, {"id": "PRORETAILCOMMUNITY", "name": "Про Ритейл Дейли (INFOLine)", "platform": "Telegram", "cluster": "Катмены", "subs": 4000, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "t.me/PRORETAILCOMMUNITY", "role": "Category education", "scores": {"icp": 4, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Аналитика FMCG-сетей от INFOLine. Аудитория аналитики и катмены.", "hl": false, "source": "Grok-разведка", "updatedAt": "2026-09-15"}, {"id": "ikmmarketing", "name": "I-KM · Каролина Ильенкова", "platform": "Telegram", "cluster": "Катмены", "subs": 3450, "med": 147, "err": 4.3, "price": null, "priceNote": "—", "contact": "@kilyenkova", "role": "Category education", "scores": {"icp": 4, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Школа категорийного менеджмента; посты редкие, май–июнь 2026, просмотры низкие.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "Catman_Sergey_Iluha", "name": "Категорийный менеджмент от Сергея Илюхи", "platform": "Telegram", "cluster": "Катмены", "subs": 538, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "liga-commersantov.ru", "role": "Category education", "scores": {"icp": 4, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Тренинги для закупщиков. Маленький, но точный.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "svobodakassa", "name": "Свободная касса (ритейл & e-com)", "platform": "Telegram", "cluster": "Ритейл-медиа", "subs": 31500, "med": 7040, "err": 22.3, "price": null, "priceNote": "напрямую, ИД НОМ", "contact": "@id_nom", "role": "Executive influence", "scores": {"icp": 4, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Лучший ERR среди ритейл-медиа; Telemetr даёт ER 29 % (похоже, именно эта цифра попала в исходник как «Фудтех в России»). 15.09 пост про падение кофе навынос. Зеркало в MAX.", "hl": true, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "okoloretail", "name": "Околоритейл", "platform": "Telegram", "cluster": "Ритейл-медиа", "subs": 36900, "med": 4865, "err": 13.2, "price": 69930, "priceNote": "1/24, telega.in", "contact": "@dadanil3", "role": "Executive influence", "scores": {"icp": 4, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Автор Даниил Баздырев, ex-PR МТС Ритейл. ~9 постов в день, частота падает. Контакт общий с сеткой. Цена втрое выше рынка.", "hl": true, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "newspotreb", "name": "Shopper's", "platform": "Telegram", "cluster": "Ритейл-медиа", "subs": 26800, "med": 2100, "err": 7.8, "price": null, "priceNote": "рекламы нет", "contact": "editor@shoppersmedia.ru", "role": "Executive influence", "scores": {"icp": 4, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Издание «Магнита»: ритейл-профи, но медиа конкурента-сети. Через редакцию и инфоповоды.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "newretail", "name": "Нью Ритейл · New Retail", "platform": "Telegram", "cluster": "Ритейл-медиа", "subs": 10800, "med": 1000, "err": 9.3, "price": null, "priceNote": "adv@new-retail.ru", "contact": "Андрей Филитов, +7 903 184-70-06", "role": "Executive influence", "scores": {"icp": 4, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "По медиакиту: руководители сетей, директора по развитию и закупкам.", "hl": true, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "retailer_news", "name": "RETAILER.ru — новости", "platform": "Telegram", "cluster": "Ритейл-медиа", "subs": 18200, "med": 3600, "err": 19.8, "price": null, "priceNote": "adv@retailer.ru", "contact": "+7 999 217-32-45", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Telemetr: 3 085–4 171 просмотров, ER 17–19 %, 4 поста в день.", "hl": false, "source": "Grok-разведка, telemetr", "updatedAt": "2026-09-15"}, {"id": "retail_ru", "name": "Retail.ru", "platform": "Telegram", "cluster": "Ритейл-медиа", "subs": 17800, "med": 1300, "err": 7.3, "price": null, "priceNote": "sales@retail.ru", "contact": "Тамара Ревва, +7 903 119-47-73", "role": "Executive influence", "scores": {"icp": 4, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Посты 1,1–1,5 тыс. Главное не канал, а платные форматы на сайте (см. Медиа).", "hl": false, "source": "Grok-разведка, t.me/s", "updatedAt": "2026-09-15"}, {"id": "fmcg_ru", "name": "FMCG Report (ИД НОМ)", "platform": "Telegram", "cluster": "Ритейл-медиа", "subs": 42900, "med": null, "err": null, "price": null, "priceNote": "напрямую, ИД НОМ", "contact": "@id_nom", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Производство и полка FMCG. Тот же издатель, что «Свободная касса»: пакет из двух каналов.", "hl": false, "source": "Grok-разведка, t.me/s", "updatedAt": "2026-09-15"}, {"id": "retailweek", "name": "Retail Week · Неделя ритейла", "platform": "Telegram", "cluster": "Ритейл-медиа", "subs": 4500, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "retailweek.ru", "role": "Executive influence", "scores": {"icp": 4, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Канал форума: тренды, программа, участники. Вход в оргкомитет.", "hl": false, "source": "Grok-разведка", "updatedAt": "2026-09-15"}, {"id": "producttoday", "name": "Продукт Медиа", "platform": "Telegram", "cluster": "Ритейл-медиа", "subs": 13100, "med": 2500, "err": 19.1, "price": 12587, "priceNote": "1/24, telega.in", "contact": "telega.in", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Производители продуктов и продовольственный ритейл. Дёшево при хорошем ERR.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "retail", "name": "Retail · Юлия Джанибекова", "platform": "Telegram", "cluster": "Ритейл-медиа", "subs": 3141, "med": 566, "err": 18.0, "price": null, "priceNote": "карточка telega.in", "contact": "telega.in/c/retail", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Омниканальный ритейл, авторский.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "technoretail_nom", "name": "ТехноРитейл (ИД НОМ)", "platform": "Telegram", "cluster": "Ритейл-медиа", "subs": 11500, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "@id_nom", "role": "Brand amplification", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Электроника и техноритейл. Не наш формат.", "hl": false, "source": "Grok-разведка", "updatedAt": "2026-09-15"}, {"id": "datainsight", "name": "Data Insight. Цифры E-commerce", "platform": "Telegram", "cluster": "Ритейл-медиа", "subs": 20000, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "t.me/datainsight", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Исследования e-com. Слабое пересечение с офлайн-форматом.", "hl": false, "source": "Grok-разведка", "updatedAt": "2026-09-15"}, {"id": "foodtechonline", "name": "#Фудтех", "platform": "Telegram", "cluster": "Фудтех", "subs": 21200, "med": 4000, "err": 18.9, "price": 38794, "priceNote": "натив, пауза заявок", "contact": "@mLccrew", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "В реестре блогеров РКН. Самый живой фудтех-канал.", "hl": true, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "foodtech_russia", "name": "Фудтех в России", "platform": "Telegram", "cluster": "Фудтех", "subs": 4790, "med": 680, "err": 14.2, "price": null, "priceNote": "@adv_tgc", "contact": "@adv_tgc", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "ER 29 % из исходника не подтверждён: 11–12 % по Telemetr. Проект ИД TG Creator.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "the_technologies", "name": "#Технологии HoReCa & Retail", "platform": "Telegram", "cluster": "Фудтех", "subs": 10800, "med": 3785, "err": 35.0, "price": 7692, "priceNote": "натив, пауза заявок", "contact": "@RestoAdmin", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "ERR подозрительно высок; Wowblogger даёт охват 1 884. Проверить накрутку в Telemetr.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "bfoodtech", "name": "Беспощадный фудтех", "platform": "Telegram", "cluster": "Фудтех", "subs": 9390, "med": 1210, "err": 12.9, "price": null, "priceNote": "сетка @retail_russ", "contact": "@retail_russ", "role": "Brand amplification", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Та же сетка, что массовый ритейл.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "iiko_russia", "name": "iiko", "platform": "Telegram", "cluster": "Фудтех", "subs": 11000, "med": null, "err": null, "price": null, "priceNote": "вендор", "contact": "t.me/iiko_russia", "role": "Партнёр", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Канал вендора автоматизации общепита. Партнёрство, не закупка.", "hl": false, "source": "Grok-разведка", "updatedAt": "2026-09-15"}, {"id": "coffee_vertikal", "name": "Кофейная вертикаль — данные и тренды", "platform": "Telegram", "cluster": "Кофе-бизнес", "subs": 1147, "med": 96, "err": 8.4, "price": null, "priceNote": "—", "contact": "t.me/coffee_vertikal", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Аналитика кофейного рынка для владельцев и закупщиков.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "russianbarista", "name": "Русский бариста (Telegram)", "platform": "Telegram", "cluster": "Кофе-бизнес", "subs": 7020, "med": 733, "err": 10.4, "price": null, "priceNote": "в пакете с YouTube", "contact": "@Russian_barista", "role": "Expert proof", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Поддержка YouTube-ролика.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "billoncoffee", "name": "Ярд на кофе. Дринкит", "platform": "Telegram", "cluster": "Кофе-бизнес", "subs": 5570, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "t.me/billoncoffee", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Крупнейший франчайзи Дринкит, экономика сети. Читать, не покупать.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "streamcoffeelive", "name": "SC: кофе и бизнес (Stream Coffee)", "platform": "Telegram", "cluster": "Кофе-бизнес", "subs": 6300, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "business.streamcoffee.ru", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Клуб владельцев кофеен.", "hl": false, "source": "Grok-разведка", "updatedAt": "2026-09-15"}, {"id": "scopening", "name": "гуща экспертиз (ex «Как открыть кофейню»)", "platform": "Telegram", "cluster": "Кофе-бизнес", "subs": 3200, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "t.me/scopening", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Открытие и управление кофейней.", "hl": false, "source": "Grok-разведка", "updatedAt": "2026-09-15"}, {"id": "pircoffee", "name": "ПИР-КОФЕ", "platform": "Telegram", "cluster": "Кофе-бизнес", "subs": 6200, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "info@pirexpo.com", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Официальный канал выставки. Спикерство и стенд 26–29 октября.", "hl": false, "source": "Grok-разведка", "updatedAt": "2026-09-15"}, {"id": "coffeeteanet", "name": "КИЧ · coffeetea.ru", "platform": "Telegram", "cluster": "Кофе-бизнес", "subs": 3300, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "coffeetea.ru", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Журнал «Кофе и чай в России».", "hl": false, "source": "Grok-разведка", "updatedAt": "2026-09-15"}, {"id": "viktor_skuratov", "name": "Виктор Скуратов", "platform": "Telegram", "cluster": "Кофе-бизнес", "subs": 2900, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "t.me/viktor_skuratov", "role": "Expert proof", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Основатель Skuratov Coffee. Потенциальный эксперт-спикер.", "hl": false, "source": "Grok-разведка", "updatedAt": "2026-09-15"}, {"id": "varka_business", "name": "VARKA BUSINESS", "platform": "Telegram", "cluster": "Кофе-бизнес", "subs": 6700, "med": 900, "err": 13.4, "price": null, "priceNote": "—", "contact": "t.me/varka_business", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Кофейни самообслуживания; операторы, не сети.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "caffeine_business", "name": "Кофеиновый бизнес", "platform": "Telegram", "cluster": "Кофе-бизнес", "subs": 4154, "med": 387, "err": 9.3, "price": null, "priceNote": "—", "contact": "t.me/caffeine_business", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Сообщество кофейной индустрии.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "coffeemapru", "name": "coffeemap.ru", "platform": "Telegram", "cluster": "Кофе-бизнес", "subs": 9700, "med": 779, "err": 8.0, "price": null, "priceNote": "—", "contact": "t.me/coffeemapru", "role": "Brand amplification", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Кофейная индустрия Москвы, 0,6 поста в день.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "gdekoferf", "name": "Take&Wake — кофейни самообслуживания", "platform": "Telegram", "cluster": "Кофе-бизнес", "subs": 5074, "med": 412, "err": 8.1, "price": null, "priceNote": "—", "contact": "t.me/gdekoferf", "role": "—", "scores": {"icp": 1, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Франшиза, конкурирующий формат.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "vendista", "name": "Vendista", "platform": "Telegram", "cluster": "Вендинг", "subs": 10600, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "t.me/vendista", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Операторы вендинга: эквайринг, телеметрия, 54-ФЗ. Самый большой вендинг-канал.", "hl": false, "source": "Grok-разведка", "updatedAt": "2026-09-15"}, {"id": "v_vending", "name": "В значит Вендинг", "platform": "Telegram", "cluster": "Вендинг", "subs": 2310, "med": 1305, "err": 56.5, "price": null, "priceNote": "@bis4bis", "contact": "@bis4bis", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Самый живой канал в выборке, плюс YouTube @bisforbusiness.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "infovendru", "name": "Infovend", "platform": "Telegram", "cluster": "Вендинг", "subs": 1250, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "infovend.ru", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Независимое вендинг-медиа.", "hl": false, "source": "Grok-разведка", "updatedAt": "2026-09-15"}, {"id": "Brskl", "name": "Briskly Club", "platform": "Telegram", "cluster": "Вендинг", "subs": 1260, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "t.me/Brskl", "role": "Партнёр", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Микромаркеты и умные холодильники в ритейле и офисах. Смежный формат, возможный партнёр.", "hl": false, "source": "Grok-разведка", "updatedAt": "2026-09-15"}, {"id": "rustamkalko", "name": "Вендинг и кофейный бизнес", "platform": "Telegram", "cluster": "Вендинг", "subs": 492, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "t.me/rustamkalko", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Практика операторов и экономика точек.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "redmatrixru", "name": "RED — фудтех дистрибьютор", "platform": "Telegram", "cluster": "Партнёры", "subs": 1580, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "redmachine.pro", "role": "Партнёр", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Дистрибьютор оборудования HoReCa («Деловая Русь»).", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "restorator_channel", "name": "РЕСТОРАТОР", "platform": "Telegram", "cluster": "HoReCa", "subs": 14600, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "t.me/restorator_channel", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Ресторанный бизнес. Резерв.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "restovedofficial", "name": "Ресторанные Ведомости", "platform": "Telegram", "cluster": "HoReCa", "subs": 7024, "med": 561, "err": 8.0, "price": null, "priceNote": "по медиакиту Restoranoff", "contact": "s.korotkova@restoved.ru", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Идёт в пакете с порталом и журналом.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "retailrus", "name": "Русский ритейл и бизнес", "platform": "Telegram", "cluster": "Массовый ритейл", "subs": 292000, "med": 16500, "err": 5.7, "price": null, "priceNote": "@zubar89", "contact": "@zubar89", "role": "Brand amplification", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Развлекательно-новостной. Самый большой охват, низкая плотность ЛПР.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "real_retail", "name": "Реальный Ритейл", "platform": "Telegram", "cluster": "Массовый ритейл", "subs": 95300, "med": 7945, "err": 8.3, "price": null, "priceNote": "@rust_sales", "contact": "@rust_sales", "role": "Brand amplification", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Ровные просмотры, без сетки в описании.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "b_retail", "name": "Беспощадный ритейл", "platform": "Telegram", "cluster": "Массовый ритейл", "subs": 141000, "med": 6085, "err": 4.3, "price": null, "priceNote": "сетка", "contact": "@retail_russ", "role": "Brand amplification", "scores": {"icp": 1, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "ERR 4 % при 141 тыс. подписчиков.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "retail_kitchen", "name": "Кухня ритейла", "platform": "Telegram", "cluster": "Массовый ритейл", "subs": 66400, "med": 1800, "err": 2.7, "price": 41958, "priceNote": "1/24, telega.in", "contact": "@alfapolo", "role": "—", "scores": {"icp": 1, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "CPV 23 ₽ при ERR 2,7 %. Худшее соотношение в выборке.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "retailerblog", "name": "Ритейл в России", "platform": "Telegram", "cluster": "Массовый ритейл", "subs": 39600, "med": 689, "err": 1.7, "price": null, "priceNote": "сетка", "contact": "@retail_russ", "role": "—", "scores": {"icp": 1, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "689 просмотров на 39,6 тыс. подписчиков. Красный флаг.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "retail_bez_network", "name": "Сетка: Ритейл без сдачи · Ритейл заказывали? · Ритейл Медиа · Будни русского ритейла · Около кассы", "platform": "Telegram", "cluster": "Массовый ритейл", "subs": 288000, "med": null, "err": null, "price": null, "priceNote": "сетка @alfapolo", "contact": "@alfapolo", "role": "Brand amplification", "scores": {"icp": 1, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Пять каналов одной сетки, 288 тыс. подписчиков суммарно; ожидаю ERR 3–6 %.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "yt_russianbarista", "name": "Russian Barista", "platform": "YouTube", "cluster": "Кофе-бизнес", "subs": 340000, "med": 5500, "err": null, "price": null, "priceNote": "рынок 70–250 тыс. ₽ за ролик", "contact": "school@russianbarista.ru, @Russian_barista", "role": "Expert proof", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Медиана 15 роликов 5 500; «Обзор кофе из Skuratov, Дринкит, Stars» 125 000. Свой сервис-центр, продажа Izensso и LELIT: оговорить конфликт интересов. Формат: «обзор кофе в ритейле + DrinkX».", "hl": true, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "yt_iden", "name": "АЙДЕН (влог Meren Coffee)", "platform": "YouTube", "cluster": "Кофе-бизнес", "subs": null, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "iden@techsquad.ru", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "«Кофейня в убытках?» 707 000 просмотров; серия с P&L точки. Аудитория SMB.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "yt_perfetto", "name": "Perfetto · Андрей Костанян", "platform": "YouTube", "cluster": "Кофе-бизнес", "subs": 194000, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "manager@perfetto-coffee.ru", "role": "Expert proof", "scores": {"icp": 1, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Просьюмер и дом; 22 700 за 8 дней на Q&A с Tasty Coffee.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "yt_retailru", "name": "Retail.ru «Диалоги о ритейле»", "platform": "YouTube", "cluster": "Ритейл-медиа", "subs": null, "med": null, "err": null, "price": null, "priceNote": "по запросу", "contact": "sales@retail.ru", "role": "Executive influence", "scores": {"icp": 5, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Единственный видеоформат с аудиторией сетей: 2–3-часовые эфиры, туры по магазинам.", "hl": true, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "yt_newretail", "name": "New Retail NR.LIVE", "platform": "YouTube", "cluster": "Ритейл-медиа", "subs": null, "med": null, "err": null, "price": null, "priceNote": "по запросу", "contact": "adv@new-retail.ru", "role": "Executive influence", "scores": {"icp": 4, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Эфиры про выход в федеральные сети; продаются как продукт.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "yt_welder", "name": "Сварщица Екатерина", "platform": "YouTube", "cluster": "Кофе-бизнес", "subs": 29400, "med": null, "err": null, "price": null, "priceNote": "партнёрство", "contact": "t.me/theweldercatherine", "role": "Expert proof", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Канал обжарщика, TG 19 800. Партнёрский, не рекламный.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "tastycoffee", "name": "Tasty Coffee Roasters", "platform": "Telegram", "cluster": "Партнёры", "subs": 24800, "med": 5500, "err": 22.2, "price": null, "priceNote": "партнёрство", "contact": "tastycoffee.ru", "role": "Партнёр", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Обжарщик с оптом; Дмитрий Корюкин их продукт-директор. Со-спикер по качеству чашки.", "hl": false, "source": "Apify + веб-разведка, 15.09.2026", "updatedAt": "2026-09-15"}, {"id": "m_retailru", "name": "Retail.ru (портал)", "platform": "Медиа", "cluster": "Ритейл-медиа", "subs": null, "med": null, "err": null, "price": null, "priceNote": "статьи по запросу; баннер 25 000 ₽/мес", "contact": "sales@retail.ru, Тамара Ревва", "role": "Executive influence", "scores": {"icp": 5, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Гарантия ≥ 2 000 просмотров платной статьи, 8 000 у «Товар на полку». Кейс, интервью, «Диалоги о ритейле», рассылки, стенды на 150+ событий.", "hl": true, "source": "retail.ru/advert", "updatedAt": "2026-09-15"}, {"id": "m_newretail", "name": "New Retail (портал)", "platform": "Медиа", "cluster": "Ритейл-медиа", "subs": null, "med": null, "err": null, "price": null, "priceNote": "по запросу", "contact": "adv@new-retail.ru", "role": "Executive influence", "scores": {"icp": 5, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "450 000+ визитов/мес, рассылка 22 000+. Натив, интервью «Персоны», кейс, спецпроект, NR.LIVE.", "hl": true, "source": "new-retail.ru/o_reklame", "updatedAt": "2026-09-15"}, {"id": "m_shoppers", "name": "Shopper's (портал)", "platform": "Медиа", "cluster": "Ритейл-медиа", "subs": null, "med": null, "err": null, "price": null, "priceNote": "рекламы нет", "contact": "editor@shoppersmedia.ru", "role": "Executive influence", "scores": {"icp": 4, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "150 000+ визитов/мес, 500 000+ читателей. Только редакция: питчить инфоповоды и экспертные комментарии.", "hl": false, "source": "shoppers.media/about", "updatedAt": "2026-09-15"}, {"id": "m_retailer", "name": "Retailer.ru (портал)", "platform": "Медиа", "cluster": "Ритейл-медиа", "subs": null, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "adv@retailer.ru", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Медиакит 2018 года; актуальную аудиторию запросить.", "hl": false, "source": "retailer.ru", "updatedAt": "2026-09-15"}, {"id": "m_restoranoff", "name": "Restoranoff + «Ресторанные ведомости»", "platform": "Медиа", "cluster": "HoReCa", "subs": null, "med": null, "err": null, "price": 70000, "priceNote": "статья компании; новость 30 000; видео 50 000; рассылка 25 000; 2 полосы натив 120 000", "contact": "s.korotkova@restoved.ru, +7 960 517 10 92", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Портал 75 000 уник./мес, журнал 11 000 экз. доходит до супермаркетов и фудкортов. События ФУДМАШИНА (поставщики оборудования), Конгресс ТОП-100.", "hl": true, "source": "Media Kit 2025", "updatedAt": "2026-09-15"}, {"id": "m_horeca", "name": "HoReCa Magazine", "platform": "Медиа", "cluster": "HoReCa", "subs": null, "med": null, "err": null, "price": 24000, "priceNote": "статьи 24 000–30 000; баннеры 12 000–42 000; пакеты от 45 000", "contact": "info@horeca.ru", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Деловой журнал индустрии гостеприимства.", "hl": false, "source": "horeca-magazine.ru/advert", "updatedAt": "2026-09-15"}, {"id": "m_cafefuture", "name": "Cafe Future / FoodService", "platform": "Медиа", "cluster": "HoReCa", "subs": null, "med": null, "err": null, "price": 100000, "priceNote": "статья 4 нед + НДС; спецпроект 70 000; закреп 25 000", "contact": "foodservice@prph.ru", "role": "Category education", "scores": {"icp": 2, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Трафик низкий (Similarweb ≈ 2,3 млн место). Дорого за охват.", "hl": false, "source": "cafe-future.ru/adv-site", "updatedAt": "2026-09-15"}, {"id": "m_coffeetea", "name": "«Кофе и чай в России» / coffeetea.ru", "platform": "Медиа", "cluster": "Кофе-бизнес", "subs": null, "med": null, "err": null, "price": null, "priceNote": "—", "contact": "coffeetea.ru", "role": "Category education", "scores": {"icp": 3, "trust": null, "format": null, "reach": null, "engage": null, "measure": null, "econ": null}, "status": "не трогали", "owner": "", "notes": "Единственный профессиональный журнал отрасли, тираж 15 000; организатор Coffee Tea Cacao Expo.", "hl": false, "source": "coffeetea.ru", "updatedAt": "2026-09-15"}], "campaigns": [{"id": "c_example_rb", "name": "ПРИМЕР · Russian Barista: обзор кофе в ритейле", "channelId": "yt_russianbarista", "objective": "Expert proof + category education", "segment": "Retail networks · category / F&B", "cta": "Получить шаблон пилота кофейной зоны для сети", "contentType": "2 ролика YouTube + 4 нарезки", "landing": "drinkx.ru/pilot (создать)", "utm": "rb_retail_review_2026q4", "budget": 200000, "launchDate": "2026-11-15", "status": "идея", "hook": "−4 % кофе навынос, +13 % цена чашки, −15 % кофеен в Москве (Платформа ОФД, сентябрь 2026)", "notes": "Пример строки. Удалите или замените."}], "accounts": [{"id": "a_x5", "company": "X5 Group (Пятёрочка, Перекрёсток)", "tier": "A", "segment": "Федеральные продуктовые сети", "priority": "1", "lprs": "", "campaigns": "", "owner": "", "status": "не начато", "notes": "Черновик списка Tier A из участников Недели ритейла."}, {"id": "a_magnit", "company": "Магнит", "tier": "A", "segment": "Федеральные продуктовые сети", "priority": "1", "lprs": "", "campaigns": "", "owner": "", "status": "не начато", "notes": "Издание Shopper's принадлежит сети."}, {"id": "a_lenta", "company": "Лента", "tier": "A", "segment": "Федеральные продуктовые сети", "priority": "1", "lprs": "", "campaigns": "", "owner": "", "status": "не начато", "notes": "Формат «Лента» XS показан в «Диалогах о ритейле» Retail.ru."}, {"id": "a_vkusvill", "company": "ВкусВилл", "tier": "A", "segment": "Сети с кофейными зонами", "priority": "1", "lprs": "", "campaigns": "", "owner": "", "status": "не начато", "notes": "Развивает кофе-корнеры в магазинах (Известия, сентябрь 2026)."}, {"id": "a_azbuka", "company": "Азбука вкуса", "tier": "B", "segment": "Премиальные сети", "priority": "2", "lprs": "", "campaigns": "", "owner": "", "status": "не начато", "notes": ""}, {"id": "a_metro", "company": "METRO", "tier": "B", "segment": "Cash & carry", "priority": "2", "lprs": "", "campaigns": "", "owner": "", "status": "не начато", "notes": ""}, {"id": "a_spar_mv", "company": "Спар Миддл Волга (Spar, Eurospar)", "tier": "B", "segment": "Региональные сети", "priority": "2", "lprs": "Елена Кульпина, директор по маркетингу и клиентскому сервису (цитата в Shopper's, март 2026)", "campaigns": "", "owner": "", "status": "не начато", "notes": "Публично говорит о росте кофе навынос в ритейле."}, {"company": "Ашан", "tier": "B", "segment": "Федеральные продуктовые сети", "priority": "2", "lprs": "", "campaigns": "", "owner": "", "status": "не начато", "notes": "Кофе с собой +22 % в 2025 и +16 % в начале 2026. Корнеры ставят на кассовую линию.", "updatedAt": "2026-09-16", "id": "a_auchan"}, {"company": "Чижик (X5)", "tier": "B", "segment": "Новые форматы", "priority": "2", "lprs": "", "campaigns": "", "owner": "", "status": "не начато", "notes": "Новый формат внутри X5. Гринфилд там, где в основной сети проникновение выше 85 %.", "updatedAt": "2026-09-16", "id": "a_chizhik"}, {"company": "Дикси", "tier": "A", "segment": "Федеральные продуктовые сети", "priority": "1", "lprs": "", "campaigns": "", "owner": "", "status": "не начато", "notes": "Около 1 200 магазинов с кофе-поинтами, план 1 800. Средние продажи выросли с 12–15 до 40 чашек в день за два года. Простой оборудования снижен на 40 % после внедрения мониторинга. Активная фаза проекта.", "updatedAt": "2026-09-16", "id": "a_dixy"}, {"company": "Газпромнефть (сеть АЗС)", "tier": "A", "segment": "Сети АЗС", "priority": "1", "lprs": "", "campaigns": "", "owner": "", "status": "не начато", "notes": "1 549 АЗС, кофемашины примерно на 1 300. 40,4 млн чашек за 2024. После внедрения мониторинга простой сократился в 4,5 раза, продажи кофе выросли в 10 раз. Самый зрелый опыт кофе в рознице в стране.", "updatedAt": "2026-09-16", "id": "a_gazpromneft"}, {"company": "Лукойл (сеть АЗС)", "tier": "A", "segment": "Сети АЗС", "priority": "1", "lprs": "", "campaigns": "", "owner": "", "status": "не начато", "notes": "2 880 АЗС. Валовая прибыль нетопливного направления +18 % в 2024, растёт вдвое быстрее оборота сети.", "updatedAt": "2026-09-16", "id": "a_lukoil"}, {"company": "Роснефть (сеть АЗС)", "tier": "B", "segment": "Сети АЗС", "priority": "2", "lprs": "", "campaigns": "", "owner": "", "status": "не начато", "notes": "Исторически: 29 млн чашек и 2,4 млрд ₽ в 2016, план 45 млн чашек и 4 млрд ₽ на 2018. Найден сервисный контракт на кофейное оборудование на тендерной площадке.", "updatedAt": "2026-09-16", "id": "a_rosneft"}], "opportunities": [{"id": "o_example", "accountId": "a_vkusvill", "campaignId": "c_example_rb", "firstTouch": "", "lastTouch": "", "influencedBy": "", "meeting": false, "pilot": false, "proposal": false, "revenue": 0, "stage": "пример", "notes": "Пример строки. Удалите, когда появится первая реальная сделка."}]};
 const W={icp:30,trust:20,format:15,reach:10,engage:10,measure:10,econ:5};
 const SK=["icp","trust","format","reach","engage","measure","econ"];
+const SK_RU={icp:"Плотность аудитории",trust:"Доверие",format:"Формат влияния",reach:"Реальный охват",engage:"Вовлечение",measure:"Измеримость",econ:"Экономика"};
+const CL_KEY={"Катмены":"k1","Ритейл-медиа":"k2","Фудтех":"k3","Кофе-бизнес":"k4","Вендинг":"k5","Партнёры":"k6","HoReCa":"k7","Массовый ритейл":"k8"};
+const clKey=n=>CL_KEY[n]||"";
 const CH_STATUS=["не трогали","запрос статистики","переговоры","в пилоте","итерация","масштаб","отказ","стоп"];
 const CAMP_STATUS=["идея","подготовка","в эфире","оценка 7 дн","оценка 30 дн","оценка 90 дн","закрыта"];
 const ACC_STATUS=["не начато","outreach","встреча","пилот обсуждается","КП отправлено","сделка","отказ"];
@@ -1012,17 +1079,18 @@ function chRow(c){
   const gatePill=g.ok==null?`<span class="pill n">${n}/7</span>`:g.ok?'<span class="pill good">в пилот</span>':'<span class="pill bad">нет</span>';
   const main=`<tr${c.hl?' class="hl"':""}>
    <td><button class="exp" type="button" data-exp="${esc(c.id)}" aria-expanded="${isOpen}" title="Подробнее">${isOpen?"▾":"▸"}</button></td>
-   <td class="name"><b>${esc(c.name)}</b><small>${esc(c.platform)}${c.platform==="Telegram"?" · @"+esc(c.id):""}</small></td>
-   <td>${esc(c.cluster)}</td>
+   <td class="name"><b>${esc(c.name)}</b>${c.hl?'<span class="flag">1-я волна</span>':""}<small>${esc(c.platform)}${c.platform==="Telegram"?" · @"+esc(c.id):""}</small></td>
+   <td><span class="cl" data-cl="${clKey(c.cluster)}">${esc(c.cluster)}</span></td>
    <td class="num">${fmt(c.subs)}</td><td class="num">${fmt(c.med)}</td><td class="num">${errPill}</td>
    <td class="num">${c.price==null?"—":Number(c.price)===0?"0":fmt(c.price)}</td>
    <td class="num">${cv==null?"—":cv===0?"0":cv.toFixed(1).replace(".",",")}</td>
    <td><select class="st" data-col="channels" data-id="${esc(c.id)}" data-key="status" data-type="select"${dis}>${CH_STATUS.map(o=>`<option${o===c.status?" selected":""}>${o}</option>`).join("")}</select></td>
-   ${SK.map(sel).map(s=>"<td>"+s+"</td>").join("")}
+   <td>${sel("icp")}</td>
    <td class="tot">${t==null?"—":t.toFixed(2).replace(".",",")}${n<7&&n>0?` <span class="pill n">${n}/7</span>`:""}</td>
    <td>${gatePill}</td></tr>`;
   if(!isOpen)return main;
-  return main+`<tr class="det"><td></td><td colspan="18"><div class="detgrid">
+  const rest=SK.filter(k=>k!=="icp").map(k=>`<div class="sr"><span>${SK_RU[k]}</span><b>${W[k]} %</b>${sel(k)}</div>`).join("");
+  return main+`<tr class="det"><td></td><td colspan="11"><div style="margin-bottom:14px"><label>Оценка по критериям</label><div class="scorebox">${rest}</div></div><div class="detgrid">
     <div><label>Заметки</label><textarea data-col="channels" data-id="${esc(c.id)}" data-key="notes" data-type="area"${dis}>${esc(c.notes)}</textarea></div>
     <div><label>Контакт</label><input type="text" data-col="channels" data-id="${esc(c.id)}" data-key="contact" data-type="text" value="${esc(c.contact)}"${dis}></div>
     <div><label>Владелец в команде</label><input type="text" data-col="channels" data-id="${esc(c.id)}" data-key="owner" data-type="text" value="${esc(c.owner)}"${dis}></div>
@@ -1043,12 +1111,12 @@ function renderChannels(){
   if($("#hideStop").checked)list=list.filter(c=>c.status!=="стоп"&&c.status!=="отказ");
   const val=c=>{switch(sortKey){case"total":return total(c).t;case"cpv":return cpv(c);case"icp":return c.scores?.icp;default:return c[sortKey];}};
   list.sort((a,b)=>{const x=val(a),y=val(b);if(x==null&&y==null)return (b.hl?1:0)-(a.hl?1:0)||Number(b.scores?.icp||0)-Number(a.scores?.icp||0);if(x==null)return 1;if(y==null)return -1;return asc?x-y:y-x;});
-  tb.innerHTML=list.length?list.map(chRow).join(""):`<tr><td colspan="19" class="empty">${mode==="db"&&!state.channels.size?"База пуста: стартовые данные ещё заливаются.":"Ничего не подходит под фильтры."}</td></tr>`;
+  tb.innerHTML=list.length?list.map(chRow).join(""):`<tr><td colspan="12" class="empty">${mode==="db"&&!state.channels.size?"База пуста: стартовые данные ещё заливаются.":"Ничего не подходит под фильтры."}</td></tr>`;
   document.querySelectorAll("#tg th[data-sort]").forEach(th=>{th.classList.toggle("on",th.dataset.sort===sortKey);th.classList.toggle("asc",th.dataset.sort===sortKey&&asc);});
   const all=[...state.channels.values()];const scored=all.filter(c=>total(c).n===7);const passed=all.filter(c=>gate(c).ok===true);
   $("#chfacts").innerHTML=`<div class="fact"><b>${all.length}</b><span>каналов и площадок в базе</span></div><div class="fact"><b>${all.filter(c=>c.hl).length}</b><span>рекомендованы в первую волну</span></div><div class="fact"><b>${scored.length}</b><span>оценены по всем семи критериям</span></div><div class="fact"><b>${passed.length}</b><span>прошли гейт в пилот</span></div><div class="fact"><b>${all.filter(c=>["переговоры","в пилоте","масштаб"].includes(c.status)).length}</b><span>в переговорах или в пилоте</span></div>`;
 }
-function chips(sel,items,active,on){const el=$(sel);el.innerHTML=items.map(i=>`<button type="button" aria-pressed="${i===active}">${esc(i)}</button>`).join("");el.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>on(b.textContent)));}
+function chips(sel,items,active,on){const el=$(sel);el.innerHTML=items.map(i=>`<button type="button" data-cl="${clKey(i)}" aria-pressed="${i===active}">${esc(i)}</button>`).join("");el.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>on(b.textContent)));}
 function renderOppFacts(){const o=[...state.opportunities.values()].filter(x=>x.stage!=="пример");const sum=o.reduce((s,x)=>s+(Number(x.revenue)||0),0);
   $("#oppfacts").innerHTML=`<div class="fact"><b>${o.length}</b><span>сделок с касанием программы</span></div><div class="fact"><b>${o.filter(x=>x.meeting).length}</b><span>встреч</span></div><div class="fact"><b>${o.filter(x=>x.pilot).length}</b><span>пилотов обсуждается</span></div><div class="fact"><b>${o.filter(x=>x.proposal).length}</b><span>КП отправлено</span></div><div class="fact"><b>${fmt(sum)} ₽</b><span>оценка influenced-выручки</span></div>`;}
 function render(){
@@ -1075,23 +1143,35 @@ document.addEventListener("click",e=>{
 });
 document.querySelectorAll("#tg th[data-sort]").forEach(th=>{th.tabIndex=0;const go=()=>{if(sortKey===th.dataset.sort)asc=!asc;else{sortKey=th.dataset.sort;asc=false;}renderChannels();};th.addEventListener("click",go);th.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go();}});});
 $("#onlyGate").addEventListener("change",renderChannels);$("#hideStop").addEventListener("change",renderChannels);
+// подвкладки внутри длинных разделов
+document.querySelectorAll("nav.subtabs button").forEach(b=>b.addEventListener("click",()=>{
+  const nav=b.closest("nav.subtabs"),scope=nav.parentElement;
+  nav.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  scope.querySelectorAll(":scope > .subsec").forEach(sec=>sec.classList.toggle("on",sec.id==="sub-"+b.dataset.sub));
+  window.scrollTo(0,nav.getBoundingClientRect().top+window.scrollY-51);
+}));
 // tabs
 function showTab(name){document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("on",t.id==="tab-"+name));document.querySelectorAll("nav.tabs a").forEach(a=>{if(a.dataset.tab===name)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");});try{localStorage.setItem("dx-tab",name);}catch(_){}}
 document.querySelectorAll("nav.tabs a").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();history.replaceState(null,"","#"+a.dataset.tab);showTab(a.dataset.tab);}));
 (function(){let t=(location.hash||"").slice(1);if(!t){try{t=localStorage.getItem("dx-tab")||"";}catch(_){}}if(!document.getElementById("tab-"+t))t="channels";showTab(t);})();
+
+// ---------- тема ----------
+(function(){const b=$("#themeBtn");const set=v=>{if(v==="dark")document.documentElement.setAttribute("data-theme","dark");else document.documentElement.removeAttribute("data-theme");b.setAttribute("aria-pressed",v==="dark");b.textContent=v==="dark"?"Светлая тема":"Тёмная тема";try{localStorage.setItem("dx-theme",v);}catch(_){}};
+let cur="light";try{cur=localStorage.getItem("dx-theme")==="dark"?"dark":"light";}catch(_){}
+set(cur);b.addEventListener("click",()=>{cur=cur==="dark"?"light":"dark";set(cur);});})();
 
 // ---------- boot ----------
 function loadSeedLocal(){for(const col of Object.keys(state)){state[col]=new Map((SEED[col]||[]).map(r=>[r.id,r]));}}
 loadSeedLocal();render();
 const setPill=(cls,txt)=>{const p=$("#dbpill");p.className="pill "+cls;p.textContent=txt;};
 window.claude?.use?.("db").then(d=>{
-  if(!d){mode="local";setPill("warn","без сохранения");$("#banner").textContent="База недоступна в этом окне: показаны данные снимка от 15.09.2026, правки не сохранятся. Откройте страницу в claude.ai.";$("#banner").classList.add("on");render();return;}
+  if(!d){mode="local";setPill("warn","без сохранения");$("#banner").textContent="Режим просмотра: показаны данные на 15.09.2026, правки не сохраняются.";$("#banner").classList.add("on");render();return;}
   db=d;mode="db";setPill("good","база подключена");
   for(const col of Object.keys(state)){
     db.collection(col).onSnapshot(snap=>{state[col]=new Map(snap.docs.map(x=>[x.id,{...x.data(),id:x.id}]));render();},err=>{console.error(col,err);setPill("bad","ошибка базы: "+err.code);});
   }
 }).catch?.(()=>{});
-if(!window.claude||!window.claude.use){mode="local";setPill("warn","без сохранения");$("#banner").textContent="Страница открыта вне claude.ai: данные снимка от 15.09.2026, правки не сохранятся.";$("#banner").classList.add("on");render();}
+if(!window.claude||!window.claude.use){mode="local";setPill("warn","без сохранения");$("#banner").textContent="Режим просмотра: показаны данные на 15.09.2026, правки не сохраняются.";$("#banner").classList.add("on");render();}
 // downloads
 window.claude?.use?.("downloads").then(dl=>{
   if(!dl)return;const b=$("#csvBtn");b.hidden=false;
