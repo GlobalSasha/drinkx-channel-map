@@ -135,6 +135,19 @@ td select.st{min-width:150px;max-width:280px}
 td input[type=date]{min-width:140px}
 td textarea{min-height:34px;resize:vertical}
 td input[type=number]{width:110px;font-family:var(--mono)}
+.panel{border:1px solid var(--line-strong);border-radius:var(--r-md);background:var(--surface);padding:14px 16px 12px;margin:16px 0}
+.panel-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin-bottom:12px}
+.panel-h b{font-weight:600}
+.panel-h span{color:var(--muted);font-size:13px}
+.pgrp{margin-bottom:14px}
+.pcap{display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:8px}
+.pfields{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,220px));gap:12px 20px;justify-content:start}
+.pf label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;white-space:nowrap}
+.pfc{display:flex;align-items:center;gap:7px}
+.pfc input[type=number]{font:inherit;font-family:var(--mono);font-size:13.5px;font-variant-numeric:tabular-nums;width:68px;padding:5px 8px;text-align:right;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--surface);color:var(--ink)}
+.pfc .u{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.pfc .d{color:var(--muted);font-size:13px}
+.panel .legend{margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
 #t-plan td input[type=number]{width:92px}
 #t-plan td.q input[type=number]{width:62px}
 #t-plan td.name input[type=text]{min-width:200px}
@@ -308,17 +321,19 @@ kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1
   <h2>Планировщик медиамикса</h2>
   <p class="sub">Строка — это площадка, формат и количество размещений. Три колонки справа — три плана: ставите количество, ноль означает «в этот план не входит». Охват, цена контакта и вилка встреч считаются по формулам из вкладки «Медиамикс», все допущения открыты и правятся. План живёт в этом браузере.</p>
 
-  <div class="callout">
-    <p><b>Допущения.</b> Общие на все три плана: сравнивать надо наборы размещений, а не допущения.</p>
-    <div class="toolbar">
-      <span class="grp"><label class="ck" for="p-weeks">Период, недель</label><input id="p-weeks" type="number" min="1" data-p="weeks"></span>
-      <span class="grp"><label class="ck" for="p-overlap">Уникальных из суммы, %</label><input id="p-overlap" type="number" min="1" max="100" data-p="overlap"></span>
-      <span class="grp"><label class="ck" for="p-convMin">Доходят до разговора, %</label><input id="p-convMin" type="number" min="0" step="0.1" data-p="convMin"><span class="ck">—</span><input id="p-convMax" type="number" min="0" step="0.1" data-p="convMax"></span>
-      <span class="grp"><label class="ck" for="p-demoMin">Из них до демо, %</label><input id="p-demoMin" type="number" min="0" data-p="demoMin"><span class="ck">—</span><input id="p-demoMax" type="number" min="0" data-p="demoMax"></span>
-      <span class="grp"><label class="ck" for="p-cap">Потолок, ₽ за контакт</label><input id="p-cap" type="number" min="1" data-p="cap"></span>
-    </div>
-    <p class="legend">По умолчанию: доля <abbr title="Лицо, принимающее решение о закупке">ЛПР</abbr> в аудитории берётся из оценки канала (5 баллов — 30 %, 4 — 15 %, 3 — 7 %, 2 — 3 %, 1 — 1 %), потолок цены — 50 ₽ за релевантный контакт. Конверсии — ваша гипотеза, замените фактом после первого замера.</p>
-  </div>
+  <section class="panel">
+    <div class="panel-h"><b>Допущения</b><span>Общие на все три плана: сравнивать надо наборы размещений, а не допущения</span></div>
+    <div class="pgrp"><span class="pcap">Охват и цена</span><div class="pfields">
+      <div class="pf"><label for="p-weeks">Период плана</label><div class="pfc"><input id="p-weeks" type="number" min="1" data-p="weeks"><span class="u">недель</span></div></div>
+      <div class="pf"><label for="p-overlap">Уникальных из суммы</label><div class="pfc"><input id="p-overlap" type="number" min="1" max="100" data-p="overlap"><span class="u">%</span></div></div>
+      <div class="pf"><label for="p-cap">Потолок цены</label><div class="pfc"><input id="p-cap" type="number" min="1" data-p="cap"><span class="u">₽ за контакт</span></div></div>
+    </div></div>
+    <div class="pgrp"><span class="pcap">Конверсии — гипотеза, не факт</span><div class="pfields">
+      <div class="pf"><label for="p-convMin">Доходят до разговора</label><div class="pfc"><input id="p-convMin" type="number" min="0" step="0.1" data-p="convMin"><span class="d" aria-hidden="true">—</span><input id="p-convMax" type="number" min="0" step="0.1" data-p="convMax" aria-label="Доходят до разговора, максимум"><span class="u">%</span></div></div>
+      <div class="pf"><label for="p-demoMin">Из них до демо</label><div class="pfc"><input id="p-demoMin" type="number" min="0" data-p="demoMin"><span class="d" aria-hidden="true">—</span><input id="p-demoMax" type="number" min="0" data-p="demoMax" aria-label="Из них до демо, максимум"><span class="u">%</span></div></div>
+    </div></div>
+    <p class="legend">Доля <abbr title="Лицо, принимающее решение о закупке">ЛПР</abbr> в аудитории берётся из оценки канала: 5 баллов — 30 %, 4 — 15 %, 3 — 7 %, 2 — 3 %, 1 — 1 %. Потолок 50 ₽ — цена одного релевантного контакта, выше которой размещение не окупается. Конверсии — ваша гипотеза, замените фактом после первого замера.</p>
+  </section>
 
   <div class="tbl"><table id="t-plansum"><thead></thead><tbody></tbody></table></div>
   <div id="planwarn"></div>
@@ -1306,7 +1321,15 @@ document.addEventListener("input",e=>{
   else if(el.dataset.pr)planSet(el.dataset.pr,el.dataset.k,el.value);
 });
 document.addEventListener("change",e=>{
-  const el=e.target;if(!el.dataset||!el.dataset.pr)return;
+  const el=e.target;if(!el.dataset)return;
+  if(el.dataset.p){
+    const lim={weeks:[1,520],overlap:[1,100],cap:[1,1e6],convMin:[0,100],convMax:[0,100],demoMin:[0,100],demoMax:[0,100]}[el.dataset.p];
+    if(lim)plan[el.dataset.p]=Math.min(Math.max(Number(plan[el.dataset.p])||lim[0],lim[0]),lim[1]);
+    for(const [a,b] of [["convMin","convMax"],["demoMin","demoMax"]])
+      if(Number(plan[a])>Number(plan[b])){const x=plan[a];plan[a]=plan[b];plan[b]=x;}
+    planSave();renderPlan();return;
+  }
+  if(!el.dataset.pr)return;
   planSet(el.dataset.pr,el.dataset.k,el.value);
   if(el.dataset.k==="ch"||el.dataset.k==="price"||el.dataset.k==="reach")renderPlan();
 });
